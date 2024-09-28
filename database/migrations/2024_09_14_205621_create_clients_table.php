@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_en')->nullable();
             $table->string('name_ar')->nullable();
-            $table->string('national_number');
+            $table->string('national_number')->unique();
             $table->string('passport_number')->nullable();
             $table->foreignId('parent_id')->constrained('clients');
             $table->string('status')->default(\App\Enums\ClientStatus::Active->value);
