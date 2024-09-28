@@ -2,7 +2,10 @@
 
 namespace App\Enums;
 
-enum ClientStatus: string
+use App\Traits\EnumOptions;
+
+enum ClientStatus : string
 {
+     use EnumOptions;
     case Active = 'active';
 }

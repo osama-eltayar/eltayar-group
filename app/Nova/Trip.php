@@ -2,13 +2,18 @@
 
 namespace App\Nova;
 
+use App\Enums\TripActivity;
+use App\Enums\TripStatus;
+use App\Enums\TripType;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+
 
 class Trip extends Resource
 {
@@ -50,9 +55,9 @@ class Trip extends Resource
             Textarea::make('description')->sortable()->hideFromIndex(),
             Date::make('started_at')->sortable(),
             Date::make('ended_at')->sortable(),
-            Text::make('status')->sortable(),
-            Text::make('activity')->sortable(),
-            Text::make('type')->sortable(),
+            Select::make('status')->options(TripStatus::toOptions())->sortable()->displayUsingLabels(),
+            Select::make('activity')->options(TripActivity::toOptions())->sortable(),
+            Select::make('type')->options(TripType::toOptions())->sortable(),
             Number::make('maximum_allowed')->sortable(),
         ];
     }
