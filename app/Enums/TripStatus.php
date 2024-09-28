@@ -6,4 +6,5 @@ enum TripStatus: string
 {
     //
     case DRAFT = 'draft';
+    case Active = 'active';
 }
