@@ -17,8 +17,12 @@ return new class extends Migration
             $table->foreignId('trip_id')->constrained();
             $table->string('room_type')->default(\App\Enums\RoomType::Default->value);
             $table->unsignedInteger('price')->nullable();
+            $table->unsignedInteger('total_price')->nullable();
+            $table->unsignedInteger('discount_amount')->nullable();
+            $table->unsignedInteger('final_price')->nullable();
             $table->unsignedInteger('balance')->default(0);
             $table->foreignId('parent_id')->constrained('client_trips');
+            $table->boolean('is_dependent')->default(false);
             $table->text('notes')->nullable();
             $table->timestamps();
         });

@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_payments', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->constrained();
-            $table->foreignId('trip_id')->nullable()->constrained();
+            $table->nullableMorphs('transactionable');
+            $table->string('about')->nullable();
             $table->unsignedInteger('amount');
+            $table->string('currency_code');
             $table->string('payment_method');
+            $table->string('type');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_payments');
+        Schema::dropIfExists('transactions');
     }
 };

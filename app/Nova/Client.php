@@ -2,8 +2,13 @@
 
 namespace App\Nova;
 
+use App\Enums\ClientStatus;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource;
 
@@ -21,7 +26,7 @@ class Client extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name_ar';
 
     /**
      * The columns that should be searched.
@@ -30,6 +35,10 @@ class Client extends Resource
      */
     public static $search = [
         'id',
+        'name_ar',
+        'name_en',
+        'national_number',
+        'passport_number'
     ];
 
     /**
@@ -42,6 +51,13 @@ class Client extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('name_ar')->sortable(),
+            Text::make('name_en')->sortable(),
+            Text::make('national_number')->rules(['required','numeric','unique:clients,national_number,{{resourceId}}']),
+            Text::make('passport_number')->sortable(),
+            Select::make('status')->options(ClientStatus::toOptions()),
+            BelongsTo::make('parent','parent', self::class)->nullable(),
+            HasMany::make('children', 'children', self::class)->nullable(),
         ];
     }
 

@@ -2,8 +2,12 @@
 
 namespace App\Nova;
 
+use App\Enums\RoomType;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ClientTrip extends Resource
@@ -29,6 +33,9 @@ class ClientTrip extends Resource
      */
     public static $search = [
         'id',
+        'trip_id',
+        'client_id',
+
     ];
 
     /**
@@ -41,6 +48,17 @@ class ClientTrip extends Resource
     {
         return [
             ID::make()->sortable(),
+            BelongsTo::make('Client', 'client', Client::class),
+            BelongsTo::make('Trip', 'trip', Trip::class),
+            Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions()),
+            Number::make(__('balance'), 'balance')->exceptOnForms(),
+            Number::make(__('price'), 'price'),
+            Number::make(__('total_price'), 'total_price')->exceptOnForms(),
+            Number::make(__('final_price'), 'final_price')->exceptOnForms(),
+            Number::make(__('discount_amount'), 'discount_amount'),
+
+
+
         ];
     }
 
