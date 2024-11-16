@@ -7,5 +7,5 @@ use App\Traits\EnumOptions;
 enum TripType: string
 {
     use EnumOptions;
-    case Flight = 'flight' ;
+    case Flight = 'flight';
 }

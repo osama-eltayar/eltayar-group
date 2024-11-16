@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\EnumOptions;
 
-enum RoomType:string
+enum RoomType: string
 {
     use EnumOptions;
     case Single = 'Single';

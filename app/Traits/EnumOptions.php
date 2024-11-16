@@ -5,7 +5,7 @@ namespace App\Traits;
 trait EnumOptions
 {
     /**
-     * @return  array<string|int, string|int>
+     * @return array<string|int, string|int>
      */
     public static function toOptions(): array
     {

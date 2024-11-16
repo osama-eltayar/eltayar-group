@@ -4,8 +4,8 @@ namespace App\Enums;
 
 use App\Traits\EnumOptions;
 
-enum ClientStatus : string
+enum ClientStatus: string
 {
-     use EnumOptions;
+    use EnumOptions;
     case Active = 'active';
 }

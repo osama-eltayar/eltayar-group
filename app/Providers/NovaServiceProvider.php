@@ -26,9 +26,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes(default: true)
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes(default: true)
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
@@ -66,7 +66,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            (new \Sereny\NovaPermissions\NovaPermissions)->canSee(fn ($request) => $request->user()->isSuperAdmin()),
+        ];
     }
 
     /**

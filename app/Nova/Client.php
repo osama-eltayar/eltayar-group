@@ -38,13 +38,12 @@ class Client extends Resource
         'name_ar',
         'name_en',
         'national_number',
-        'passport_number'
+        'passport_number',
     ];
 
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function fields(NovaRequest $request)
@@ -53,10 +52,10 @@ class Client extends Resource
             ID::make()->sortable(),
             Text::make('name_ar')->sortable(),
             Text::make('name_en')->sortable(),
-            Text::make('national_number')->rules(['required','numeric','unique:clients,national_number,{{resourceId}}']),
+            Text::make('national_number')->rules(['required', 'numeric', 'unique:clients,national_number,{{resourceId}}']),
             Text::make('passport_number')->sortable(),
             Select::make('status')->options(ClientStatus::toOptions()),
-            BelongsTo::make('parent','parent', self::class)->nullable(),
+            BelongsTo::make('parent', 'parent', self::class)->nullable(),
             HasMany::make('children', 'children', self::class)->nullable(),
         ];
     }
@@ -64,7 +63,6 @@ class Client extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function cards(NovaRequest $request)
@@ -75,7 +73,6 @@ class Client extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function filters(NovaRequest $request)
@@ -86,7 +83,6 @@ class Client extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function lenses(NovaRequest $request)
@@ -97,7 +93,6 @@ class Client extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function actions(NovaRequest $request)
