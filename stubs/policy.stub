@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use Sereny\NovaPermissions\Policies\BasePolicy;
+
+class {{ class }} extends BasePolicy
+{
+    public $key = '{{ modelVariable }}';
+}
