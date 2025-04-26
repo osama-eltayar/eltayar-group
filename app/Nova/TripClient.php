@@ -3,21 +3,24 @@
 namespace App\Nova;
 
 use App\Enums\RoomType;
+use App\Models\TripPrice;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\FormData;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ClientTrip extends Resource
+class TripClient extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\ClientTrip>
+     * @var class-string<\App\Models\TripClient>
      */
-    public static $model = \App\Models\ClientTrip::class;
+    public static $model = \App\Models\TripClient::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -51,11 +54,15 @@ class ClientTrip extends Resource
             BelongsTo::make('Trip', 'trip', Trip::class),
             Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions()),
             Number::make(__('balance'), 'balance')->exceptOnForms(),
-            Number::make(__('price'), 'price'),
+            Number::make(__('price'), 'price')->readonly()
+                ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {
+                    $field->setValue(
+                        TripPrice::query()->where('room_type',$formData->room_type)->where('trip_id' ,$formData->trip_id)->first()?->price
+                    );
+                }),
             Number::make(__('total_price'), 'total_price')->exceptOnForms(),
             Number::make(__('final_price'), 'final_price')->exceptOnForms(),
-            Number::make(__('discount_amount'), 'discount_amount'),
-
+            Number::make(__('discount_amount'), 'discount_amount')->exceptOnForms(),
         ];
     }
 

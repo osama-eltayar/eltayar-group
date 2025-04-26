@@ -10,10 +10,20 @@ class Client extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'name_en',
+        'name_ar',
+        'national_number',
+        'passport_number',
+        'date_of_birth',
+        'parent_id',
+        'status',
+        'notes'
+    ];
 
     protected $casts = [
         'status' => ClientStatus::class,
+        'date_of_birth' => 'date',
     ];
 
     public function parent()

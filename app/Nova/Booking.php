@@ -2,33 +2,32 @@
 
 namespace App\Nova;
 
-use App\Enums\ClientStatus;
+use App\Enums\RoomType;
+use App\Models\TripPrice;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\FormData;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Resource;
 
-class Client extends Resource
+class Booking extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Client>
+     * @var class-string<\App\Models\Booking>
      */
-    public static $model = \App\Models\Client::class;
+    public static $model = \App\Models\Booking::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name_ar';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -37,10 +36,8 @@ class Client extends Resource
      */
     public static $search = [
         'id',
-        'name_ar',
-        'name_en',
-        'national_number',
-        'passport_number',
+        'trip_id',
+        'client_id',
     ];
 
     /**
@@ -52,14 +49,23 @@ class Client extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name_ar')->required()->rules('required_without:name_en')->sortable(),
-            Text::make('name_en')->rules('required_without:name_ar')->sortable(),
-            Text::make('national_number')->required()->rules(['required', 'numeric', 'unique:clients,national_number,{{resourceId}}'])->filterable()->sortable(),
-            Date::make('date_of_birth')->sortable()->filterable()->rules(['nullable','date','before:today'])->max(today()),
-            Text::make('passport_number')->rules([ 'nullable','unique:clients,passport_number,{{resourceId}}'])->filterable()->sortable(),
-            Select::make('status')->options(ClientStatus::toOptions())->required()->default(ClientStatus::Active)->rules('required')->sortable()->filterable(),
-            BelongsTo::make('parent', 'parent', self::class)->nullable(),
-            HasMany::make('children', 'children', self::class)->nullable(),
+            BelongsTo::make('Client', 'client', Client::class),
+            BelongsTo::make('Trip', 'trip', Trip::class),
+            Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions()),
+            Number::make(__('balance'), 'balance')->exceptOnForms(),
+            Number::make(__('price'), 'price')->readonly()
+                ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {
+                    // dd($formData);
+                    $field->setValue(
+                        TripPrice::query()->where('room_type',$formData->room_type)->where('trip_id' ,$formData->trip)->first()?->price
+                    );
+                }),
+            Number::make(__('number_of_clients'), 'number_of_clients')->default(1),
+            Number::make(__('total_price'), 'total_price')->exceptOnForms(),
+            Number::make(__('final_price'), 'final_price')->exceptOnForms(),
+            Number::make(__('discount_amount'), 'discount_amount')->exceptOnForms(),
+            HasMany::make(__('clients'),'bookingClients', BookingClient::class),
+
         ];
     }
 

@@ -12,7 +12,14 @@ class Trip extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['name',
+        'description',
+        'started_at',
+        'ended_at',
+        'status',
+        'activity',
+        'type',
+        'maximum_allowed',];
 
     protected $casts = [
         'started_at' => 'date',
@@ -21,4 +28,14 @@ class Trip extends Model
         'activity' => TripActivity::class,
         'type' => TripType::class,
     ];
+
+    public function tripClients()
+    {
+        return $this->hasMany(TripClient::class);
+    }
+
+    public function tripPrices()
+    {
+        return $this->hasMany(TripPrice::class);
+    }
 }

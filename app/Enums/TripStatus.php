@@ -15,7 +15,7 @@ enum TripStatus: string
     {
         return match ($this) {
             self::DRAFT => __('Trip Draft'),
-            self::Active => __('Trip Acrive'),
+            self::Active => __('Trip Active'),
         };
     }
 }

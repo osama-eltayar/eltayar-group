@@ -8,4 +8,5 @@ enum ClientStatus: string
 {
     use EnumOptions;
     case Active = 'active';
+    case Banned = 'banned';
 }

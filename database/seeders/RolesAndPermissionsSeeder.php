@@ -37,7 +37,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         foreach ($modelsNeedPermissions as $modelNeedPermission) {
             foreach ($permissions as $permission) {
-                Permission::query()->firstOrCreate(['group' => $modelNeedPermission, 'name' => $permission . $modelNeedPermission]);
+                Permission::query()->firstOrCreate(['group' => $modelNeedPermission, 'name' => $permission.$modelNeedPermission]);
             }
         }
 

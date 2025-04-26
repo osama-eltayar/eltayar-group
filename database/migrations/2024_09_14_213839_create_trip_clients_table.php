@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_trips', function (Blueprint $table) {
+        Schema::create('trip_clients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained();
             $table->foreignId('trip_id')->constrained();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('discount_amount')->nullable();
             $table->unsignedInteger('final_price')->nullable();
             $table->unsignedInteger('balance')->default(0);
-            $table->foreignId('parent_id')->constrained('client_trips');
+            $table->foreignId('parent_id')->constrained('trip_clients');
             $table->boolean('is_dependent')->default(false);
             $table->text('notes')->nullable();
             $table->timestamps();
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_trips');
+        Schema::dropIfExists('trip_clients');
     }
 };

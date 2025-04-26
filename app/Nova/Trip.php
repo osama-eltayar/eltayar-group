@@ -6,7 +6,9 @@ use App\Enums\TripActivity;
 use App\Enums\TripStatus;
 use App\Enums\TripType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
@@ -49,14 +51,19 @@ class Trip extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name')->sortable(),
-            Textarea::make('description')->sortable()->hideFromIndex(),
-            Date::make('started_at')->sortable(),
-            Date::make('ended_at')->sortable(),
-            Select::make('status')->options(TripStatus::toOptions())->sortable()->displayUsingLabels(),
-            Select::make('activity')->options(TripActivity::toOptions())->sortable(),
-            Select::make('type')->options(TripType::toOptions())->sortable(),
+            Text::make('name')
+                ->filterable()
+                ->required()
+                ->rules(['required', 'between:3,150', Rule::unique('trips', 'name')->ignore($this->resource?->id)])
+                ->sortable(),
+            Textarea::make('description')->hideFromIndex(),
+            Date::make('started_at')->filterable()->sortable(),
+            Date::make('ended_at')->filterable()->rules('nullable','after:'.$this->started_at)->sortable(),
+            Select::make('status')->options(TripStatus::toOptions())->rules('required')->required()->sortable()->filterable(),
+            Select::make('activity')->options(TripActivity::toOptions())->rules('required')->required()->sortable()->filterable(),
+            Select::make('type')->options(TripType::toOptions())->rules('required')->required()->sortable()->filterable(),
             Number::make('maximum_allowed')->sortable(),
+//            HasMany::make('clients','tripClients',TripClient::class),
         ];
     }
 
