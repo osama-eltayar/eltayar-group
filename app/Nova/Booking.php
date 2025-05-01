@@ -55,7 +55,6 @@ class Booking extends Resource
             Number::make(__('booking.balance'), 'balance')->exceptOnForms(),
             Number::make(__('booking.price'), 'price')->readonly()
                 ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {
-                    // dd($formData);
                     $field->setValue(
                         TripPrice::query()->where('room_type',$formData->room_type)->where('trip_id' ,$formData->trip)->first()?->price
                     );

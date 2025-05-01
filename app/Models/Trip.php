@@ -12,14 +12,16 @@ class Trip extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['name',
+    protected $fillable = [
+        'name',
         'description',
         'started_at',
         'ended_at',
         'status',
         'activity',
         'type',
-        'maximum_allowed',];
+        'maximum_allowed'
+    ];
 
     protected $casts = [
         'started_at' => 'date',

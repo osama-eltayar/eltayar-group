@@ -10,10 +10,16 @@ class TripPrice extends Model
 {
     use HasFactory;
 
-    protected $guarded  = ['id'];
+    protected $fillable = [
+        'trip_id',
+        'room_type',
+        'price',
+        'is_active'
+    ];
 
     protected $casts = [
         'room_type' => RoomType::class,
+        'is_active' => 'boolean'
     ];
 
     public function trip()
