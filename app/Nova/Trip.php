@@ -51,18 +51,18 @@ class Trip extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name')
+            Text::make(__('trip.name'), 'name')
                 ->filterable()
                 ->required()
                 ->rules(['required', 'between:3,150', Rule::unique('trips', 'name')->ignore($this->resource?->id)])
                 ->sortable(),
-            Textarea::make('description')->hideFromIndex(),
-            Date::make('started_at')->filterable()->sortable(),
-            Date::make('ended_at')->filterable()->rules('nullable','after:'.$this->started_at)->sortable(),
-            Select::make('status')->options(TripStatus::toOptions())->rules('required')->required()->sortable()->filterable(),
-            Select::make('activity')->options(TripActivity::toOptions())->rules('required')->required()->sortable()->filterable(),
-            Select::make('type')->options(TripType::toOptions())->rules('required')->required()->sortable()->filterable(),
-            Number::make('maximum_allowed')->sortable(),
+            Textarea::make(__('trip.description'), 'description')->hideFromIndex(),
+            Date::make(__('trip.started_at'), 'started_at')->filterable()->sortable(),
+            Date::make(__('trip.ended_at'), 'ended_at')->filterable()->rules('nullable','after:'.$this->started_at)->sortable(),
+            Select::make(__('trip.status'), 'status')->options(TripStatus::toOptions())->rules('required')->required()->sortable()->filterable(),
+            Select::make(__('trip.activity'), 'activity')->options(TripActivity::toOptions())->rules('required')->required()->sortable()->filterable(),
+            Select::make(__('trip.type'), 'type')->options(TripType::toOptions())->rules('required')->required()->sortable()->filterable(),
+            Number::make(__('trip.maximum_allowed'), 'maximum_allowed')->sortable(),
 //            HasMany::make('clients','tripClients',TripClient::class),
         ];
     }

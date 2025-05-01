@@ -50,19 +50,19 @@ class BookingClient extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make(__('client'), 'Client', Client::class),
-            BelongsTo::make(__('booking'), 'Booking', Booking::class)
+            BelongsTo::make(__('booking_client.client'), 'Client', Client::class),
+            BelongsTo::make(__('booking_client.booking'), 'Booking', Booking::class)
                 ->default($request->viaResourceId)
                 ->required(),
-            Select::make(__('room_type'), 'room_type')
+            Select::make(__('booking_client.room_type'), 'room_type')
                 ->options(RoomType::toOptions())
                 ->dependsOn(
                     ['Booking'],
                     fn( $field, NovaRequest $request, FormData $formData) =>
                     $field->setValue(\App\Models\Booking::query()->whereKey($request->Booking)->first()?->room_type)
                 ),
-            Number::make(__('balance'), 'balance')->exceptOnForms(),
-            Number::make(__('price'), 'price')
+            Number::make(__('booking_client.balance'), 'balance')->exceptOnForms(),
+            Number::make(__('booking_client.price'), 'price')
                 ->dependsOn(['room_type','Booking'],fn (Number $field, NovaRequest $request, FormData $formData) =>
                     $field->setValue(
                         TripPrice::query()
@@ -70,8 +70,8 @@ class BookingClient extends Resource
                             ->where('trip_id' ,\App\Models\Booking::query()->whereKey($request->Booking)->first()?->room_type)
                             ->first()?->price)
                 ),
-            Number::make(__('discount_amount'), 'discount_amount')->exceptOnForms(),
-            Number::make(__('final_price'), 'final_price')->exceptOnForms(),
+            Number::make(__('booking_client.discount_amount'), 'discount_amount')->exceptOnForms(),
+            Number::make(__('booking_client.final_price'), 'final_price')->exceptOnForms(),
         ];
     }
 

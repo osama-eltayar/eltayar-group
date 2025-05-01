@@ -48,23 +48,23 @@ class User extends Resource
 
             Gravatar::make()->maxWidth(50),
 
-            Text::make('Name')
+            Text::make(__('user.name'), 'Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            Text::make('Email')
+            Text::make(__('user.email'), 'Email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
 
-            Password::make('Password')
+            Password::make(__('user.password'), 'Password')
                 ->onlyOnForms()
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
 
-            MorphToMany::make('Roles', 'roles', \Sereny\NovaPermissions\Nova\Role::class)->searchable(),
-            MorphToMany::make('Permissions', 'permissions', \Sereny\NovaPermissions\Nova\Permission::class)->searchable(),
+            MorphToMany::make(__('user.roles'), 'roles', \Sereny\NovaPermissions\Nova\Role::class)->searchable(),
+            MorphToMany::make(__('user.permissions'), 'permissions', \Sereny\NovaPermissions\Nova\Permission::class)->searchable(),
         ];
     }
 

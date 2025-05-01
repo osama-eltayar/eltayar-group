@@ -52,14 +52,14 @@ class Client extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('name_ar')->required()->rules('required_without:name_en')->sortable(),
-            Text::make('name_en')->rules('required_without:name_ar')->sortable(),
-            Text::make('national_number')->required()->rules(['required', 'numeric', 'unique:clients,national_number,{{resourceId}}'])->filterable()->sortable(),
-            Date::make('date_of_birth')->sortable()->filterable()->rules(['nullable','date','before:today'])->max(today()),
-            Text::make('passport_number')->rules([ 'nullable','unique:clients,passport_number,{{resourceId}}'])->filterable()->sortable(),
-            Select::make('status')->options(ClientStatus::toOptions())->required()->default(ClientStatus::Active)->rules('required')->sortable()->filterable(),
-            BelongsTo::make('parent', 'parent', self::class)->nullable(),
-            HasMany::make('children', 'children', self::class)->nullable(),
+            Text::make(__('client.name_ar'), 'name_ar')->required()->rules('required_without:name_en')->sortable(),
+            Text::make(__('client.name_en'), 'name_en')->rules('required_without:name_ar')->sortable(),
+            Text::make(__('client.national_number'), 'national_number')->required()->rules(['required', 'numeric', 'unique:clients,national_number,{{resourceId}}'])->filterable()->sortable(),
+            Date::make(__('client.date_of_birth'), 'date_of_birth')->sortable()->filterable()->rules(['nullable','date','before:today'])->max(today()),
+            Text::make(__('client.passport_number'), 'passport_number')->rules([ 'nullable','unique:clients,passport_number,{{resourceId}}'])->filterable()->sortable(),
+            Select::make(__('client.status'), 'status')->options(ClientStatus::toOptions())->required()->default(ClientStatus::Active)->rules('required')->sortable()->filterable(),
+            BelongsTo::make(__('client.parent'), 'parent', self::class)->nullable(),
+            HasMany::make(__('client.children'), 'children', self::class)->nullable(),
         ];
     }
 

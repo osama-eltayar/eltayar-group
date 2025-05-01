@@ -51,20 +51,20 @@ class Booking extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Client', 'client', Client::class),
             BelongsTo::make('Trip', 'trip', Trip::class),
-            Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions()),
-            Number::make(__('balance'), 'balance')->exceptOnForms(),
-            Number::make(__('price'), 'price')->readonly()
+            Select::make(__('booking.room_type'), 'room_type')->options(RoomType::toOptions()),
+            Number::make(__('booking.balance'), 'balance')->exceptOnForms(),
+            Number::make(__('booking.price'), 'price')->readonly()
                 ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {
                     // dd($formData);
                     $field->setValue(
                         TripPrice::query()->where('room_type',$formData->room_type)->where('trip_id' ,$formData->trip)->first()?->price
                     );
                 }),
-            Number::make(__('number_of_clients'), 'number_of_clients')->default(1),
-            Number::make(__('total_price'), 'total_price')->exceptOnForms(),
-            Number::make(__('final_price'), 'final_price')->exceptOnForms(),
-            Number::make(__('discount_amount'), 'discount_amount')->exceptOnForms(),
-            HasMany::make(__('clients'),'bookingClients', BookingClient::class),
+            Number::make(__('booking.number_of_clients'), 'number_of_clients')->default(1),
+            Number::make(__('booking.total_price'), 'total_price')->exceptOnForms(),
+            Number::make(__('booking.final_price'), 'final_price')->exceptOnForms(),
+            Number::make(__('booking.discount_amount'), 'discount_amount')->exceptOnForms(),
+            HasMany::make(__('booking.clients'),'bookingClients', BookingClient::class),
 
         ];
     }
