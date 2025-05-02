@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking_clients', function (Blueprint $table) {
+        Schema::create('trip_clients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained();
-            $table->foreignId('booking_id')->constrained();
+            $table->foreignId('booking_id')->nullable()->constrained();
+            $table->foreignId('trip_id')->constrained();
             $table->string('room_type')->default(\App\Enums\RoomType::Default->value);
             $table->unsignedInteger('price')->nullable();
             $table->unsignedInteger('discount_amount')->nullable();
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking_clients');
+        Schema::dropIfExists('trip_clients');
     }
 };
