@@ -1,0 +1,125 @@
+:root {
+    --primary-color: #28a745;
+    --secondary-color: #17a2b8;
+    --accent-color: #007bff;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ID Card Styling */
+.id-card {
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.section-title {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Supervisor Cards */
+.supervisor-card {
+    background-color: var(--light-color);
+    transition: transform 0.3s;
+}
+
+.supervisor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.supervisor-name {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.label {
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.contact-buttons a {
+    margin-right: 0.5rem;
+}
+
+/* Hotel Cards */
+.hotel-card {
+    background-color: var(--light-color);
+    transition: transform 0.3s;
+}
+
+.hotel-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-name {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.hotel-address {
+    margin-bottom: 0.5rem;
+}
+
+/* Mutawwif Card */
+.mutawwif-card {
+    background-color: var(--light-color);
+    transition: transform 0.3s;
+}
+
+.mutawwif-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mutawwif-name {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.card-footer {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* RTL and LTR support */
+html[dir="rtl"] .contact-buttons a {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+html[dir="ltr"] .contact-buttons a {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .id-card {
+        margin: 0 10px;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    #langToggle {
+        margin-top: 10px;
+    }
+} 
