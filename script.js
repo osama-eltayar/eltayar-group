@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 'nameEn': 'First Supervisor',
                 'phone': '+966 50 123 4567',
                 'phoneLink': '+966501234567',
-                'whatsappLink': '21110032691'
+                'whatsappLink': '201110032691'
             },
             {
                 'nameAr': 'المشرف الثاني',
                 'nameEn': 'Second Supervisor',
                 'phone': '+966 50 765 4321',
                 'phoneLink': '+966507654321',
-                'whatsappLink': '21003732794'
+                'whatsappLink': '201003732794'
             }
         ],
         'hotels': [
