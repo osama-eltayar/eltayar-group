@@ -48,6 +48,8 @@ body {
 .supervisor-card {
     background-color: var(--light-color);
     transition: transform 0.3s;
+    padding: 15px;
+    margin-bottom: 15px;
 }
 
 .supervisor-card:hover {
@@ -55,20 +57,22 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.supervisor-info {
+    margin-bottom: 12px;
+}
+
 .supervisor-name, .mutawwif-name {
-    color: var(--dark-color);
-    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.phone-display {
+    display: flex;
+    align-items: center;
 }
 
 .supervisor-value, .mutawwif-value {
-    color: var(--primary-color);
-    font-weight: bold;
     font-size: 0.9rem;
-    direction: ltr;
-    display: inline-block;
-    background-color: rgba(40, 167, 69, 0.1);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    color: #555;
 }
 
 .label {
@@ -179,6 +183,8 @@ body {
 .mutawwif-card {
     background-color: var(--light-color);
     transition: transform 0.3s;
+    padding: 15px;
+    margin-bottom: 15px;
 }
 
 .mutawwif-card:hover {

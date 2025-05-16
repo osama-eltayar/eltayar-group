@@ -6,17 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const appData = {
         'supervisors': [
             {
-                'nameAr': 'محمد عبدالعزيز',
+                'nameAr': 'أسامة الطيار',
                 'nameEn': 'First Supervisor',
                 'phone': '+966 50 123 4567',
-                'phoneLink': '+966501234567',
+                'phoneLink': '+201110032691',
                 'whatsappLink': '201110032691'
             },
             {
-                'nameAr': 'المشرف الثاني',
+                'nameAr': 'أحمد الطيار',
                 'nameEn': 'Second Supervisor',
                 'phone': '+966 50 765 4321',
-                'phoneLink': '+966507654321',
+                'phoneLink': '+201003732794',
                 'whatsappLink': '201003732794'
             }
         ],
