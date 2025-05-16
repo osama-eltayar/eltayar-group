@@ -15,28 +15,28 @@
         <div class="card id-card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="mb-0">بطاقة إرشاد التائهين</h3>
-                <button id="langToggle" class="btn btn-sm btn-outline-primary">
+                <button id="langToggle" class="btn btn-sm btn-outline-success">
                     <i class="fas fa-language"></i> English
                 </button>
             </div>
             <div class="card-body">
                 <!-- Supervisors Section -->
-                <div class="section supervisors mb-4">
+                <div class="section supervisors mb-3">
                     <h4 class="section-title">المشرفين</h4>
-                    <div class="row g-3">
+                    <div class="row g-2">
                         <div class="col-md-6">
-                            <div class="supervisor-card p-3 border rounded">
+                            <div class="supervisor-card border rounded">
                                 <h5 class="supervisor-name">المشرف الأول</h5>
                                 <div class="contact-info">
                                     <div class="phone-number">
                                         <span class="label">رقم الجوال:</span>
-                                        <span class="value">+966 50 123 4567</span>
+                                        <span class="value supervisor-value">+966 50 123 4567</span>
                                     </div>
                                     <div class="contact-buttons mt-2">
-                                        <a href="tel:+966501234567" class="btn btn-sm btn-success">
+                                        <a href="tel:+966501234567" class="btn btn-sm btn-success supervisor-call">
                                             <i class="fas fa-phone-alt"></i> اتصال
                                         </a>
-                                        <a href="https://wa.me/966501234567" class="btn btn-sm btn-success">
+                                        <a href="https://wa.me/966501234567" class="btn btn-sm btn-success supervisor-whatsapp">
                                             <i class="fab fa-whatsapp"></i> واتساب
                                         </a>
                                     </div>
@@ -44,18 +44,18 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="supervisor-card p-3 border rounded">
+                            <div class="supervisor-card border rounded">
                                 <h5 class="supervisor-name">المشرف الثاني</h5>
                                 <div class="contact-info">
                                     <div class="phone-number">
                                         <span class="label">رقم الجوال:</span>
-                                        <span class="value">+966 50 765 4321</span>
+                                        <span class="value supervisor-value">+966 50 765 4321</span>
                                     </div>
                                     <div class="contact-buttons mt-2">
-                                        <a href="tel:+966507654321" class="btn btn-sm btn-success">
+                                        <a href="tel:+966507654321" class="btn btn-sm btn-success supervisor-call">
                                             <i class="fas fa-phone-alt"></i> اتصال
                                         </a>
-                                        <a href="https://wa.me/966507654321" class="btn btn-sm btn-success">
+                                        <a href="https://wa.me/966507654321" class="btn btn-sm btn-success supervisor-whatsapp">
                                             <i class="fab fa-whatsapp"></i> واتساب
                                         </a>
                                     </div>
@@ -66,59 +66,120 @@
                 </div>
 
                 <!-- Hotels Section -->
-                <div class="section hotels mb-4">
+                <div class="section hotels mb-3">
                     <h4 class="section-title">الفنادق</h4>
                     <div class="hotel-list">
-                        <!-- Madinah Hotel -->
-                        <div class="hotel-card p-3 mb-3 border rounded">
-                            <h5 class="hotel-name">فندق المدينة</h5>
-                            <div class="hotel-address">
-                                <p><i class="fas fa-map-marker-alt"></i> العنوان: شارع العنبرية، المدينة المنورة</p>
+                        <div class="row g-2">
+                            <!-- Madinah Hotel -->
+                            <div class="col-md-4">
+                                <div class="hotel-card h-100 border rounded">
+                                    <div class="hotel-title">
+                                        <h6 class="hotel-location mb-1">فندق المدينة</h6>
+                                        <h5 class="hotel-name">الانصار جولدن تيوليب</h5>
+                                    </div>
+                                    <div class="hotel-address">
+                                        <p><i class="fas fa-map-marker-alt"></i> العنوان: شارع العنبرية، المدينة المنورة</p>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <a href="https://maps.google.com/?q=24.4672,39.6150" class="btn btn-sm btn-primary hotel-map">
+                                            <i class="fas fa-map"></i> الموقع على الخريطة
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <a href="https://maps.google.com/?q=24.4672,39.6150" class="btn btn-sm btn-primary">
-                                <i class="fas fa-map"></i> الموقع على الخريطة
-                            </a>
-                        </div>
 
-                        <!-- Makkah Hotel -->
-                        <div class="hotel-card p-3 mb-3 border rounded">
-                            <h5 class="hotel-name">فندق مكة</h5>
-                            <div class="hotel-address">
-                                <p><i class="fas fa-map-marker-alt"></i> العنوان: شارع إبراهيم الخليل، مكة المكرمة</p>
+                            <!-- Makkah Hotel -->
+                            <div class="col-md-4">
+                                <div class="hotel-card h-100 border rounded">
+                                    <div class="hotel-title">
+                                        <h6 class="hotel-location mb-1">فندق مكة</h6>
+                                        <h5 class="hotel-name">أبراج مكة هيلتون</h5>
+                                    </div>
+                                    <div class="hotel-address">
+                                        <p><i class="fas fa-map-marker-alt"></i> العنوان: شارع إبراهيم الخليل، مكة المكرمة</p>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <a href="https://maps.google.com/?q=21.4267,39.8295" class="btn btn-sm btn-primary hotel-map">
+                                            <i class="fas fa-map"></i> الموقع على الخريطة
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <a href="https://maps.google.com/?q=21.4267,39.8295" class="btn btn-sm btn-primary">
-                                <i class="fas fa-map"></i> الموقع على الخريطة
-                            </a>
-                        </div>
 
-                        <!-- Aziziyah Hotel -->
-                        <div class="hotel-card p-3 mb-3 border rounded">
-                            <h5 class="hotel-name">فندق العزيزية</h5>
-                            <div class="hotel-address">
-                                <p><i class="fas fa-map-marker-alt"></i> العنوان: حي العزيزية، مكة المكرمة</p>
+                            <!-- Aziziyah Hotel -->
+                            <div class="col-md-4">
+                                <div class="hotel-card h-100 border rounded">
+                                    <div class="hotel-title">
+                                        <h6 class="hotel-location mb-1">فندق العزيزية</h6>
+                                        <h5 class="hotel-name">العزيزية بلازا</h5>
+                                    </div>
+                                    <div class="hotel-address">
+                                        <p><i class="fas fa-map-marker-alt"></i> العنوان: حي العزيزية، مكة المكرمة</p>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <a href="https://maps.google.com/?q=21.3890,39.8579" class="btn btn-sm btn-primary hotel-map">
+                                            <i class="fas fa-map"></i> الموقع على الخريطة
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <a href="https://maps.google.com/?q=21.3890,39.8579" class="btn btn-sm btn-primary">
-                                <i class="fas fa-map"></i> الموقع على الخريطة
-                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camps Section -->
+                <div class="section camps mb-3">
+                    <h4 class="section-title">المخيمات</h4>
+                    <div class="camp-list">
+                        <div class="row g-2">
+                            <!-- Mina Camp -->
+                            <div class="col-md-6">
+                                <div class="camp-card h-100 border rounded">
+                                    <h5 class="camp-name">منى - مخيم الرحمة</h5>
+                                    <div class="camp-address">
+                                        <p><i class="fas fa-map-marker-alt"></i> العنوان: منطقة 204، منى</p>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <a href="https://maps.google.com/?q=21.4133,39.8782" class="btn btn-sm btn-primary camp-map">
+                                            <i class="fas fa-map"></i> الموقع على الخريطة
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Arafat Camp -->
+                            <div class="col-md-6">
+                                <div class="camp-card h-100 border rounded">
+                                    <h5 class="camp-name">عرفات - مخيم النور</h5>
+                                    <div class="camp-address">
+                                        <p><i class="fas fa-map-marker-alt"></i> العنوان: الشارع الرئيسي، عرفات</p>
+                                    </div>
+                                    <div class="mt-auto pt-2">
+                                        <a href="https://maps.google.com/?q=21.3548,39.9841" class="btn btn-sm btn-primary camp-map">
+                                            <i class="fas fa-map"></i> الموقع على الخريطة
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Mutawwif Section -->
-                <div class="section mutawwif mb-3">
+                <div class="section mutawwif mb-2">
                     <h4 class="section-title">المطوف</h4>
-                    <div class="mutawwif-card p-3 border rounded">
+                    <div class="mutawwif-card border rounded">
                         <h5 class="mutawwif-name">اسم المطوف</h5>
                         <div class="contact-info">
                             <div class="phone-number">
                                 <span class="label">رقم الجوال:</span>
-                                <span class="value">+966 55 123 4567</span>
+                                <span class="value mutawwif-value">+966 55 123 4567</span>
                             </div>
                             <div class="contact-buttons mt-2">
-                                <a href="tel:+966551234567" class="btn btn-sm btn-success">
+                                <a href="tel:+966551234567" class="btn btn-sm btn-success mutawwif-call">
                                     <i class="fas fa-phone-alt"></i> اتصال
                                 </a>
-                                <a href="https://wa.me/966551234567" class="btn btn-sm btn-success">
+                                <a href="https://wa.me/966551234567" class="btn btn-sm btn-success mutawwif-whatsapp">
                                     <i class="fab fa-whatsapp"></i> واتساب
                                 </a>
                             </div>

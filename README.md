@@ -9,6 +9,7 @@ This is a responsive identification card designed to help guide lost pilgrims. I
 - Contact information with direct call and WhatsApp links
 - Hotel locations with Google Maps integration
 - Clean, modern UI with Bootstrap
+- Centralized data management in JavaScript
 
 ## Usage
 
@@ -18,9 +19,17 @@ Simply open the `index.html` file in any modern web browser. The identification 
 
 To customize the information on the card:
 
-1. Edit the `index.html` file to change names, phone numbers, and addresses
-2. Update the GPS coordinates in the map links (format: `https://maps.google.com/?q=LATITUDE,LONGITUDE`)
-3. Modify the translations in the `script.js` file to update the text in both languages
+1. Edit the `script.js` file to update all data in the `appData` object:
+   - Supervisor contact information
+   - Hotel GPS coordinates
+   - Mutawwif (pilgrim guide) contact information 
+
+2. Update translations in the `translations` object in the `script.js` file:
+   - Text labels in both Arabic and English
+   - Hotel names and addresses
+   - Button labels
+
+This unified approach allows you to manage all data in one place without having to modify the HTML directly.
 
 ## Technical Details
 
