@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Text translations
     const translations = {
         'ar': {
-            'pageTitle': 'بطاقة تعريفية لإرشاد التائهين',
-            'cardTitle': 'بطاقة إرشاد التائهين',
+            'pageTitle': 'بطاقة إرشاد',
+            'cardTitle': 'بطاقة إرشاد',
             'langButton': 'English',
             'supervisorsTitle': 'المشرفين',
             'phoneLabel': 'رقم الجوال:',
@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'footer': 'حجاج بيت الله الحرام'
         },
         'en': {
-            'pageTitle': 'Identification Card for Lost Pilgrims',
-            'cardTitle': 'Lost Pilgrims Guide Card',
+            'pageTitle': 'Guide Card',
+            'cardTitle': 'Guide Card',
             'langButton': 'العربية',
             'supervisorsTitle': 'Supervisors',
             'phoneLabel': 'Mobile:',
