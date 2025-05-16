@@ -22,6 +22,14 @@ body {
 .card-header {
     background-color: var(--primary-color);
     color: white;
+    flex-wrap: nowrap;
+}
+
+.card-header h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
 }
 
 .section-title {
@@ -47,9 +55,20 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.supervisor-name {
+.supervisor-name, .mutawwif-name {
     color: var(--dark-color);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
+}
+
+.supervisor-value, .mutawwif-value {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 0.9rem;
+    direction: ltr;
+    display: inline-block;
+    background-color: rgba(40, 167, 69, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
 }
 
 .label {
@@ -57,8 +76,12 @@ body {
     color: var(--dark-color);
 }
 
+.contact-buttons {
+    width: 100%;
+}
+
 .contact-buttons a {
-    margin-right: 0.5rem;
+    margin-bottom: 0;
 }
 
 /* Hotel Cards */
@@ -83,23 +106,34 @@ body {
 
 .hotel-location {
     color: var(--dark-color);
-    font-size: 0.9rem;
     font-weight: 600;
-    opacity: 0.8;
-    text-transform: uppercase;
+    font-size: 0.9rem;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
 }
 
 .hotel-name {
     color: var(--secondary-color);
-    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background-color: rgba(23, 162, 184, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
 }
 
 .hotel-address {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.hotel-address p {
+    margin-bottom: 0;
 }
 
 .hotel-card .btn {
     width: 100%;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 /* Camp Cards */
@@ -123,7 +157,11 @@ body {
 }
 
 .camp-address {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.camp-address p {
+    margin-bottom: 0;
 }
 
 .camp-card .btn {
@@ -148,11 +186,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.mutawwif-name {
-    color: var(--accent-color);
-    margin-bottom: 0.5rem;
-}
-
 .card-footer {
     background-color: var(--primary-color);
     color: white;
@@ -174,15 +207,6 @@ html[dir="ltr"] .contact-buttons a {
     .id-card {
         margin: 0 10px;
     }
-    
-    .card-header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    #langToggle {
-        margin-top: 10px;
-    }
 }
 
 /* Language Toggle Button */
@@ -190,11 +214,12 @@ html[dir="ltr"] .contact-buttons a {
     transition: all 0.3s ease;
     border-width: 2px;
     font-weight: bold;
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 #langToggle:before {
@@ -241,4 +266,30 @@ html[dir="ltr"] #langToggle:hover {
 /* Card spacing adjustments */
 .hotel-card, .camp-card, .supervisor-card, .mutawwif-card {
     padding: 0.75rem !important;
+}
+
+.mt-auto {
+    margin-top: 0.5rem !important;
+}
+
+.hotel-card, .camp-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Small screen adjustments */
+@media (max-width: 576px) {
+    #langToggle {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    #langToggle i {
+        font-size: 0.9rem;
+        margin-right: 0.2rem !important;
+    }
 } 

@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'cardTitle': 'بطاقة إرشاد',
             'langButton': 'English',
             'supervisorsTitle': 'المشرفين',
-            'phoneLabel': 'رقم الجوال:',
             'callButton': 'اتصال',
             'whatsappButton': 'واتساب',
             'hotelsTitle': 'الفنادق',
@@ -85,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'campsTitle': 'المخيمات',
             'campPrefix1': 'منى - ',
             'campPrefix2': 'عرفات - ',
-            'addressPrefix': 'العنوان:',
             'mapButton': 'الموقع على الخريطة',
             'mutawwifTitle': 'المطوف',
             'footer': 'حجاج بيت الله الحرام'
@@ -95,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'cardTitle': 'Guide Card',
             'langButton': 'العربية',
             'supervisorsTitle': 'Supervisors',
-            'phoneLabel': 'Mobile:',
             'callButton': 'Call',
             'whatsappButton': 'WhatsApp',
             'hotelsTitle': 'Hotels',
@@ -105,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'campsTitle': 'Camps',
             'campPrefix1': 'Mina - ',
             'campPrefix2': 'Arafat - ',
-            'addressPrefix': 'Address:',
             'mapButton': 'View on Map',
             'mutawwifTitle': 'Mutawwif',
             'footer': 'Hajj Pilgrims'
@@ -144,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const addressTexts = document.querySelectorAll('.hotel-address p');
         addressTexts.forEach((element, index) => {
             const addressText = appData.hotels[index][lang === 'ar' ? 'addressAr' : 'addressEn'];
-            element.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${translations[lang].addressPrefix} ${addressText}`;
+            element.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${addressText}`;
         });
         
         document.querySelectorAll('.hotel-map').forEach((element, index) => {
@@ -162,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const campAddressTexts = document.querySelectorAll('.camp-address p');
         campAddressTexts.forEach((element, index) => {
             const addressText = appData.camps[index][lang === 'ar' ? 'addressAr' : 'addressEn'];
-            element.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${translations[lang].addressPrefix} ${addressText}`;
+            element.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${addressText}`;
         });
         
         document.querySelectorAll('.camp-map').forEach((element, index) => {
@@ -197,15 +193,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.card-header h3').textContent = translations[lang].cardTitle;
         
         // Update language toggle button
-        langToggle.innerHTML = `<i class="fas fa-language fa-lg me-1"></i> <span>${translations[lang].langButton}</span>`;
+        langToggle.innerHTML = `<i class="fas fa-language me-1"></i>${translations[lang].langButton}`;
         
         // Update supervisors section
         document.querySelector('.supervisors .section-title').textContent = translations[lang].supervisorsTitle;
-        
-        // Update phone labels
-        document.querySelectorAll('.label').forEach(label => {
-            label.textContent = translations[lang].phoneLabel;
-        });
         
         // Update contact buttons
         const callButtons = document.querySelectorAll('.contact-buttons a:first-child');
