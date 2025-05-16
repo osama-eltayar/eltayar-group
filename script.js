@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.card-header h3').textContent = translations[lang].cardTitle;
         
         // Update language toggle button
-        langToggle.innerHTML = `<i class="fas fa-language"></i> ${translations[lang].langButton}`;
+        langToggle.innerHTML = `<i class="fas fa-language fa-lg me-1"></i> <span>${translations[lang].langButton}</span>`;
         
         // Update supervisors section
         document.querySelector('.supervisors .section-title').textContent = translations[lang].supervisorsTitle;

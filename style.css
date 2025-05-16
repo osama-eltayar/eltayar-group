@@ -190,20 +190,52 @@ html[dir="ltr"] .contact-buttons a {
     transition: all 0.3s ease;
     border-width: 2px;
     font-weight: bold;
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+#langToggle:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
 }
 
 #langToggle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#langToggle:hover:before {
+    transform: translateX(0);
 }
 
 html[dir="rtl"] #langToggle {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #28a745;
     color: white;
+    border-color: #28a745;
+}
+
+html[dir="rtl"] #langToggle:hover {
+    background-color: #218838;
 }
 
 html[dir="ltr"] #langToggle {
-    background-color: rgba(40, 167, 69, 0.1);
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+html[dir="ltr"] #langToggle:hover {
+    background-color: #0069d9;
 }
 
 /* Card spacing adjustments */
