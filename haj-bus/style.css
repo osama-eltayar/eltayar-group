@@ -1,0 +1,301 @@
+:root {
+    --primary-color: #28a745;
+    --secondary-color: #17a2b8;
+    --accent-color: #007bff;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ID Card Styling */
+.id-card {
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+    flex-wrap: nowrap;
+}
+
+.card-header h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.section-title {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Section spacing */
+.section {
+    padding-top: 0.5rem;
+}
+
+/* Supervisor Cards */
+.supervisor-card {
+    background-color: var(--light-color);
+    transition: transform 0.3s;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.supervisor-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.supervisor-info {
+    margin-bottom: 12px;
+}
+
+.supervisor-name, .mutawwif-name {
+    font-weight: 600;
+}
+
+.phone-display {
+    display: flex;
+    align-items: center;
+}
+
+.supervisor-value, .mutawwif-value {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.label {
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.contact-buttons {
+    width: 100%;
+}
+
+.contact-buttons a {
+    margin-bottom: 0;
+}
+
+/* Hotel Cards */
+.hotel-card {
+    background-color: var(--light-color);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.hotel-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-title {
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 0.4rem;
+}
+
+.hotel-location {
+    color: var(--dark-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.hotel-name {
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background-color: rgba(23, 162, 184, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.hotel-address {
+    margin-bottom: 0.25rem;
+}
+
+.hotel-address p {
+    margin-bottom: 0;
+}
+
+.hotel-card .btn {
+    width: 100%;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+/* Camp Cards */
+.camp-card {
+    background-color: var(--light-color);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-left: 4px solid #f39c12 !important;
+}
+
+.camp-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.camp-name {
+    color: #d35400;
+    margin-bottom: 0.5rem;
+}
+
+.camp-address {
+    margin-bottom: 0.25rem;
+}
+
+.camp-address p {
+    margin-bottom: 0;
+}
+
+.camp-card .btn {
+    width: 100%;
+    background-color: #f39c12;
+    border-color: #f39c12;
+}
+
+.camp-card .btn:hover {
+    background-color: #e67e22;
+    border-color: #e67e22;
+}
+
+/* Mutawwif Card */
+.mutawwif-card {
+    background-color: var(--light-color);
+    transition: transform 0.3s;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.mutawwif-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-footer {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* RTL and LTR support */
+html[dir="rtl"] .contact-buttons a {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+html[dir="ltr"] .contact-buttons a {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .id-card {
+        margin: 0 10px;
+    }
+}
+
+/* Language Toggle Button */
+#langToggle {
+    transition: all 0.3s ease;
+    border-width: 2px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#langToggle:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+}
+
+#langToggle:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#langToggle:hover:before {
+    transform: translateX(0);
+}
+
+html[dir="rtl"] #langToggle {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+html[dir="rtl"] #langToggle:hover {
+    background-color: #218838;
+}
+
+html[dir="ltr"] #langToggle {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+html[dir="ltr"] #langToggle:hover {
+    background-color: #0069d9;
+}
+
+/* Card spacing adjustments */
+.hotel-card, .camp-card, .supervisor-card, .mutawwif-card {
+    padding: 0.75rem !important;
+}
+
+.mt-auto {
+    margin-top: 0.5rem !important;
+}
+
+.hotel-card, .camp-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Small screen adjustments */
+@media (max-width: 576px) {
+    #langToggle {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    #langToggle i {
+        font-size: 0.9rem;
+        margin-right: 0.2rem !important;
+    }
+} 
