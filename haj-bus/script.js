@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
         'supervisors': [
             {
                 'nameAr': 'أحمد الطيار',
-                'nameEn': 'First Supervisor',
+                'nameEn': 'Ahmed Al-Tayar',
                 'phone': '+966 564073392',
                 'phoneLink': '+966564073392',
                 'whatsappLink': '201010149920'
             },
             {
                 'nameAr': 'سيد عبدالحميد',
-                'nameEn': 'Second Supervisor',
+                'nameEn': 'Sayed Abdulhamid',
                 'phone': '+966 592982508',
                 'phoneLink': '+966592982508',
                 'whatsappLink': '201153638653'
@@ -24,47 +24,47 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 'nameAr': 'قصر الانصار الجديد',
                 'nameEn': 'Al Ansar Golden Tulip',
-                'addressAr': 'شارع العنبرية، المدينة المنورة',
-                'addressEn': 'Al-Anbariyah Street, Madinah',
+                'addressAr': 'شارع الستين، المنطقة المركزية الشمالية، المدينة المنورة، المملكة العربية السعودية',
+                'addressEn': 'Near Al-Masjid an-Nabawi, Madinah',
                 'gps': '24.4734461,39.6097563'
             },
             {
                 'nameAr': 'بولمان زمزم',
-                'nameEn': 'Makkah Towers Hilton',
-                'addressAr': 'شارع إبراهيم الخليل، مكة المكرمة',
-                'addressEn': 'Ibrahim Al-Khalil Street, Makkah',
+                'nameEn': 'Pullman Zamzam',
+                'addressAr': 'مجمع أبراج البيت، وقف الملك عبد العزيز طريق الملك عبد العزيز، مكة المكرمة 21955',
+                'addressEn': 'Near Holy Mosque, Makkah',
                 'gps': '21.4196405,39.8263125'
             },
             {
-                'nameAr': 'العزيزية بلازا',
+                'nameAr': 'فندق الوسام ( مهجه )',
                 'nameEn': 'Al Aziziyah Plaza',
-                'addressAr': 'حي العزيزية، مكة المكرمة',
+                'addressAr': 'طريق الملك عبدالله، 7201، حي العزيزية',
                 'addressEn': 'Al-Aziziyah District, Makkah',
                 'gps': '21.397912,39.889826'
             }
         ],
         'camps': [
             {
-                'nameAr': 'مخيم ',
-                'nameEn': ' Camp',
+                'nameAr': '',
+                'nameEn': '',
                 'addressAr': '',
-                'addressEn': 'Area 204, Mina',
-                'gps': '21.4133,39.8782'
+                'addressEn': '',
+                'gps': ''
             },
             {
-                'nameAr': 'مخيم النور',
-                'nameEn': 'Al-Noor Camp',
-                'addressAr': 'الشارع الرئيسي، عرفات',
-                'addressEn': 'Main Street, Arafat',
-                'gps': '21.3548,39.9841'
+                'nameAr': '',
+                'nameEn': '',
+                'addressAr': '',
+                'addressEn': '',
+                'gps': ''
             }
         ],
         'mutawwif': {
-            'nameAr': 'اسم المطوف',
-            'nameEn': 'Mutawwif Name',
-            'phone': '+966 55 123 4567',
-            'phoneLink': '+966551234567',
-            'whatsappLink': '966551234567'
+            'nameAr': '',
+            'nameEn': '',
+            'phone': '',
+            'phoneLink': '',
+            'whatsappLink': ''
         }
     };
     
