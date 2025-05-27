@@ -25,21 +25,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 'nameAr': 'قصر الانصار الجديد',
                 'nameEn': 'Al Ansar Golden Tulip',
                 'addressAr': 'شارع الستين، المنطقة المركزية الشمالية، المدينة المنورة، المملكة العربية السعودية',
-                'addressEn': 'Near Al-Masjid an-Nabawi, Madinah',
+                'addressEn': 'Sixtieth Street, Northern Central Area, Madinah, Saudi Arabia',
                 'gps': '24.4734461,39.6097563'
             },
             {
                 'nameAr': 'بولمان زمزم',
                 'nameEn': 'Pullman Zamzam',
                 'addressAr': 'مجمع أبراج البيت، وقف الملك عبد العزيز طريق الملك عبد العزيز، مكة المكرمة 21955',
-                'addressEn': 'Near Holy Mosque, Makkah',
+                'addressEn': 'Abraj Al Bait Complex, King Abdulaziz Endowment, King Abdulaziz Road, Makkah 21955',
                 'gps': '21.4196405,39.8263125'
             },
             {
                 'nameAr': 'فندق الوسام ( مهجه )',
-                'nameEn': 'Al Aziziyah Plaza',
+                'nameEn': 'Al Wesam Hotel (Mahja)',
                 'addressAr': 'طريق الملك عبدالله، 7201، حي العزيزية',
-                'addressEn': 'Al-Aziziyah District, Makkah',
+                'addressEn': 'King Abdullah Road, 7201, Al-Aziziyah District, Makkah',
                 'gps': '21.397912,39.889826'
             }
         ],
