@@ -6,48 +6,48 @@ document.addEventListener('DOMContentLoaded', function() {
     const appData = {
         'supervisors': [
             {
-                'nameAr': 'أسامة الطيار',
+                'nameAr': 'أحمد الطيار',
                 'nameEn': 'First Supervisor',
-                'phone': '+966 50 123 4567',
-                'phoneLink': '+201110032691',
-                'whatsappLink': '201110032691'
+                'phone': '+966 564073392',
+                'phoneLink': '+966564073392',
+                'whatsappLink': '201010149920'
             },
             {
-                'nameAr': 'أحمد الطيار',
+                'nameAr': 'سيد عبدالحميد',
                 'nameEn': 'Second Supervisor',
-                'phone': '+966 50 765 4321',
-                'phoneLink': '+201003732794',
-                'whatsappLink': '201003732794'
+                'phone': '+966 592982508',
+                'phoneLink': '+966592982508',
+                'whatsappLink': '201153638653'
             }
         ],
         'hotels': [
             {
-                'nameAr': 'الانصار جولدن تيوليب',
+                'nameAr': 'قصر الانصار الجديد',
                 'nameEn': 'Al Ansar Golden Tulip',
                 'addressAr': 'شارع العنبرية، المدينة المنورة',
                 'addressEn': 'Al-Anbariyah Street, Madinah',
-                'gps': '24.4672,39.6150'
+                'gps': '24.4734461,39.6097563'
             },
             {
-                'nameAr': 'أبراج مكة هيلتون',
+                'nameAr': 'بولمان زمزم',
                 'nameEn': 'Makkah Towers Hilton',
                 'addressAr': 'شارع إبراهيم الخليل، مكة المكرمة',
                 'addressEn': 'Ibrahim Al-Khalil Street, Makkah',
-                'gps': '21.4267,39.8295'
+                'gps': '21.4196405,39.8263125'
             },
             {
                 'nameAr': 'العزيزية بلازا',
                 'nameEn': 'Al Aziziyah Plaza',
                 'addressAr': 'حي العزيزية، مكة المكرمة',
                 'addressEn': 'Al-Aziziyah District, Makkah',
-                'gps': '21.3890,39.8579'
+                'gps': '21.397912,39.889826'
             }
         ],
         'camps': [
             {
-                'nameAr': 'مخيم الرحمة',
-                'nameEn': 'Al-Rahma Camp',
-                'addressAr': 'منطقة 204، منى',
+                'nameAr': 'مخيم ',
+                'nameEn': ' Camp',
+                'addressAr': '',
                 'addressEn': 'Area 204, Mina',
                 'gps': '21.4133,39.8782'
             },
