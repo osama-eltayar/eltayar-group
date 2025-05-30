@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 'nameAr': 'أحمد الطيار',
                 'nameEn': 'Ahmed Al-Tayar',
-                'phone': '+966 564073392',
+                'phone': '0564073392',
                 'phoneLink': '+966564073392',
                 'whatsappLink': '201010149920'
             },
             {
                 'nameAr': 'سيد عبدالحميد',
                 'nameEn': 'Sayed Abdulhamid',
-                'phone': '+966 592982508',
+                'phone': '0592982508',
                 'phoneLink': '+966592982508',
                 'whatsappLink': '201153638653'
             }
