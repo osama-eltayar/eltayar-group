@@ -6,65 +6,65 @@ document.addEventListener('DOMContentLoaded', function() {
     const appData = {
         'supervisors': [
             {
-                'nameAr': 'أسامة الطيار',
-                'nameEn': 'First Supervisor',
-                'phone': '+966 50 123 4567',
-                'phoneLink': '+201110032691',
-                'whatsappLink': '201110032691'
+                'nameAr': 'محمد عبدالعزيز',
+                'nameEn': 'Mohammed Abdulaziz',
+                'phone': '+966 549373120',
+                'phoneLink': '+966549373120',
+                'whatsappLink': '201000870105'
             },
             {
-                'nameAr': 'أحمد الطيار',
-                'nameEn': 'Second Supervisor',
-                'phone': '+966 50 765 4321',
-                'phoneLink': '+201003732794',
-                'whatsappLink': '201003732794'
+                'nameAr': 'إبراهيم الطيار',
+                'nameEn': 'Ibrahim Al-Tayar',
+                'phone': '+966 5329064179',
+                'phoneLink': '+9665329064179',
+                'whatsappLink': '201002702141'
             }
         ],
         'hotels': [
             {
-                'nameAr': 'الانصار جولدن تيوليب',
+                'nameAr': 'قصر الانصار الجديد',
                 'nameEn': 'Al Ansar Golden Tulip',
-                'addressAr': 'شارع العنبرية، المدينة المنورة',
-                'addressEn': 'Al-Anbariyah Street, Madinah',
-                'gps': '24.4672,39.6150'
+                'addressAr': 'شارع الستين، المنطقة المركزية الشمالية، المدينة المنورة، المملكة العربية السعودية',
+                'addressEn': 'Sixtieth Street, Northern Central Area, Madinah, Saudi Arabia',
+                'gps': '24.4734461,39.6097563'
             },
             {
-                'nameAr': 'أبراج مكة هيلتون',
-                'nameEn': 'Makkah Towers Hilton',
-                'addressAr': 'شارع إبراهيم الخليل، مكة المكرمة',
-                'addressEn': 'Ibrahim Al-Khalil Street, Makkah',
-                'gps': '21.4267,39.8295'
+                'nameAr': 'بولمان زمزم',
+                'nameEn': 'Pullman Zamzam',
+                'addressAr': 'مجمع أبراج البيت، وقف الملك عبد العزيز طريق الملك عبد العزيز، مكة المكرمة 21955',
+                'addressEn': 'Abraj Al Bait Complex, King Abdulaziz Endowment, King Abdulaziz Road, Makkah 21955',
+                'gps': '21.4196405,39.8263125'
             },
             {
-                'nameAr': 'العزيزية بلازا',
-                'nameEn': 'Al Aziziyah Plaza',
-                'addressAr': 'حي العزيزية، مكة المكرمة',
-                'addressEn': 'Al-Aziziyah District, Makkah',
-                'gps': '21.3890,39.8579'
+                'nameAr': 'فندق الوسام ( مهجه )',
+                'nameEn': 'Al Wesam Hotel (Mahja)',
+                'addressAr': 'طريق الملك عبدالله، 7201، حي العزيزية',
+                'addressEn': 'King Abdullah Road, 7201, Al-Aziziyah District, Makkah',
+                'gps': '21.397912,39.889826'
             }
         ],
         'camps': [
             {
-                'nameAr': 'مخيم الرحمة',
-                'nameEn': 'Al-Rahma Camp',
-                'addressAr': 'منطقة 204، منى',
-                'addressEn': 'Area 204, Mina',
-                'gps': '21.4133,39.8782'
+                'nameAr': '',
+                'nameEn': '',
+                'addressAr': '',
+                'addressEn': '',
+                'gps': ''
             },
             {
-                'nameAr': 'مخيم النور',
-                'nameEn': 'Al-Noor Camp',
-                'addressAr': 'الشارع الرئيسي، عرفات',
-                'addressEn': 'Main Street, Arafat',
-                'gps': '21.3548,39.9841'
+                'nameAr': '',
+                'nameEn': '',
+                'addressAr': '',
+                'addressEn': '',
+                'gps': ''
             }
         ],
         'mutawwif': {
-            'nameAr': 'اسم المطوف',
-            'nameEn': 'Mutawwif Name',
-            'phone': '+966 55 123 4567',
-            'phoneLink': '+966551234567',
-            'whatsappLink': '966551234567'
+            'nameAr': '',
+            'nameEn': '',
+            'phone': '',
+            'phoneLink': '',
+            'whatsappLink': ''
         }
     };
     
