@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 'nameAr': 'سيد عبدالحميد',
                 'nameEn': 'Sayed Abdulhamid',
-                'phone': '0592982508',
-                'phoneLink': '+966592982508',
+                'phone': '042513534',
+                'phoneLink': '+96642513534',
                 'whatsappLink': '201153638653'
             }
         ],
