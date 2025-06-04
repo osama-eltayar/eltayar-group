@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         'camps': [
             {
-                'nameAr': '',
-                'nameEn': '',
+                'nameAr': '8 مصريين',
+                'nameEn': '8 Egyptians',
                 'addressAr': '',
                 'addressEn': '',
-                'gps': ''
+                'gps': '21.4247551,39.8995705'
             },
             {
                 'nameAr': '',

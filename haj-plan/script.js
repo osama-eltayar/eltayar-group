@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         'camps': [
             {
-                'nameAr': '',
-                'nameEn': '',
-                'addressAr': '',
-                'addressEn': '',
-                'gps': ''
+                'nameAr': 'مخيم 7/206 مصريين ',
+                'nameEn': '7/206 Egyptians Camp',
+                'addressAr': 'رقم 7 شارع 206',
+                'addressEn': '7/206 Street',
+                'gps': '21.4159735,39.8849735'
             },
             {
                 'nameAr': '',
