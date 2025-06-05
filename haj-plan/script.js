@@ -52,11 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 'gps': '21.4159735,39.8849735'
             },
             {
-                'nameAr': '',
-                'nameEn': '',
+                'nameAr': '7 مصريين ',
+                'nameEn': '7 Egyptians',
                 'addressAr': '',
                 'addressEn': '',
-                'gps': ''
+                'gps': '21.3565896,39.971291'
             }
         ],
         'mutawwif': {
