@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         ],
         'mutawwif': {
-            'nameAr': '',
-            'nameEn': '',
+            'nameAr': 'طلال بكر قزاز',
+            'nameEn': 'Talal Bakr Qazaz',
             'phone': '',
             'phoneLink': '',
             'whatsappLink': ''
