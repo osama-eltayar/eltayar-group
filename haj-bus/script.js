@@ -52,11 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 'gps': '21.4247551,39.8995705'
             },
             {
-                'nameAr': '',
-                'nameEn': '',
-                'addressAr': '',
-                'addressEn': '',
-                'gps': ''
+                'nameAr': '8 مصريين',
+                'nameEn': '8 Egyptians',
+                'addressAr': 'شارع الجوهرة',
+                'addressEn': 'Al-Jawher Street',
+                'gps': '21.3413601,39.9901734'
             }
         ],
         'mutawwif': {
