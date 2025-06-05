@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 'nameAr': '8 مصريين',
                 'nameEn': '8 Egyptians',
-                'addressAr': 'شارع الجوهرة',
-                'addressEn': 'Al-Jawher Street',
+                'addressAr': 'شارع الجوهرة 56',
+                'addressEn': 'Al-Jawher Street 56',
                 'gps': '21.3413601,39.9901734'
             }
         ],
