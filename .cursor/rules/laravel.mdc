@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Laravel Rules
+
+Rules for working with Laravel Framework
+- the app based on laravel 11 version 
+- use laravel naming convention 
+
+##  Model
+- model should has fillable for columns 
+- column for status or type should casts to enum 
+- relation should has return type 
+
+## Migration
+- date column should be in the past prefixed with _at like finsished_at
+- always add new column before created_at 
+
