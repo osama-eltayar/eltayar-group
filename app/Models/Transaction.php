@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\Currency;
+use App\Enums\PaymentMethod;
+use App\Enums\TransactionType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +26,10 @@ class Transaction extends Model
     ];
 
     protected $casts = [
-        'amount' => 'integer'
+        'amount' => 'integer',
+        'currency_code' => Currency::class,
+        'payment_method' => PaymentMethod::class,
+        'type' => TransactionType::class,
     ];
 
     public function user()

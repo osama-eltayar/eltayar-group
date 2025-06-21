@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\EnumOptions;
+
 enum Currency: string
 {
+    use EnumOptions;
+    
     case SAUDI_RIYAL = 'SAR';
     case EGYPTIAN_POUND = 'EGP';
 

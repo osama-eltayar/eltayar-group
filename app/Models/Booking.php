@@ -37,8 +37,8 @@ class Booking extends Model
         return $this->belongsTo(Trip::class, 'trip_id');
     }
 
-    public function bookingClients()
+    public function tripClients()
     {
-        return $this->hasMany(BookingClient::class,'client_id');
+        return $this->hasMany(TripClient::class);
     }
 }

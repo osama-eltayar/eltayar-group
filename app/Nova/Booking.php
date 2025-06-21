@@ -63,7 +63,7 @@ class Booking extends Resource
             Number::make(__('booking.total_price'), 'total_price')->exceptOnForms(),
             Number::make(__('booking.final_price'), 'final_price')->exceptOnForms(),
             Number::make(__('booking.discount_amount'), 'discount_amount')->exceptOnForms(),
-            HasMany::make(__('booking.clients'),'bookingClients', BookingClient::class),
+            HasMany::make(__('booking.clients'),'tripClients', TripClient::class),
 
         ];
     }

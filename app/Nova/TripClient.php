@@ -51,19 +51,46 @@ class TripClient extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Client', 'client', Client::class),
-            BelongsTo::make('Trip', 'trip', Trip::class),
-            Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions()),
+            BelongsTo::make('Booking', 'booking', Booking::class),
+            BelongsTo::make('Trip', 'trip', Trip::class)
+                ->dependsOn(['Booking'],function (BelongsTo $field, NovaRequest $request, FormData $formData) {
+                    $field->setValue(
+                        \App\Models\Booking::query()
+                            ->whereKey($formData->booking_id ?? $formData->resource(Booking::uriKey()))
+                            ->first()?->trip_id
+                    );
+                }),
+            Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions())
+                ->dependsOn(['Booking'],function (Select $field, NovaRequest $request, FormData $formData) {
+                    $field->setValue(
+                        \App\Models\Booking::query()->whereKey($formData->booking_id ?? $formData->resource(Booking::uriKey()))->first()?->room_type
+                    );
+                }),
             Number::make(__('balance'), 'balance')->exceptOnForms(),
-            Number::make(__('price'), 'price')->readonly()
+            Number::make(__('price'), 'price')
                 ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(
                         TripPrice::query()->where('room_type',$formData->room_type)->where('trip_id' ,$formData->trip_id)->first()?->price
                     );
                 }),
-            Number::make(__('total_price'), 'total_price')->exceptOnForms(),
-            Number::make(__('final_price'), 'final_price')->exceptOnForms(),
             Number::make(__('discount_amount'), 'discount_amount')->exceptOnForms(),
+            Number::make(__('final_price'), 'final_price')->exceptOnForms(),
         ];
+    }
+
+    public static function creating($callback)
+    {
+    }
+
+    public static function fill(NovaRequest $request, $model)
+    {
+        $price = TripPrice::query()->where('room_type',$model->room_type)->where('trip_id',$model->trip_id)->first()?->price ;
+        $request->merge([
+            'price' => $price,
+            'discount_amount' => 0,
+            'final_price' => $price,
+        ]);
+        return parent::fill($request, $model);
     }
 
     /**
