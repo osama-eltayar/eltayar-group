@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'label' => 'Bookiffngs',
+    'label' => 'Bookings',
     'singular_label' => 'Booking',
     'number_of_clients' => 'Number of Clients',
     'room_type' => 'Room Type',

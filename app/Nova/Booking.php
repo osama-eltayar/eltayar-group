@@ -51,7 +51,7 @@ class Booking extends Resource
             ID::make()->sortable(),
             BelongsTo::make('Client', 'client', Client::class),
             BelongsTo::make('Trip', 'trip', Trip::class),
-            Select::make(__('booking.room_type'), 'room_type')->options(RoomType::toOptions()),
+            Select::make(__('booking.room_type'), 'room_type')->options(RoomType::toOptions())->displayUsingLabels(),
             Number::make(__('booking.balance'), 'balance')->exceptOnForms(),
             Number::make(__('booking.price'), 'price')->readonly()
                 ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {

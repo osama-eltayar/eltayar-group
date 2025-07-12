@@ -7,6 +7,7 @@ alwaysApply: false
 # Modern PHP 8.3 Rules
 
 Rules for working with modern PHP 8.3 features and best practices
+Dont fix linter errors 
 
 ## Type System
 - Always use typed properties for class properties

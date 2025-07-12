@@ -59,9 +59,9 @@ class Trip extends Resource
             Textarea::make(__('trip.description'), 'description')->hideFromIndex(),
             Date::make(__('trip.started_at'), 'started_at')->filterable()->sortable(),
             Date::make(__('trip.ended_at'), 'ended_at')->filterable()->rules('nullable','after:'.$this->started_at)->sortable(),
-            Select::make(__('trip.status'), 'status')->options(TripStatus::toOptions())->rules('required')->required()->sortable()->filterable(),
-            Select::make(__('trip.activity'), 'activity')->options(TripActivity::toOptions())->rules('required')->required()->sortable()->filterable(),
-            Select::make(__('trip.type'), 'type')->options(TripType::toOptions())->rules('required')->required()->sortable()->filterable(),
+            Select::make(__('trip.status'), 'status')->options(TripStatus::toOptions())->rules('required')->required()->sortable()->filterable()->displayUsingLabels(),
+            Select::make(__('trip.activity'), 'activity')->options(TripActivity::toOptions())->rules('required')->required()->sortable()->filterable()->displayUsingLabels(),
+            Select::make(__('trip.type'), 'type')->options(TripType::toOptions())->rules('required')->required()->sortable()->filterable()->displayUsingLabels(),
             Number::make(__('trip.maximum_allowed'), 'maximum_allowed')->sortable(),
 //            HasMany::make('clients','tripClients',TripClient::class),
         ];

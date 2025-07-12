@@ -5,6 +5,7 @@ return [
     'singular_label' => 'Trip Client',
     'client' => 'Client',
     'booking' => 'Booking',
+    'trip' => 'Trip',
     'room_type' => 'Room Type',
     'balance' => 'Balance',
     'price' => 'Price',

@@ -5,6 +5,7 @@ return [
     'singular_label' => 'عميل الرحلة',
     'client' => 'العميل',
     'booking' => 'الحجز',
+    'trip' => 'الرحلة',
     'room_type' => 'نوع الغرفة',
     'balance' => 'الرصيد',
     'price' => 'السعر',

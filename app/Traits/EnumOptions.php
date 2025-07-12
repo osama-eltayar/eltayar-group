@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Str;
+
 trait EnumOptions
 {
     /**
@@ -23,6 +25,8 @@ trait EnumOptions
 
     public function label(): string
     {
-        return self::tryFrom($this->value)?->name;
+        $enumName = Str::snake(class_basename(static::class));
+
+        return __("enums.{$enumName}.{$this->value}");
     }
 }

@@ -16,4 +16,34 @@ return [
         'in' => 'دخل',
         'out' => 'مصروف',
     ],
+    
+    'client_status' => [
+        'active' => 'نشط',
+        'banned' => 'محظور',
+    ],
+    
+    'room_type' => [
+        'single' => 'فردي',
+        'double' => 'مزدوج',
+        'triple' => 'ثلاثي',
+        'quadrille' => 'رباعي',
+        'default' => 'افتراضي',
+    ],
+    
+    'trip_status' => [
+        'draft' => 'مسودة',
+        'active' => 'نشط',
+    ],
+    
+    'trip_type' => [
+        'flight' => 'طيران',
+    ],
+    
+    'trip_activity' => [
+        'omra' => 'عمرة',
+    ],
+    
+    'role_enum' => [
+        'super-admin' => 'مدير عام',
+    ],
 ]; 

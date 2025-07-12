@@ -16,4 +16,34 @@ return [
         'in' => 'Income',
         'out' => 'Expense',
     ],
+    
+    'client_status' => [
+        'active' => 'Active',
+        'banned' => 'Banned',
+    ],
+    
+    'room_type' => [
+        'single' => 'Single',
+        'double' => 'Double',
+        'triple' => 'Triple',
+        'quadrille' => 'Quadrille',
+        'default' => 'Default',
+    ],
+    
+    'trip_status' => [
+        'draft' => 'Draft',
+        'active' => 'Active',
+    ],
+    
+    'trip_type' => [
+        'flight' => 'Flight',
+    ],
+    
+    'trip_activity' => [
+        'omra' => 'Omra',
+    ],
+    
+    'role_enum' => [
+        'super-admin' => 'Super Admin',
+    ],
 ]; 

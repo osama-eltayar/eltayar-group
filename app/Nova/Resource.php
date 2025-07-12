@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Support\Str;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Resource as NovaResource;
 
@@ -15,7 +16,7 @@ abstract class Resource extends NovaResource
     public static function label()
     {
         $resourceName = class_basename(static::class);
-        $translationKey = strtolower($resourceName);
+        $translationKey = Str::snake($resourceName);
 
         return __($translationKey . '.label');
     }
@@ -28,7 +29,7 @@ abstract class Resource extends NovaResource
     public static function singularLabel()
     {
         $resourceName = class_basename(static::class);
-        $translationKey = strtolower($resourceName);
+        $translationKey = Str::snake($resourceName);
 
         return __($translationKey . '.singular_label');
     }

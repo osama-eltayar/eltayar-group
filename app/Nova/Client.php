@@ -56,7 +56,7 @@ class Client extends Resource
             Text::make(__('client.national_number'), 'national_number')->required()->rules(['required', 'numeric', 'unique:clients,national_number,{{resourceId}}'])->filterable()->sortable(),
             Date::make(__('client.date_of_birth'), 'date_of_birth')->sortable()->filterable()->rules(['nullable','date','before:today'])->max(today()),
             Text::make(__('client.passport_number'), 'passport_number')->rules([ 'nullable','unique:clients,passport_number,{{resourceId}}'])->filterable()->sortable(),
-            Select::make(__('client.status'), 'status')->options(ClientStatus::toOptions())->required()->default(ClientStatus::Active)->rules('required')->sortable()->filterable(),
+            Select::make(__('client.status'), 'status')->options(ClientStatus::toOptions())->required()->default(ClientStatus::Active)->rules('required')->sortable()->filterable()->displayUsingLabels(),
             BelongsTo::make(__('client.parent'), 'parent', self::class)->nullable(),
             HasMany::make(__('client.children'), 'children', self::class)->nullable(),
         ];

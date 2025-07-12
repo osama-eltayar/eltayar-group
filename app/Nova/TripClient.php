@@ -60,7 +60,7 @@ class TripClient extends Resource
                             ->first()?->trip_id
                     );
                 }),
-            Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions())
+            Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions())->displayUsingLabels()
                 ->dependsOn(['Booking'],function (Select $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(
                         \App\Models\Booking::query()->whereKey($formData->booking_id ?? $formData->resource(Booking::uriKey()))->first()?->room_type
