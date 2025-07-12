@@ -49,22 +49,21 @@ class Booking extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Client', 'client', Client::class),
-            BelongsTo::make('Trip', 'trip', Trip::class),
-            Select::make(__('booking.room_type'), 'room_type')->options(RoomType::toOptions())->displayUsingLabels(),
-            Number::make(__('booking.balance'), 'balance')->exceptOnForms(),
+            BelongsTo::make('Client', 'client', Client::class)->sortable()->filterable(),
+            BelongsTo::make('Trip', 'trip', Trip::class)->sortable()->filterable(),
+            Select::make(__('booking.room_type'), 'room_type')->options(RoomType::toOptions())->displayUsingLabels()->sortable()->filterable(),
+            Number::make(__('booking.balance'), 'balance')->exceptOnForms()->sortable()->filterable(),
             Number::make(__('booking.price'), 'price')->readonly()
                 ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(
                         TripPrice::query()->where('room_type',$formData->room_type)->where('trip_id' ,$formData->trip)->first()?->price
                     );
-                }),
-            Number::make(__('booking.number_of_clients'), 'number_of_clients')->default(1),
-            Number::make(__('booking.total_price'), 'total_price')->exceptOnForms(),
-            Number::make(__('booking.final_price'), 'final_price')->exceptOnForms(),
-            Number::make(__('booking.discount_amount'), 'discount_amount')->exceptOnForms(),
+                })->sortable()->filterable(),
+            Number::make(__('booking.number_of_clients'), 'number_of_clients')->default(1)->sortable()->filterable(),
+            Number::make(__('booking.total_price'), 'total_price')->exceptOnForms()->sortable()->filterable(),
+            Number::make(__('booking.final_price'), 'final_price')->exceptOnForms()->sortable()->filterable(),
+            Number::make(__('booking.discount_amount'), 'discount_amount')->exceptOnForms()->sortable()->filterable(),
             HasMany::make(__('booking.clients'),'tripClients', TripClient::class),
-
         ];
     }
 

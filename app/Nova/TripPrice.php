@@ -46,14 +46,14 @@ class TripPrice extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make(__('trip_price.trip'),'trip',Trip::class),
+            BelongsTo::make(__('trip_price.trip'),'trip',Trip::class)->sortable()->filterable(),
             Select::make(__('trip_price.room_type'), 'room_type')
                 ->required()
                 ->rules('required',Rule::unique('trip_prices','room_type')->where('trip_id',$request->trip)->ignore($this->resource?->id))
                 ->options(RoomType::toOptions())
-                ->displayUsingLabels(),
-            Number::make(__('trip_price.price'), 'price')->rules('required','integer','min:100')->required(),
-
+                ->displayUsingLabels()
+                ->sortable()->filterable(),
+            Number::make(__('trip_price.price'), 'price')->rules('required','integer','min:100')->required()->sortable()->filterable(),
         ];
     }
 

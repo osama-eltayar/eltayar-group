@@ -50,10 +50,12 @@ class User extends Resource
 
             Text::make(__('user.name'), 'Name')
                 ->sortable()
+                ->filterable()
                 ->rules('required', 'max:255'),
 
             Text::make(__('user.email'), 'Email')
                 ->sortable()
+                ->filterable()
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
@@ -63,8 +65,12 @@ class User extends Resource
                 ->creationRules('required', Rules\Password::defaults())
                 ->updateRules('nullable', Rules\Password::defaults()),
 
-            MorphToMany::make(__('user.roles'), 'roles', \Sereny\NovaPermissions\Nova\Role::class)->searchable(),
-            MorphToMany::make(__('user.permissions'), 'permissions', \Sereny\NovaPermissions\Nova\Permission::class)->searchable(),
+            MorphToMany::make(__('user.roles'), 'roles', \Sereny\NovaPermissions\Nova\Role::class)
+                ->searchable()
+                ->sortable(),
+            MorphToMany::make(__('user.permissions'), 'permissions', \Sereny\NovaPermissions\Nova\Permission::class)
+                ->searchable()
+                ->sortable(),
         ];
     }
 

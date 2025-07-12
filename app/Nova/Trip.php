@@ -62,8 +62,8 @@ class Trip extends Resource
             Select::make(__('trip.status'), 'status')->options(TripStatus::toOptions())->rules('required')->required()->sortable()->filterable()->displayUsingLabels(),
             Select::make(__('trip.activity'), 'activity')->options(TripActivity::toOptions())->rules('required')->required()->sortable()->filterable()->displayUsingLabels(),
             Select::make(__('trip.type'), 'type')->options(TripType::toOptions())->rules('required')->required()->sortable()->filterable()->displayUsingLabels(),
-            Number::make(__('trip.maximum_allowed'), 'maximum_allowed')->sortable(),
-//            HasMany::make('clients','tripClients',TripClient::class),
+            Number::make(__('trip.maximum_allowed'), 'maximum_allowed')->sortable()->filterable(),
+            HasMany::make('clients','tripClients',TripClient::class),
         ];
     }
 

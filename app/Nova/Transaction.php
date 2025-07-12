@@ -54,42 +54,50 @@ class Transaction extends Resource
             ID::make()->sortable(),
 
             BelongsTo::make(__('transaction.user'), 'user', User::class)
-                ->onlyOnIndex(),
+                ->sortable()
+                ->filterable(),
 
             BelongsTo::make(__('transaction.client'), 'client', Client::class)
-                ->rules('required'),
+                ->sortable()
+                ->filterable(),
 
-            MorphTo::make(__('transaction.transactionable'))
+            MorphTo::make(__('transaction.transactionable'), 'transactionable')
                 ->types([
                     Booking::class,
+                    Trip::class,
                 ])
-                ->nullable(),
+                ->sortable()
+                ->filterable(),
 
-            Text::make(__('transaction.about'))
-                ->rules('required')
-                ->sortable(),
+            Textarea::make(__('transaction.about'))
+                ->nullable()
+                ->hideFromIndex(),
 
             Number::make(__('transaction.amount'))
                 ->rules('required', 'numeric', 'min:0')
-                ->sortable(),
+                ->sortable()
+                ->filterable(),
 
             Select::make(__('transaction.currency'), 'currency_code')
                 ->options(Currency::toOptions())
                 ->rules('required')
                 ->displayUsingLabels()
-                ->sortable(),
+                ->sortable()
+                ->filterable(),
 
             Select::make(__('transaction.payment_method'), 'payment_method')
                 ->options(PaymentMethod::toOptions())
                 ->rules('required')
                 ->displayUsingLabels()
-                ->sortable(),
+                ->sortable()
+                ->filterable(),
 
             Select::make(__('transaction.type'))
                 ->options(TransactionType::toOptions())
                 ->rules('required')
                 ->displayUsingLabels()
-                ->sortable(),
+                ->sortable()
+                ->filterable(),
 
             Textarea::make(__('transaction.notes'))
                 ->nullable()

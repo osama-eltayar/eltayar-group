@@ -50,8 +50,8 @@ class TripClient extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make('Client', 'client', Client::class),
-            BelongsTo::make('Booking', 'booking', Booking::class),
+            BelongsTo::make('Client', 'client', Client::class)->sortable()->filterable(),
+            BelongsTo::make('Booking', 'booking', Booking::class)->sortable()->filterable(),
             BelongsTo::make('Trip', 'trip', Trip::class)
                 ->dependsOn(['Booking'],function (BelongsTo $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(
@@ -59,22 +59,22 @@ class TripClient extends Resource
                             ->whereKey($formData->booking_id ?? $formData->resource(Booking::uriKey()))
                             ->first()?->trip_id
                     );
-                }),
+                })->sortable()->filterable(),
             Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions())->displayUsingLabels()
                 ->dependsOn(['Booking'],function (Select $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(
                         \App\Models\Booking::query()->whereKey($formData->booking_id ?? $formData->resource(Booking::uriKey()))->first()?->room_type
                     );
-                }),
-            Number::make(__('balance'), 'balance')->exceptOnForms(),
+                })->sortable()->filterable(),
+            Number::make(__('balance'), 'balance')->exceptOnForms()->sortable()->filterable(),
             Number::make(__('price'), 'price')
                 ->dependsOn(['trip','room_type'],function (Number $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(
                         TripPrice::query()->where('room_type',$formData->room_type)->where('trip_id' ,$formData->trip_id)->first()?->price
                     );
-                }),
-            Number::make(__('discount_amount'), 'discount_amount')->exceptOnForms(),
-            Number::make(__('final_price'), 'final_price')->exceptOnForms(),
+                })->sortable()->filterable(),
+            Number::make(__('discount_amount'), 'discount_amount')->exceptOnForms()->sortable()->filterable(),
+            Number::make(__('final_price'), 'final_price')->exceptOnForms()->sortable()->filterable(),
         ];
     }
 
