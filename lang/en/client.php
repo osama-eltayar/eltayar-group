@@ -1,8 +1,10 @@
 <?php
 
 return [
-    'name_ar' => 'Name (Arabic)',
-    'name_en' => 'Name (English)',
+    'label' => 'Clients',
+    'singular_label' => 'Client',
+    'name_ar' => 'Arabic Name',
+    'name_en' => 'English Name',
     'national_number' => 'National Number',
     'date_of_birth' => 'Date of Birth',
     'passport_number' => 'Passport Number',

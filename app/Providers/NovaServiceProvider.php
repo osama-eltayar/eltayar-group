@@ -68,11 +68,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             (new \Sereny\NovaPermissions\NovaPermissions)->canSee(fn ($request) => $request->user()->isSuperAdmin()),
+            new \Badinansoft\LanguageSwitch\LanguageSwitch(),
         ];
     }
 
     /**
-     * Register any application services.
+ * Register any application services.
      *
      * @return void
      */

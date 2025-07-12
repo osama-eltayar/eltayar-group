@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'label' => 'الحجوزات',
+    'singular_label' => 'الحجز',
     'room_type' => 'نوع الغرفة',
     'balance' => 'الرصيد',
     'price' => 'السعر',

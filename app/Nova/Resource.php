@@ -8,6 +8,32 @@ use Laravel\Nova\Resource as NovaResource;
 abstract class Resource extends NovaResource
 {
     /**
+     * Get the displayable label of the resource.
+     *
+     * @return string
+     */
+    public static function label()
+    {
+        $resourceName = class_basename(static::class);
+        $translationKey = strtolower($resourceName);
+
+        return __($translationKey . '.label');
+    }
+
+    /**
+     * Get the displayable singular label of the resource.
+     *
+     * @return string
+     */
+    public static function singularLabel()
+    {
+        $resourceName = class_basename(static::class);
+        $translationKey = strtolower($resourceName);
+
+        return __($translationKey . '.singular_label');
+    }
+
+    /**
      * Build an "index" query for the given resource.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query

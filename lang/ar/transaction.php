@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'label' => 'المعاملات',
+    'singular_label' => 'المعاملة',
     'user' => 'المستخدم',
     'client' => 'العميل',
     'transactionable' => 'العنصر المرتبط',

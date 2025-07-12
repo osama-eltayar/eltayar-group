@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'label' => 'Trip Clients',
+    'singular_label' => 'Trip Client',
     'client' => 'Client',
     'booking' => 'Booking',
     'room_type' => 'Room Type',

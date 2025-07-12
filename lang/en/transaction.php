@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'label' => 'Transactions',
+    'singular_label' => 'Transaction',
     'user' => 'User',
     'client' => 'Client',
     'transactionable' => 'Related Item',

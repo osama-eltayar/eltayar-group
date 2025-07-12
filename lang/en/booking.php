@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'label' => 'Bookiffngs',
+    'singular_label' => 'Booking',
     'number_of_clients' => 'Number of Clients',
     'room_type' => 'Room Type',
     'balance' => 'Balance',
@@ -9,4 +11,4 @@ return [
     'final_price' => 'Final Price',
     'discount_amount' => 'Discount Amount',
     'clients' => 'Clients',
-]; 
+];

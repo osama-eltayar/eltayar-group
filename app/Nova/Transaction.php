@@ -54,7 +54,7 @@ class Transaction extends Resource
             ID::make()->sortable(),
 
             BelongsTo::make(__('transaction.user'), 'user', User::class)
-                ->readonly(),
+                ->onlyOnIndex(),
 
             BelongsTo::make(__('transaction.client'), 'client', Client::class)
                 ->rules('required'),

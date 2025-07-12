@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'label' => 'Trips',
+    'singular_label' => 'Trip',
     'name' => 'Name',
     'description' => 'Description',
     'started_at' => 'Start Date',

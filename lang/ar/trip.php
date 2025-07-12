@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'label' => 'الرحلات',
+    'singular_label' => 'الرحلة',
     'name' => 'الاسم',
     'description' => 'الوصف',
     'started_at' => 'تاريخ البدء',
