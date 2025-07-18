@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Enums\Currency;
 use App\Enums\PaymentMethod;
 use App\Enums\TransactionType;
+use App\Nova\Actions\PrintReceipt;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
@@ -53,13 +54,15 @@ class Transaction extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make(__('transaction.user'), 'user', User::class)
-                ->sortable()
-                ->filterable(),
-
             BelongsTo::make(__('transaction.client'), 'client', Client::class)
                 ->sortable()
                 ->filterable(),
+
+            BelongsTo::make(__('transaction.user'), 'user', User::class)
+                ->sortable()
+                ->filterable()
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
 
             MorphTo::make(__('transaction.transactionable'), 'transactionable')
                 ->types([
@@ -69,11 +72,11 @@ class Transaction extends Resource
                 ->sortable()
                 ->filterable(),
 
-            Textarea::make(__('transaction.about'))
+            Textarea::make(__('transaction.about'),'about')
                 ->nullable()
                 ->hideFromIndex(),
 
-            Number::make(__('transaction.amount'))
+            Number::make(__('transaction.amount'), 'amount')
                 ->rules('required', 'numeric', 'min:0')
                 ->sortable()
                 ->filterable(),
@@ -92,14 +95,14 @@ class Transaction extends Resource
                 ->sortable()
                 ->filterable(),
 
-            Select::make(__('transaction.type'))
+            Select::make(__('transaction.type'), 'type')
                 ->options(TransactionType::toOptions())
                 ->rules('required')
                 ->displayUsingLabels()
                 ->sortable()
                 ->filterable(),
 
-            Textarea::make(__('transaction.notes'))
+            Textarea::make(__('transaction.notes'), 'notes')
                 ->nullable()
                 ->hideFromIndex(),
         ];
@@ -142,6 +145,17 @@ class Transaction extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            PrintReceipt::make()->sole()->onlyInline()->showOnDetail()
+                ];
     }
-} 
+
+    public static function fill(NovaRequest $request, $model)
+    {
+        if ($request->isCreateOrAttachRequest()) {
+            $model->user_id = auth()->id();
+        }
+
+        return parent::fill($request, $model);
+    }
+}
