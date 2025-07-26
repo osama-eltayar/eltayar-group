@@ -72,7 +72,7 @@ class Transaction extends Resource
                 ->sortable()
                 ->filterable(),
 
-            Textarea::make(__('transaction.about'),'about')
+            Textarea::make(__('transaction.about'), 'about')
                 ->nullable()
                 ->hideFromIndex(),
 
@@ -146,8 +146,8 @@ class Transaction extends Resource
     public function actions(NovaRequest $request)
     {
         return [
-            PrintReceipt::make()->sole()->onlyInline()->showOnDetail()
-                ];
+            PrintReceipt::make()->sole()->onlyInline()->showOnDetail()->withoutConfirmation()
+        ];
     }
 
     public static function fill(NovaRequest $request, $model)

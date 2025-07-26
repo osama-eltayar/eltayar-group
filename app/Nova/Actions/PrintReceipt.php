@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Actions\ActionResponse;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -26,11 +27,7 @@ class PrintReceipt extends Action
             return Action::danger('لم يتم العثور على المعاملة');
         }
 
-        // إرجاع response مع HTML للإيصال
-        return Action::openInNewTab(
-            route('transactions.print', $transaction),
-            'طباعة الإيصال'
-        );
+        return ActionResponse::openInNewTab(route('transactions.print', $transaction->id));
     }
 
     /**

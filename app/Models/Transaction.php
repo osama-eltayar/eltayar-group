@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Alkoumi\LaravelArabicNumbers\Numbers;
 use App\Enums\Currency;
 use App\Enums\PaymentMethod;
 use App\Enums\TransactionType;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Transaction extends Model
 {
@@ -46,4 +49,13 @@ class Transaction extends Model
     {
         return $this->morphTo();
     }
+
+    public function amountInArabic():Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Numbers::TafqeetMoney($this->amount,$this->currency_code->value),
+        );
+    }
+
+
 }
