@@ -17,7 +17,7 @@
             font-family: 'Cairo', sans-serif;
             background: white;
             color: #333;
-            line-height: 1.4;
+            line-height: 1.2;
             font-size: 13px;
         }
 
@@ -34,9 +34,9 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #333;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
         }
 
         .company-info {
@@ -48,17 +48,17 @@
             font-size: 18px;
             font-weight: 700;
             color: #333;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .company-details {
             font-size: 11px;
             color: #666;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         .company-details div {
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .receipt-header {
@@ -69,14 +69,14 @@
         .receipt-title {
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #333;
         }
 
         .receipt-subtitle {
             font-size: 14px;
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .receipt-number {
@@ -94,14 +94,14 @@
         }
 
         .receipt-body {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .receipt-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 6px 0;
             border-bottom: 1px solid #eee;
         }
 
@@ -127,57 +127,63 @@
         .amount-section {
             background: #f8f9fa;
             border: 2px solid #333;
-            margin: 20px 0;
-            padding: 20px;
+            margin: 15px 0;
+            padding: 15px;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .amount-label {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 8px;
             font-weight: 600;
             color: #333;
+        }
+
+        .amount-display {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .amount-value {
             font-size: 16px;
             font-weight: 700;
-            margin-bottom: 8px;
             color: #333;
         }
 
         .amount-currency {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
-            margin-bottom: 10px;
         }
 
         .amount-verbal {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             color: #333;
             border-top: 1px solid #ddd;
-            padding-top: 10px;
-            min-height: 18px;
+            padding-top: 8px;
+            min-height: 16px;
         }
 
         .receipt-footer {
-            margin-top: 30px;
+            margin-top: 20px;
             text-align: center;
         }
 
         .footer-text {
             font-size: 12px;
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .signature-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 20px;
+            padding-top: 15px;
             border-top: 2px solid #333;
         }
 
@@ -191,19 +197,19 @@
             width: 80%;
             height: 2px;
             background: #333;
-            margin: 10px auto;
+            margin: 8px auto;
         }
 
         .signature-label {
             font-size: 12px;
             color: #333;
             font-weight: 600;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .notices-section {
-            margin-top: 25px;
-            padding-top: 20px;
+            margin-top: 20px;
+            padding-top: 15px;
             border-top: 1px solid #ddd;
         }
 
@@ -211,7 +217,7 @@
             font-size: 14px;
             font-weight: 700;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-align: center;
         }
 
@@ -224,10 +230,10 @@
         .notices-list li {
             font-size: 11px;
             color: #666;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             padding-right: 15px;
             position: relative;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         .notices-list li::before {
@@ -237,6 +243,84 @@
             top: 0;
             color: #333;
             font-weight: bold;
+        }
+
+        .dotted-line {
+            border-top: 2px dotted #666;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .review-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .review-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .review-content {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+
+        .review-data {
+            flex: 1;
+            max-width: 45%;
+            margin-right: auto;
+        }
+
+        .review-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .review-row:last-child {
+            border-bottom: none;
+        }
+
+        .review-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 12px;
+            min-width: 80px;
+        }
+
+        .review-value {
+            font-weight: 500;
+            color: #666;
+            font-size: 12px;
+            text-align: right;
+            flex: 1;
+        }
+
+        .center-dotted-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            border-left: 2px dotted #666;
+            transform: translateX(-50%);
+        }
+
+        .left-empty-space {
+            flex: 1;
+            max-width: 45%;
         }
 
         .print-button {
@@ -321,30 +405,30 @@
                 </div>
 
                 <div class="receipt-row">
-                    <span class="receipt-label">تاريخ الاستلام:</span>
-                    <span class="receipt-value">{{ $transaction->created_at->format('Y/m/d') }}</span>
+                    <span class="receipt-label">تم التسليم بواسطة:</span>
+                    <span class="receipt-value">{{ $transaction->delivered_by }}</span>
                 </div>
 
                 <div class="receipt-row">
                     <span class="receipt-label">عن:</span>
-                    <span class="receipt-value">{{ $transaction->about ?? 'دفع مبلغ' }}</span>
+                    <span class="receipt-value">{{ $transaction->about ?? $transaction-> 'دفع مبلغ' }}</span>
                 </div>
 
                 <div class="amount-section">
                     <div class="amount-label">المبلغ المستلم</div>
-                    <div class="amount-value">{{ $transaction->amount }}</div>
-                    <div class="amount-currency">{{ $transaction->currency_code->value }}</div>
+                    <div class="amount-display">
+                        <div class="amount-value">{{ $transaction->amount }}</div>
+                        <div class="amount-currency">{{ $transaction->currency_code->value }}</div>
+                    </div>
                     <div class="amount-verbal">
                         {{$transaction->amount_in_arabic}}
                     </div>
                 </div>
 
-                @if($transaction->notes)
                 <div class="receipt-row">
                     <span class="receipt-label">ملاحظات:</span>
                     <span class="receipt-value">{{ $transaction->notes }}</span>
                 </div>
-                @endif
             </div>
 
             <div class="receipt-footer">
@@ -374,6 +458,49 @@
                     <li>هذا الإيصال صالح لمدة سنة من تاريخ الإصدار</li>
                     <li>يجب التأكد من صحة جميع البيانات قبل التوقيع</li>
                 </ul>
+            </div>
+
+            <!-- Dotted Line Separator -->
+            <div class="dotted-line"></div>
+
+            <!-- Review Section -->
+            <div class="review-section">
+                <div class="review-title">بيانات الحجز</div>
+                <div class="review-content">
+                    <div class="review-data">
+                        <div class="review-row">
+                            <span class="review-label">اسم العميل:</span>
+                            <span class="review-value">{{ $transaction->client?->name_ar ?? '___________________' }}</span>
+                        </div>
+
+                        <div class="review-row">
+                            <span class="review-label">المدفوع:</span>
+                            <span class="review-value">{{ $transaction->amount }} {{ $transaction->currency_code->value }}</span>
+                        </div>
+
+                        <div class="review-row">
+                            <span class="review-label">الرحلة:</span>
+                            <span class="review-value">{{ $transaction->transactionable?->trip?->name ?? '___________________' }}</span>
+                        </div>
+
+                        <div class="review-row">
+                            <span class="review-label">نوع التسكين:</span>
+                            <span class="review-value">___________________</span>
+                        </div>
+
+                        <div class="review-row">
+                            <span class="review-label">تاريخ الحجز:</span>
+                            <span class="review-value">{{ $transaction->transactionable?->created_at?->format('Y/m/d') ?? '___________________' }}</span>
+                        </div>
+
+                        <div class="review-row">
+                            <span class="review-label">العدد:</span>
+                            <span class="review-value">___________________</span>
+                        </div>
+                    </div>
+                    <div class="center-dotted-line"></div>
+                    <div class="left-empty-space"></div>
+                </div>
             </div>
         </div>
     </div>

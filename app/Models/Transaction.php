@@ -21,6 +21,7 @@ class Transaction extends Model
         'transactionable_type',
         'transactionable_id',
         'about',
+        'delivered_by',
         'amount',
         'currency_code',
         'payment_method',

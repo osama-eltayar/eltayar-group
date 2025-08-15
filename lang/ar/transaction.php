@@ -7,6 +7,7 @@ return [
     'client' => 'العميل',
     'transactionable' => 'العنصر المرتبط',
     'about' => 'الوصف',
+    'delivered_by' => 'تم التسليم بواسطة',
     'amount' => 'المبلغ',
     'currency' => 'العملة',
     'payment_method' => 'طريقة الدفع',

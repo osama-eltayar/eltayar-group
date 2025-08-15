@@ -40,6 +40,7 @@ class Transaction extends Resource
     public static $search = [
         'id',
         'about',
+        'delivered_by',
         'client_id',
         'user_id',
     ];
@@ -72,7 +73,11 @@ class Transaction extends Resource
                 ->sortable()
                 ->filterable(),
 
-            Textarea::make(__('transaction.about'), 'about')
+            Textarea::make(__('transaction.about'),'about')
+                ->nullable()
+                ->hideFromIndex(),
+
+            Text::make(__('transaction.delivered_by'), 'delivered_by')
                 ->nullable()
                 ->hideFromIndex(),
 
