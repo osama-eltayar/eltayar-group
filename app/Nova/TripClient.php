@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Illuminate\Validation\Rule;
 
 class TripClient extends Resource
 {
@@ -59,7 +60,8 @@ class TripClient extends Resource
                             ->whereKey($formData->booking_id ?? $formData->resource(Booking::uriKey()))
                             ->first()?->trip_id
                     );
-                })->sortable()->filterable(),
+                })->sortable()->filterable()
+                ->rules('required', Rule::unique('trip_clients', 'trip_id')->where('client_id', $this->resource?->client_id)->ignore($this->resource?->id)),
             Select::make(__('room_type'), 'room_type')->options(RoomType::toOptions())->displayUsingLabels()
                 ->dependsOn(['Booking'],function (Select $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(
@@ -80,17 +82,6 @@ class TripClient extends Resource
 
     public static function creating($callback)
     {
-    }
-
-    public static function fill(NovaRequest $request, $model)
-    {
-        $price = TripPrice::query()->where('room_type',$model->room_type)->where('trip_id',$model->trip_id)->first()?->price ;
-        $request->merge([
-            'price' => $price,
-            'discount_amount' => 0,
-            'final_price' => $price,
-        ]);
-        return parent::fill($request, $model);
     }
 
     /**

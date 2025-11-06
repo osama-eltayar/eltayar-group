@@ -49,7 +49,7 @@ class TripPrice extends Resource
             BelongsTo::make(__('trip_price.trip'),'trip',Trip::class)->sortable()->filterable(),
             Select::make(__('trip_price.room_type'), 'room_type')
                 ->required()
-                ->rules('required',Rule::unique('trip_prices','room_type')->where('trip_id',$request->trip)->ignore($this->resource?->id))
+                ->rules('required', Rule::unique('trip_prices', 'room_type')->where('trip_id', $this->resource?->trip_id)->ignore($this->resource?->id))
                 ->options(RoomType::toOptions())
                 ->displayUsingLabels()
                 ->sortable()->filterable(),
