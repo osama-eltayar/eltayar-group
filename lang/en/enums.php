@@ -41,6 +41,7 @@ return [
     
     'trip_activity' => [
         'omra' => 'Omra',
+        'hajj' => 'Hajj',
     ],
     
     'role_enum' => [

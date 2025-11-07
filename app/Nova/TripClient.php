@@ -52,7 +52,7 @@ class TripClient extends Resource
         return [
             ID::make()->sortable(),
             BelongsTo::make('Client', 'client', Client::class)->sortable()->filterable(),
-            BelongsTo::make('Booking', 'booking', Booking::class)->sortable()->filterable(),
+            BelongsTo::make('Booking', 'booking', Booking::class)->nullable()->sortable()->filterable(),
             BelongsTo::make('Trip', 'trip', Trip::class)
                 ->dependsOn(['Booking'],function (BelongsTo $field, NovaRequest $request, FormData $formData) {
                     $field->setValue(

@@ -8,4 +8,5 @@ enum TripActivity: string
 {
     use EnumOptions;
     case Omra = 'omra';
+    case Hajj = 'hajj';
 }
