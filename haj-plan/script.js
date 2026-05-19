@@ -8,16 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 'nameAr': 'محمد عبدالعزيز',
                 'nameEn': 'Mohammed Abdulaziz',
-                'phone': '0549373120',
-                'phoneLink': '+966549373120',
+                'phone': '0560448719',
+                'phoneLink': '+966560448719',
                 'whatsappLink': '201000870105'
             },
             {
-                'nameAr': 'إبراهيم الطيار',
-                'nameEn': 'Ibrahim Al-Tayar',
-                'phone': '05329064179',
-                'phoneLink': '+9665329064179',
-                'whatsappLink': '201002702141'
+                'nameAr': ' كريم محمد',
+                'nameEn': 'Karem Mohamed',
+                'phone': '0554351923',
+                'phoneLink': '+966554351923',
+                'whatsappLink': '201211172337'
             }
         ],
         'hotels': [
