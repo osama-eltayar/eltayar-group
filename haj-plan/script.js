@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'nameEn': 'Al Wesam Hotel (Mahja)',
                 'addressAr': 'طريق الملك عبدالله، 7201، حي العزيزية',
                 'addressEn': 'King Abdullah Road, 7201, Al-Aziziyah District, Makkah',
-                'gps': '21.397912,39.889826'
+                'gps': '21.397541,39.8848686'
             }
         ],
         'camps': [
@@ -49,14 +49,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 'nameEn': '7/206 Egyptians Camp',
                 'addressAr': 'رقم 7 شارع 206',
                 'addressEn': '7/206 Street',
-                'gps': '21.4159735,39.8849735'
+                'gps': '21.3561002,39.9721677'
             },
             {
                 'nameAr': '7 مصريين ',
                 'nameEn': '7 Egyptians',
                 'addressAr': '',
                 'addressEn': '',
-                'gps': '21.3565896,39.971291'
+                'gps': '21.4147531,39.8892317'
             }
         ],
         'mutawwif': {
