@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'nameEn': '8 Egyptians',
                 'addressAr': '',
                 'addressEn': '',
-                'gps': '21.4247551,39.8995705'
+                'gps': '21.3414173,39.9906082'
             },
             {
                 'nameAr': '8 مصريين',
