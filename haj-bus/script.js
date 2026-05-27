@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'nameEn': '8 Egyptians',
                 'addressAr': 'شارع الجوهرة 56',
                 'addressEn': 'Al-Jawher Street 56',
-                'gps': '21.425032,39.901566'
+                'gps': '21.4252644,39.8984795'
             }
         ],
         'mutawwif': {
