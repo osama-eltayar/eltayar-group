@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\RoomType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TripPrice extends Model
 {
@@ -14,15 +15,16 @@ class TripPrice extends Model
         'trip_id',
         'room_type',
         'price',
-        'is_active'
+        'is_active',
     ];
 
     protected $casts = [
         'room_type' => RoomType::class,
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'price' => 'integer',
     ];
 
-    public function trip()
+    public function trip(): BelongsTo
     {
         return $this->belongsTo(Trip::class);
     }

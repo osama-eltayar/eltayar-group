@@ -11,4 +11,5 @@ return [
     'price' => 'Price',
     'discount_amount' => 'Discount Amount',
     'final_price' => 'Final Price',
-]; 
+    'notes' => 'Notes',
+];

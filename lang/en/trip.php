@@ -11,4 +11,8 @@ return [
     'activity' => 'Activity',
     'type' => 'Type',
     'maximum_allowed' => 'Maximum Allowed',
-]; 
+    'notes' => 'Notes',
+    'clients' => 'Clients',
+    'trip_prices' => 'Trip Prices',
+    'bookings' => 'Bookings',
+];

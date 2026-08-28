@@ -9,7 +9,8 @@ use App\Enums\TransactionType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Transaction extends Model
 {
@@ -26,7 +27,8 @@ class Transaction extends Model
         'currency_code',
         'payment_method',
         'type',
-        'notes'
+        'notes',
+        'reviewed_by',
     ];
 
     protected $casts = [
@@ -36,27 +38,35 @@ class Transaction extends Model
         'type' => TransactionType::class,
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function client()
+    public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
     }
 
-    public function transactionable()
+    public function reviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reviewed_by');
+    }
+
+    public function transactionable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function amountInArabic():Attribute
+    public function isReviewed(): bool
     {
-        return Attribute::make(
-            get: fn ($value) => Numbers::TafqeetMoney($this->amount,$this->currency_code->value),
-        );
+        return $this->reviewed_by !== null;
     }
 
-
+    public function amountInArabic(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Numbers::TafqeetMoney($this->amount, $this->currency_code->value),
+        );
+    }
 }

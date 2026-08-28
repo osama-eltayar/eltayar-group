@@ -1,0 +1,203 @@
+---
+description: |
+  Cursor rules for Eltayar application,  Laravel 12 dashboard application using  Spatie packages, Filament. 
+  This rule enforces best practices across architecture, testing, formatting, performance, and security to ensure a scalable and clean codebase.
+globs: *.php
+alwaysApply: true
+---
+
+# Cursor Rules for Eltayar
+
+## Stack
+
+- Laravel 12
+- Filament v5
+- PHP 8.3+
+- Livewire 4
+
+## GENERAL BEST PRACTICES
+
+- Follow Laravel conventions strictly.
+- Follow PSR-12 coding standards and use Laravel Pint for formatting.
+- Prefer readability over clever code.
+- Use PHP 8.3+ syntax when appropriate.
+- Use type hints, return types, and named arguments where possible.
+- Apply SOLID, DRY, and KISS principles across all modules.
+- Keep controllers thin.
+- Move business logic to services/actions.
+- Use dependency injection.
+- Avoid duplicated code.
+- Avoid bloated controllers or models — extract logic into service classes.
+- Prefer readonly or final classes when applicable (PHP 8.2+).
+- Prefer clean, maintainable, production-ready code.
+- Prefer framework-native solutions before custom implementations.
+- Preserve existing architecture and coding style.
+- Do not introduce unnecessary abstractions.
+
+## Controllers Structure
+
+- Follow resource controller pattern.
+- For single action controller use `__invoke` method.
+- Invokable controllers name should start with noun not action, e.g., `UserChangePasswordController`.
+
+## SERVICE CLASS CONVENTIONS
+
+- Use single-action service classes with a single `execute()` method.
+- `execute()` method should return `void`.
+- Service class name should start with the action, e.g., `UpdateUserPasswordService`.
+- Place service classes inside each module under `Services/`.
+- Inject dependencies through method arguments, not constructors.
+- Service classes must handle one responsibility only.
+- Example usage: `$service->execute($user, $request->validated());`
+
+## MODEL CONVENTIONS
+
+- Define `$fillable` properties explicitly. Do not use `$guarded = []`.
+- Use `$casts` for booleans, dates, arrays, and enums.
+- Use `HasMedia` from Spatie for media handling — avoid manual paths.
+- Use `::query()` when starting Eloquent queries.
+
+## Eloquent
+
+- Use eager loading to prevent N+1 queries.
+- Prefer relationships over manual joins.
+- Use scopes for reusable query logic.
+- Avoid raw SQL unless necessary.
+- Use casts properly.
+
+## Database
+
+- Follow Laravel naming conventions.
+- Use foreign keys and indexes.
+- Make migrations reversible.
+- Never delete production data in migrations automatically.
+
+## API
+
+- Use API Resources.
+- Return consistent JSON structures.
+- Use proper HTTP status codes.
+
+## AUTHENTICATION & SECURITY
+
+- Use Sanctum for API authentication.
+- Apply `auth:sanctum` middleware on protected endpoints.
+- Enforce policies for model-level access control.
+- Validate all input with FormRequest classes — no inline validation.
+- Sanitize all user input and output.
+- Always authorize actions.
+- Never trust frontend input.
+- Respect policies and permissions.
+- Escape unsafe output.
+
+## MEDIA HANDLING
+
+- Use Spatie Media Library for uploads.
+- Define media collections and conversions in each model.
+- Use cloud storage via `spatie/laravel-google-cloud-storage`.
+
+## ROUTING & CONTROLLERS
+
+- Group routes by module and file.
+- Use route model binding and API Resource classes.
+- Keep controllers thin and delegate logic to service classes.
+- Follow consistent naming for routes and controller actions.
+
+## PERFORMANCE
+
+- Eager-load relationships to prevent N+1 problems.
+- Use Laravel's cache layer for expensive data.
+- Offload heavy work to queues (e.g., emails, image processing).
+- Use indexes in DB, avoid nested loops and unnecessary joins.
+- Cache expensive operations.
+- Use lazy loading where appropriate.
+- Optimize large Select options.
+
+## DEBUGGING & MONITORING
+
+- Use Laravel Telescope in development only.
+- Handle all exceptions via Laravel's exception handler.
+
+## TOOLING
+
+- Run Pint on every commit for formatting.
+- Use `.env` to manage config — never hardcode.
+
+## DEPLOYMENT & CI/CD
+
+- Never commit `.env`, `.sqlite`, or `vendor/`.
+
+## PROJECT-SPECIFIC RULES
+
+- Use `brick/money` for currency — never floats.
+- Use `laravel-phone` for validation, not regex.
+- Use `eloquentfilter` for dynamic filtering — avoid `if` chains in queries.
+- Manage access using `spatie/permission` and middleware.
+- Prefer Enums over hardcoded strings for status fields or configuration.
+
+## Filament v5 Rules
+
+### General
+
+- Follow Filament v5 conventions only.
+- Do not generate deprecated Filament APIs.
+- Prefer native Filament features before custom Livewire code.
+- Reuse Resources, Actions, Widgets, and Components when possible.
+
+### Fulfillment (required defaults)
+
+- **URL handling:** Always use `Resource::getUrl('index')` (or other resource page keys) instead of standard Laravel `route()` helpers for Filament-related links.
+- **Resource generation:** When creating resources, skip generating the View page or Infolists unless explicitly requested — keep the admin panel lean.
+- **Relationship management:** Use RelationManagers for simple CRUD on related models; do not build custom Livewire components when a RelationManager is sufficient.
+
+### Resources
+
+- Use Resources for CRUD panels.
+- Use Relation Managers for related models.
+- Keep Resources focused and small.
+
+### Forms
+
+- Use schema-based forms.
+- Prefer: TextInput, Select, Toggle, Repeater, Section, Tabs, Wizard.
+- Use `->relationship()` whenever applicable.
+- Prefer searchable selects for large datasets.
+- Add validation rules inside form components when appropriate.
+
+### Tables
+
+- Use Filament Tables instead of custom tables.
+- Use filters, actions, bulk actions, and tabs properly.
+- Paginate large datasets.
+- Avoid heavy queries inside columns.
+
+### Actions
+
+- Prefer Filament Actions over custom modals.
+- Keep actions single-purpose.
+- Use confirmation modals for destructive actions.
+
+### Panels
+
+- Use Panel Providers properly.
+- Keep panel configuration centralized.
+
+### Widgets
+
+- Prefer Filament widgets/stats/charts.
+- Avoid custom dashboard implementations unless necessary.
+
+### Livewire
+
+- Prefer Filament abstractions over raw Livewire logic.
+- Avoid unnecessary state complexity.
+- Keep components reactive but lightweight.
+
+## AI Assistant Behavior
+
+- Generate complete working code.
+- Never invent Filament methods, classes, or APIs.
+- If uncertain, follow official Filament v5 documentation.
+- Inspect existing project patterns before generating code.
+- Match naming and style conventions already used in the project.
+- Prefer minimal, maintainable solutions.

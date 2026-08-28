@@ -11,4 +11,8 @@ return [
     'activity' => 'النشاط',
     'type' => 'النوع',
     'maximum_allowed' => 'الحد الأقصى',
-]; 
+    'notes' => 'ملاحظات',
+    'clients' => 'العملاء',
+    'trip_prices' => 'أسعار الرحلة',
+    'bookings' => 'الحجوزات',
+];

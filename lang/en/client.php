@@ -11,4 +11,7 @@ return [
     'status' => 'Status',
     'parent' => 'Parent',
     'children' => 'Children',
-]; 
+    'notes' => 'Notes',
+    'trips' => 'Trips',
+    'trip' => 'Trip',
+];

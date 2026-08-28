@@ -7,6 +7,8 @@ use App\Enums\TripStatus;
 use App\Enums\TripType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Trip extends Model
 {
@@ -20,7 +22,7 @@ class Trip extends Model
         'status',
         'activity',
         'type',
-        'maximum_allowed'
+        'maximum_allowed',
     ];
 
     protected $casts = [
@@ -31,13 +33,25 @@ class Trip extends Model
         'type' => TripType::class,
     ];
 
-    public function tripClients()
+    public function tripClients(): HasMany
     {
         return $this->hasMany(TripClient::class);
     }
 
-    public function tripPrices()
+    public function clients(): BelongsToMany
+    {
+        return $this->belongsToMany(Client::class, 'trip_clients')
+            ->withPivot(['booking_id', 'room_type', 'price', 'discount_amount', 'final_price', 'notes'])
+            ->withTimestamps();
+    }
+
+    public function tripPrices(): HasMany
     {
         return $this->hasMany(TripPrice::class);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 }

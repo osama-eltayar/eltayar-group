@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use App\Enums\ClientStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
 {
@@ -18,7 +22,7 @@ class Client extends Model
         'date_of_birth',
         'parent_id',
         'status',
-        'notes'
+        'notes',
     ];
 
     protected $casts = [
@@ -26,13 +30,47 @@ class Client extends Model
         'date_of_birth' => 'date',
     ];
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function tripClients(): HasMany
+    {
+        return $this->hasMany(TripClient::class);
+    }
+
+    public function trips(): BelongsToMany
+    {
+        return $this->belongsToMany(Trip::class, 'trip_clients')
+            ->withPivot(['booking_id', 'room_type', 'price', 'discount_amount', 'final_price', 'notes'])
+            ->withTimestamps();
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function clientServices(): HasMany
+    {
+        return $this->hasMany(ClientService::class);
+    }
+
+    public function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => $this->name_ar ?: (string) $this->name_en,
+        );
     }
 }

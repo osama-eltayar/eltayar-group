@@ -13,4 +13,6 @@ return [
     'payment_method' => 'طريقة الدفع',
     'type' => 'النوع',
     'notes' => 'ملاحظات',
-]; 
+    'reviewed_by' => 'تمت المراجعة بواسطة',
+    'reviewer' => 'المراجع',
+];

@@ -11,4 +11,5 @@ return [
     'price' => 'السعر',
     'discount_amount' => 'قيمة الخصم',
     'final_price' => 'السعر النهائي',
-]; 
+    'notes' => 'ملاحظات',
+];
