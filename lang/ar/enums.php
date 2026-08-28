@@ -53,4 +53,10 @@ return [
         'completed' => 'مكتملة',
         'cancelled' => 'ملغاة',
     ],
+
+    'user_status' => [
+        'active' => 'نشط',
+        'pending' => 'قيد الانتظار',
+        'banned' => 'محظور',
+    ],
 ];

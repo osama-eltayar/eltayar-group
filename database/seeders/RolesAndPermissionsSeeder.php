@@ -46,5 +46,8 @@ class RolesAndPermissionsSeeder extends Seeder
         $role->givePermissionTo(Permission::all());
         $role = Role::query()->firstOrCreate(['name' => 'admin']);
         $role->givePermissionTo(Permission::all());
+
+        // Employees do not manage users, roles, or permissions.
+        Role::query()->firstOrCreate(['name' => 'employee']);
     }
 }

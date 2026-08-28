@@ -53,4 +53,10 @@ return [
         'completed' => 'Completed',
         'cancelled' => 'Cancelled',
     ],
+
+    'user_status' => [
+        'active' => 'Active',
+        'pending' => 'Pending',
+        'banned' => 'Banned',
+    ],
 ];
