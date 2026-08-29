@@ -10,11 +10,44 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class ClientForm
 {
+    /**
+     * @return array<int, Component>
+     */
+    public static function quickCreateSchema(): array
+    {
+        return [
+            TextInput::make('name_en')
+                ->label(__('client.name_en'))
+                ->requiredWithout('name_ar')
+                ->maxLength(255),
+            TextInput::make('name_ar')
+                ->label(__('client.name_ar'))
+                ->requiredWithout('name_en')
+                ->maxLength(255),
+            TextInput::make('national_number')
+                ->label(__('client.national_number'))
+                ->required()
+                ->unique()
+                ->maxLength(255),
+            TextInput::make('passport_number')
+                ->label(__('client.passport_number'))
+                ->maxLength(255),
+            DatePicker::make('date_of_birth')
+                ->label(__('client.date_of_birth')),
+            Select::make('status')
+                ->label(__('client.status'))
+                ->options(ClientStatus::toOptions())
+                ->default(ClientStatus::Active->value)
+                ->required(),
+        ];
+    }
+
     public static function configure(Schema $schema): Schema
     {
         return $schema

@@ -31,13 +31,6 @@ class TransactionsRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                Select::make('user_id')
-                    ->label(__('transaction.user'))
-                    ->relationship('user', 'name')
-                    ->default(fn () => auth()->id())
-                    ->searchable()
-                    ->preload()
-                    ->required(),
                 MorphToSelect::make('transactionable')
                     ->label(__('transaction.transactionable'))
                     ->types([
@@ -112,7 +105,12 @@ class TransactionsRelationManager extends RelationManager
             ])
             ->defaultSort('created_at', 'desc')
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                    ->mutateDataUsing(function (array $data): array {
+                        $data['user_id'] = auth()->id();
+
+                        return $data;
+                    }),
             ])
             ->recordActions([
                 EditAction::make(),

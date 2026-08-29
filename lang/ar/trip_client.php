@@ -12,4 +12,6 @@ return [
     'discount_amount' => 'قيمة الخصم',
     'final_price' => 'السعر النهائي',
     'notes' => 'ملاحظات',
+    'price_from' => 'السعر من',
+    'price_until' => 'السعر إلى',
 ];

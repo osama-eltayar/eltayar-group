@@ -45,6 +45,10 @@ class TripsTable
                     ->label(__('trip.ended_at'))
                     ->date()
                     ->sortable(),
+                TextColumn::make('clients_count')
+                    ->label(__('trip.clients_count'))
+                    ->counts('clients')
+                    ->sortable(),
                 TextColumn::make('maximum_allowed')
                     ->label(__('trip.maximum_allowed'))
                     ->sortable()

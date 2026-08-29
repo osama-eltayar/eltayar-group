@@ -6,18 +6,21 @@ use App\Enums\Currency;
 use App\Enums\PaymentMethod;
 use App\Enums\TransactionType;
 use App\Filament\Resources\Transactions\TransactionResource;
+use App\Models\Client;
 use App\Models\Transaction;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class TransactionsTable
@@ -45,10 +48,9 @@ class TransactionsTable
                     ->sortable(),
                 TextColumn::make('payment_method')
                     ->label(__('transaction.payment_method')),
-                IconColumn::make('reviewed_by')
+                TextColumn::make('reviewer.name')
                     ->label(__('transaction.reviewed_by'))
-                    ->boolean()
-                    ->state(fn (Transaction $record): bool => $record->isReviewed()),
+                    ->placeholder('—'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable(),
@@ -63,9 +65,42 @@ class TransactionsTable
                 SelectFilter::make('payment_method')
                     ->label(__('transaction.payment_method'))
                     ->options(PaymentMethod::toOptions()),
+                SelectFilter::make('user_id')
+                    ->label(__('transaction.user'))
+                    ->relationship('user', 'name')
+                    ->multiple()
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('client_id')
+                    ->label(__('transaction.client'))
+                    ->options(fn (): array => Client::query()
+                        ->get()
+                        ->mapWithKeys(fn (Client $client): array => [$client->id => $client->name])
+                        ->all())
+                    ->multiple()
+                    ->searchable(),
                 TernaryFilter::make('reviewed_by')
                     ->label(__('transaction.reviewed_by'))
                     ->nullable(),
+                Filter::make('created_at')
+                    ->label(__('transaction.created_at'))
+                    ->schema([
+                        DateTimePicker::make('created_from')
+                            ->label(__('transaction.created_from')),
+                        DateTimePicker::make('created_until')
+                            ->label(__('transaction.created_until')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->where('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->where('created_at', '<=', $date),
+                            );
+                    }),
             ])
             ->defaultSort('created_at', 'desc')
             ->recordActions([

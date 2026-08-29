@@ -13,6 +13,7 @@ return [
     'maximum_allowed' => 'Maximum Allowed',
     'notes' => 'Notes',
     'clients' => 'Clients',
+    'clients_count' => 'Number of Clients',
     'trip_prices' => 'Trip Prices',
     'bookings' => 'Bookings',
 ];

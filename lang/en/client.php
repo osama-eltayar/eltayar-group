@@ -14,4 +14,6 @@ return [
     'notes' => 'Notes',
     'trips' => 'Trips',
     'trip' => 'Trip',
+    'born_from' => 'Born From',
+    'born_until' => 'Born Until',
 ];

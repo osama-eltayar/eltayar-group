@@ -15,4 +15,7 @@ return [
     'notes' => 'ملاحظات',
     'reviewed_by' => 'تمت المراجعة بواسطة',
     'reviewer' => 'المراجع',
+    'created_at' => 'تاريخ الإنشاء',
+    'created_from' => 'من تاريخ',
+    'created_until' => 'إلى تاريخ',
 ];

@@ -13,6 +13,7 @@ return [
     'maximum_allowed' => 'الحد الأقصى',
     'notes' => 'ملاحظات',
     'clients' => 'العملاء',
+    'clients_count' => 'عدد العملاء',
     'trip_prices' => 'أسعار الرحلة',
     'bookings' => 'الحجوزات',
 ];

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\TripClients\Schemas;
 
 use App\Enums\RoomType;
+use App\Filament\Resources\Clients\Schemas\ClientForm;
 use App\Models\Client;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -20,7 +21,8 @@ class TripClientForm
                     ->getOptionLabelFromRecordUsing(fn (Client $record): string => $record->name)
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->required()
+                    ->createOptionForm(ClientForm::quickCreateSchema()),
                 Select::make('trip_id')
                     ->label(__('trip_client.trip'))
                     ->relationship('trip', 'name')

@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Transactions\Schemas;
 use App\Enums\Currency;
 use App\Enums\PaymentMethod;
 use App\Enums\TransactionType;
+use App\Filament\Resources\Clients\Schemas\ClientForm;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\ClientService;
@@ -20,20 +21,14 @@ class TransactionForm
     {
         return $schema
             ->components([
-                Select::make('user_id')
-                    ->label(__('transaction.user'))
-                    ->relationship('user', 'name')
-                    ->default(fn () => auth()->id())
-                    ->searchable()
-                    ->preload()
-                    ->required(),
                 Select::make('client_id')
                     ->label(__('transaction.client'))
                     ->relationship('client', 'id')
                     ->getOptionLabelFromRecordUsing(fn (Client $record): string => $record->name)
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->required()
+                    ->createOptionForm(ClientForm::quickCreateSchema()),
                 MorphToSelect::make('transactionable')
                     ->label(__('transaction.transactionable'))
                     ->types([
