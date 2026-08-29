@@ -396,7 +396,7 @@
 
                 <div class="receipt-row">
                     <span class="receipt-label">طريقة الدفع:</span>
-                    <span class="receipt-value">{{ $transaction->payment_method->label() }}</span>
+                    <span class="receipt-value">{{ $transaction->payment_method->getLabel() }}</span>
                 </div>
 
                 <div class="receipt-row">

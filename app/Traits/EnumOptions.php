@@ -19,11 +19,11 @@ trait EnumOptions
         $cases = \collect(static::cases());
 
         return \is_a(static::class, \BackedEnum::class, allow_string: true)
-            ? $cases->mapWithKeys(fn (\BackedEnum $case): array => [$case->value => $case->label()])->all()
-            : $cases->mapWithKeys(fn (\UnitEnum $case): array => [$case->value => $case->label()])->all();
+            ? $cases->mapWithKeys(fn (\BackedEnum $case): array => [$case->value => $case->getLabel()])->all()
+            : $cases->mapWithKeys(fn (\UnitEnum $case): array => [$case->value => $case->getLabel()])->all();
     }
 
-    public function label(): string
+    public function getLabel(): string
     {
         $enumName = Str::snake(class_basename(static::class));
 

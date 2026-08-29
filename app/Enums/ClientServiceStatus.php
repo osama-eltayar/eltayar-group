@@ -3,8 +3,9 @@
 namespace App\Enums;
 
 use App\Traits\EnumOptions;
+use Filament\Support\Contracts\HasLabel;
 
-enum ClientServiceStatus: string
+enum ClientServiceStatus: string implements HasLabel
 {
     use EnumOptions;
 

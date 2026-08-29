@@ -86,6 +86,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Available Locales
+    |--------------------------------------------------------------------------
+    |
+    | The locales the application allows users to switch between, keyed by
+    | locale code and mapped to their display name for the UI switcher.
+    |
+    */
+
+    'available_locales' => [
+        'en' => 'English',
+        'ar' => 'العربية',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |
