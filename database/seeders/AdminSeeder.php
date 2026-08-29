@@ -14,9 +14,10 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $user = User::query()->updateOrCreate([
-            'name' => 'Super Admin',
             'email' => 'super-admin@eltayar.com',
         ], [
+            'name' => 'Super Admin',
+            'status' => 'active',
             'password' => bcrypt(env('SUPER_ADMIN_PASSWORD', '4nu@q(@@98')),
         ]);
 

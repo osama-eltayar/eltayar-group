@@ -3,17 +3,17 @@
 namespace Database\Factories;
 
 use App\Enums\RoomType;
-use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Trip;
+use App\Models\TripClient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Booking>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TripClient>
  */
-class BookingFactory extends Factory
+class TripClientFactory extends Factory
 {
-    protected $model = Booking::class;
+    protected $model = TripClient::class;
 
     /**
      * Define the model's default state.
@@ -25,11 +25,10 @@ class BookingFactory extends Factory
         return [
             'client_id' => Client::factory(),
             'trip_id' => Trip::factory(),
+            'booking_id' => null,
             'room_type' => $this->faker->randomElement(RoomType::cases()),
             'price' => $this->faker->numberBetween(1000, 6000),
-            'number_of_clients' => $this->faker->numberBetween(1, 4),
             'discount_amount' => $this->faker->randomElement([0, 0, 0, 100, 200]),
-            'paid' => 0,
             'notes' => $this->faker->optional()->sentence(),
         ];
     }

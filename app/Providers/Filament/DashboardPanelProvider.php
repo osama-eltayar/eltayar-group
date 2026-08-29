@@ -4,7 +4,6 @@ namespace App\Providers\Filament;
 
 use App\Http\Middleware\LogoutBannedUsers;
 use App\Http\Middleware\SetLocale;
-use Filament\Actions\Action;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -13,9 +12,10 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Support\Icons\Heroicon;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
+use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -61,14 +61,9 @@ class DashboardPanelProvider extends PanelProvider
                 Authenticate::class,
                 LogoutBannedUsers::class,
             ])
-            ->userMenuItems([
-                'locale' => Action::make('locale')
-                    ->label(fn (): string => app()->getLocale() === 'ar'
-                        ? config('app.available_locales.en')
-                        : config('app.available_locales.ar'))
-                    ->icon(Heroicon::Language)
-                    ->url(fn (): string => route('locale.switch', app()->getLocale() === 'ar' ? 'en' : 'ar'))
-                    ->sort(-2),
-            ]);
+            ->renderHook(
+                PanelsRenderHook::GLOBAL_SEARCH_AFTER,
+                fn (): View => view('filament.locale-switcher'),
+            );
     }
 }
