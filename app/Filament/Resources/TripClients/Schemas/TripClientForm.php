@@ -15,6 +15,13 @@ class TripClientForm
     {
         return $schema
             ->components([
+                Select::make('branch_id')
+                    ->label(__('trip_client.branch'))
+                    ->relationship('branch', 'name')
+                    ->default(fn (): ?int => session('branch_id'))
+                    ->searchable()
+                    ->preload()
+                    ->required(),
                 Select::make('client_id')
                     ->label(__('trip_client.client'))
                     ->relationship('client', 'id')

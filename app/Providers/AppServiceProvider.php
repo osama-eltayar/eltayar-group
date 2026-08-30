@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Filament\Support\Facades\FilamentTimezone;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        FilamentTimezone::set(fn (): string => Auth::user()?->timezone ?: config('app.display_timezone'));
     }
 }

@@ -31,6 +31,7 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'status',
         'invitation_token',
+        'timezone',
     ];
 
     /**

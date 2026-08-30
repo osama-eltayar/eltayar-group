@@ -101,6 +101,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default Display Timezone
+    |--------------------------------------------------------------------------
+    |
+    | Dates are stored in the database using the app timezone above (UTC).
+    | This is the timezone used to display dates to a user who has not
+    | set a personal timezone preference on their account.
+    |
+    */
+
+    'display_timezone' => env('APP_DISPLAY_TIMEZONE', 'Africa/Cairo'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------
     |

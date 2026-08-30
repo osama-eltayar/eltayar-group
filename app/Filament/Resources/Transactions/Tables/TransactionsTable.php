@@ -30,6 +30,14 @@ class TransactionsTable
         return $table
             ->recordUrl(fn (Transaction $record): string => TransactionResource::getUrl('view', ['record' => $record]))
             ->columns([
+                TextColumn::make('identifier')
+                    ->label(__('transaction.identifier'))
+                    ->searchable()
+                    ->sortable()
+                    ->copyable(),
+                TextColumn::make('branch.name')
+                    ->label(__('transaction.branch'))
+                    ->sortable(),
                 TextColumn::make('client.name')
                     ->label(__('transaction.client'))
                     ->searchable(),
@@ -56,6 +64,11 @@ class TransactionsTable
                     ->sortable(),
             ])
             ->filters([
+                SelectFilter::make('branch')
+                    ->label(__('transaction.branch'))
+                    ->relationship('branch', 'name')
+                    ->searchable()
+                    ->preload(),
                 SelectFilter::make('type')
                     ->label(__('transaction.type'))
                     ->options(TransactionType::toOptions()),

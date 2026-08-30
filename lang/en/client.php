@@ -3,6 +3,7 @@
 return [
     'label' => 'Clients',
     'singular_label' => 'Client',
+    'branch' => 'Branch',
     'name_ar' => 'Arabic Name',
     'name_en' => 'English Name',
     'national_number' => 'National Number',

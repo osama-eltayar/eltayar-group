@@ -11,7 +11,7 @@ use App\Models\TripPrice;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Trip>
+ * @extends Factory<Trip>
  */
 class TripFactory extends Factory
 {
@@ -26,14 +26,15 @@ class TripFactory extends Factory
     {
         $startDate = $this->faker->dateTimeBetween('now', '+2 months');
         $endDate = $this->faker->dateTimeBetween($startDate, '+1 year');
+        $activity = $this->faker->randomElement(TripActivity::cases());
 
         return [
-            'name' => $this->faker->sentence(3),
+            'name' => Trip::generateHijriName($activity, $startDate),
             'description' => $this->faker->paragraph(),
             'started_at' => $startDate,
             'ended_at' => $endDate,
             'status' => $this->faker->randomElement(TripStatus::cases()),
-            'activity' => $this->faker->randomElement(TripActivity::cases()),
+            'activity' => $activity,
             'type' => $this->faker->randomElement(TripType::cases()),
             'maximum_allowed' => $this->faker->numberBetween(10, 50),
         ];

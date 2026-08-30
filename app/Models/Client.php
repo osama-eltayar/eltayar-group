@@ -15,6 +15,7 @@ class Client extends Model
     use HasFactory;
 
     protected $fillable = [
+        'branch_id',
         'name_en',
         'name_ar',
         'national_number',
@@ -29,6 +30,11 @@ class Client extends Model
         'status' => ClientStatus::class,
         'date_of_birth' => 'date',
     ];
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
 
     public function parent(): BelongsTo
     {

@@ -23,6 +23,9 @@ class TripClientsTable
         return $table
             ->recordUrl(fn (TripClient $record): string => TripClientResource::getUrl('view', ['record' => $record]))
             ->columns([
+                TextColumn::make('branch.name')
+                    ->label(__('trip_client.branch'))
+                    ->sortable(),
                 TextColumn::make('client.name')
                     ->label(__('trip_client.client'))
                     ->searchable(),
@@ -48,6 +51,11 @@ class TripClientsTable
                     ->sortable(),
             ])
             ->filters([
+                SelectFilter::make('branch')
+                    ->label(__('trip_client.branch'))
+                    ->relationship('branch', 'name')
+                    ->searchable()
+                    ->preload(),
                 SelectFilter::make('trip')
                     ->label(__('trip_client.trip'))
                     ->relationship('trip', 'name')

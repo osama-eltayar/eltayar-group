@@ -3,6 +3,8 @@
 return [
     'label' => 'Transactions',
     'singular_label' => 'Transaction',
+    'branch' => 'Branch',
+    'identifier' => 'Identifier',
     'user' => 'User',
     'client' => 'Client',
     'transactionable' => 'Related Item',

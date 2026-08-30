@@ -25,6 +25,9 @@ class ClientsTable
             ->columns([
                 TextColumn::make('id')
                     ->sortable(),
+                TextColumn::make('branch.name')
+                    ->label(__('client.branch'))
+                    ->sortable(),
                 TextColumn::make('name_en')
                     ->label(__('client.name_en'))
                     ->searchable()
@@ -56,6 +59,11 @@ class ClientsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                SelectFilter::make('branch')
+                    ->label(__('client.branch'))
+                    ->relationship('branch', 'name')
+                    ->searchable()
+                    ->preload(),
                 SelectFilter::make('status')
                     ->label(__('client.status'))
                     ->options(ClientStatus::toOptions()),

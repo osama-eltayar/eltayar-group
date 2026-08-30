@@ -3,6 +3,7 @@
 return [
     'label' => 'العملاء',
     'singular_label' => 'العميل',
+    'branch' => 'الفرع',
     'name_ar' => 'الاسم بالعربية',
     'name_en' => 'الاسم بالإنجليزية',
     'national_number' => 'الرقم القومي',

@@ -3,6 +3,8 @@
 return [
     'label' => 'المعاملات',
     'singular_label' => 'المعاملة',
+    'branch' => 'الفرع',
+    'identifier' => 'المعرف',
     'user' => 'المستخدم',
     'client' => 'العميل',
     'transactionable' => 'العنصر المرتبط',

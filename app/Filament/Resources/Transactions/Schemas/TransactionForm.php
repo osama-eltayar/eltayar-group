@@ -21,6 +21,13 @@ class TransactionForm
     {
         return $schema
             ->components([
+                Select::make('branch_id')
+                    ->label(__('transaction.branch'))
+                    ->relationship('branch', 'name')
+                    ->default(fn (): ?int => session('branch_id'))
+                    ->searchable()
+                    ->preload()
+                    ->required(),
                 Select::make('client_id')
                     ->label(__('transaction.client'))
                     ->relationship('client', 'id')

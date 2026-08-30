@@ -3,6 +3,7 @@
 return [
     'label' => 'عملاء الرحلات',
     'singular_label' => 'عميل الرحلة',
+    'branch' => 'الفرع',
     'client' => 'العميل',
     'booking' => 'الحجز',
     'trip' => 'الرحلة',

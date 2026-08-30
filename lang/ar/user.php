@@ -7,6 +7,7 @@ return [
     'email' => 'البريد الإلكتروني',
     'password' => 'كلمة المرور',
     'roles' => 'الأدوار',
+    'timezone' => 'المنطقة الزمنية',
     'permissions' => 'الصلاحيات',
     'status' => 'الحالة',
     'invitation_link' => 'رابط الدعوة',
@@ -25,4 +26,7 @@ return [
     'confirm_password' => 'تأكيد كلمة المرور',
     'set_password' => 'تعيين كلمة المرور',
     'invitation_accepted' => 'تم تعيين كلمة المرور. يمكنك تسجيل الدخول الآن.',
+    'change_password' => 'تغيير كلمة المرور',
+    'current_password' => 'كلمة المرور الحالية',
+    'password_updated' => 'تم تحديث كلمة المرور الخاصة بك.',
 ];

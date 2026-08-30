@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Enums\TripActivity;
 use App\Enums\TripStatus;
 use App\Enums\TripType;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use IntlDateFormatter;
 
 class Trip extends Model
 {
@@ -53,5 +55,24 @@ class Trip extends Model
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class);
+    }
+
+    public static function generateHijriName(TripActivity $activity, DateTimeInterface $startedAt): string
+    {
+        $activityLabel = match ($activity) {
+            TripActivity::Hajj => 'حج',
+            TripActivity::Omra => 'عمرة',
+        };
+
+        $hijriYear = (new IntlDateFormatter(
+            'ar_SA@calendar=islamic',
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            'UTC',
+            IntlDateFormatter::TRADITIONAL,
+            'yyyy',
+        ))->format($startedAt);
+
+        return "{$activityLabel} {$hijriYear}هـ";
     }
 }

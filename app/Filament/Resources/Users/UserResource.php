@@ -13,6 +13,9 @@ use App\Filament\Resources\Users\Tables\UsersTable;
 use App\Models\User;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Facades\Filament;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -20,6 +23,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password;
 
 class UserResource extends Resource
 {
@@ -140,6 +144,43 @@ class UserResource extends Resource
             ->requiresConfirmation()
             ->visible(fn (User $record): bool => $record->isPending() && blank($record->invitation_token))
             ->action(fn (User $record) => $record->update(['invitation_token' => Str::random(48)]));
+    }
+
+    public static function changePasswordAction(): Action
+    {
+        return Action::make('changePassword')
+            ->label(__('user.change_password'))
+            ->icon(Heroicon::Key)
+            ->schema([
+                TextInput::make('current_password')
+                    ->label(__('user.current_password'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->currentPassword(guard: Filament::getAuthGuard()),
+                TextInput::make('password')
+                    ->label(__('user.new_password'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->rule(Password::default())
+                    ->same('passwordConfirmation'),
+                TextInput::make('passwordConfirmation')
+                    ->label(__('user.confirm_password'))
+                    ->password()
+                    ->revealable(filament()->arePasswordsRevealable())
+                    ->required()
+                    ->dehydrated(false),
+            ])
+            ->action(function (array $data): void {
+                Auth::user()->update(['password' => $data['password']]);
+
+                Notification::make()
+                    ->success()
+                    ->title(__('user.password_updated'))
+                    ->send();
+            })
+            ->sort(0);
     }
 
     public static function form(Schema $schema): Schema

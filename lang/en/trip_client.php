@@ -3,6 +3,7 @@
 return [
     'label' => 'Trip Clients',
     'singular_label' => 'Trip Client',
+    'branch' => 'Branch',
     'client' => 'Client',
     'booking' => 'Booking',
     'trip' => 'Trip',

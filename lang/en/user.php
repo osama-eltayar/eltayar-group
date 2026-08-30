@@ -7,6 +7,7 @@ return [
     'email' => 'Email',
     'password' => 'Password',
     'roles' => 'Roles',
+    'timezone' => 'Timezone',
     'permissions' => 'Permissions',
     'status' => 'Status',
     'invitation_link' => 'Invitation Link',
@@ -25,4 +26,7 @@ return [
     'confirm_password' => 'Confirm Password',
     'set_password' => 'Set Password',
     'invitation_accepted' => 'Your password has been set. You can now log in.',
+    'change_password' => 'Change Password',
+    'current_password' => 'Current Password',
+    'password_updated' => 'Your password has been updated.',
 ];

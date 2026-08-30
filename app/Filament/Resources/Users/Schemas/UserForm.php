@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use DateTimeZone;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -28,6 +29,14 @@ class UserForm
                     ->multiple()
                     ->searchable()
                     ->preload(),
+                Select::make('timezone')
+                    ->label(__('user.timezone'))
+                    ->options(collect(DateTimeZone::listIdentifiers())->mapWithKeys(
+                        fn (string $timezone): array => [$timezone => $timezone],
+                    ))
+                    ->searchable()
+                    ->native(false)
+                    ->placeholder(config('app.display_timezone')),
             ]);
     }
 }

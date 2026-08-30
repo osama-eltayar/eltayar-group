@@ -12,6 +12,7 @@ class TripClient extends Model
     use HasFactory;
 
     protected $fillable = [
+        'branch_id',
         'client_id',
         'trip_id',
         'booking_id',
@@ -34,6 +35,11 @@ class TripClient extends Model
         static::saving(function (self $tripClient): void {
             $tripClient->final_price = max(0, (int) $tripClient->price - (int) $tripClient->discount_amount);
         });
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function client(): BelongsTo
