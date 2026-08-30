@@ -67,6 +67,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Salary::class);
     }
 
+    public function borrowings(): HasMany
+    {
+        return $this->hasMany(Borrowing::class);
+    }
+
     public function isSuperAdmin(): bool
     {
         return $this->hasRole(RoleEnum::SuperAdmin);
