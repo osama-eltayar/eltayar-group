@@ -8,8 +8,10 @@ use App\Models\User;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
 class UsersTable
@@ -34,6 +36,9 @@ class UsersTable
                 TextColumn::make('roles.name')
                     ->label(__('user.roles'))
                     ->badge(),
+                IconColumn::make('has_salary')
+                    ->label(__('user.has_salary'))
+                    ->boolean(),
                 TextColumn::make('invitationUrl')
                     ->label(__('user.invitation_link'))
                     ->state(fn (User $record): ?string => filled($record->invitation_token) ? __('user.copy_invitation_link') : null)
@@ -50,6 +55,8 @@ class UsersTable
                 SelectFilter::make('status')
                     ->label(__('user.status'))
                     ->options(UserStatus::toOptions()),
+                TernaryFilter::make('has_salary')
+                    ->label(__('user.has_salary')),
             ])
             ->defaultSort('created_at', 'desc')
             ->recordActions([

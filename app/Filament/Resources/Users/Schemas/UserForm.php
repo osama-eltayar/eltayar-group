@@ -3,8 +3,12 @@
 namespace App\Filament\Resources\Users\Schemas;
 
 use DateTimeZone;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 class UserForm
@@ -37,6 +41,23 @@ class UserForm
                     ->searchable()
                     ->native(false)
                     ->placeholder(config('app.display_timezone')),
+                Toggle::make('has_salary')
+                    ->label(__('user.has_salary'))
+                    ->live()
+                    ->default(false),
+                Section::make(__('user.salary_details'))
+                    ->visible(fn (Get $get, string $operation): bool => $operation === 'create' && $get('has_salary'))
+                    ->components([
+                        TextInput::make('salary.amount')
+                            ->label(__('user.salary_amount'))
+                            ->numeric()
+                            ->minValue(0)
+                            ->required(),
+                        DatePicker::make('salary.started_at')
+                            ->label(__('user.salary_started_at'))
+                            ->default(now())
+                            ->required(),
+                    ]),
             ]);
     }
 }

@@ -29,4 +29,8 @@ return [
     'change_password' => 'تغيير كلمة المرور',
     'current_password' => 'كلمة المرور الحالية',
     'password_updated' => 'تم تحديث كلمة المرور الخاصة بك.',
+    'has_salary' => 'يحصل على راتب',
+    'salary_details' => 'تفاصيل الراتب',
+    'salary_amount' => 'مبلغ الراتب',
+    'salary_started_at' => 'تاريخ بداية الراتب',
 ];

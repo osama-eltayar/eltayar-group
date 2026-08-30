@@ -139,7 +139,7 @@
 ### Fulfillment (required defaults)
 
 - **URL handling:** Always use `Resource::getUrl('index')` (or other resource page keys) instead of standard Laravel `route()` helpers for Filament-related links.
-- **Resource generation:** When creating resources, skip generating the View page or Infolists unless explicitly requested — keep the admin panel lean.
+- **List → View navigation:** Every resource must generate a View page/Infolist and open into it first from the list — set `->recordUrl(fn ($record) => static::getUrl('view', ['record' => $record]))` on the table. Never route the list directly into Edit. Put `EditAction` and other record-level actions as header actions on the View page (a quick-edit row action may still exist in the table alongside the `recordUrl`).
 - **Relationship management:** Use RelationManagers for simple CRUD on related models; do not build custom Livewire components when a RelationManager is sufficient.
 
 ### Resources

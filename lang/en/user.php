@@ -29,4 +29,8 @@ return [
     'change_password' => 'Change Password',
     'current_password' => 'Current Password',
     'password_updated' => 'Your password has been updated.',
+    'has_salary' => 'Takes a Salary',
+    'salary_details' => 'Salary Details',
+    'salary_amount' => 'Salary Amount',
+    'salary_started_at' => 'Salary Start Date',
 ];
