@@ -10,6 +10,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -92,12 +93,15 @@ class ClientsTable
                         fn (Builder $query, string $value): Builder => $query->where('passport_number', 'like', "%{$value}%"),
                     )),
                 Filter::make('date_of_birth')
-                    ->label(__('client.date_of_birth'))
                     ->schema([
-                        DatePicker::make('born_from')
-                            ->label(__('client.born_from')),
-                        DatePicker::make('born_until')
-                            ->label(__('client.born_until')),
+                        Fieldset::make(__('client.date_of_birth'))
+                            ->columns(2)
+                            ->schema([
+                                DatePicker::make('born_from')
+                                    ->label(__('client.from')),
+                                DatePicker::make('born_until')
+                                    ->label(__('client.until')),
+                            ]),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

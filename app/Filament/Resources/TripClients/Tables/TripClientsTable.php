@@ -10,6 +10,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -75,16 +76,19 @@ class TripClientsTable
                     ->options(RoomType::toOptions())
                     ->multiple(),
                 Filter::make('price')
-                    ->label(__('trip_client.price'))
                     ->schema([
-                        TextInput::make('price_from')
-                            ->label(__('trip_client.price_from'))
-                            ->numeric()
-                            ->minValue(0),
-                        TextInput::make('price_until')
-                            ->label(__('trip_client.price_until'))
-                            ->numeric()
-                            ->minValue(0),
+                        Fieldset::make(__('trip_client.price'))
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('price_from')
+                                    ->label(__('trip_client.from'))
+                                    ->numeric()
+                                    ->minValue(0),
+                                TextInput::make('price_until')
+                                    ->label(__('trip_client.until'))
+                                    ->numeric()
+                                    ->minValue(0),
+                            ]),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

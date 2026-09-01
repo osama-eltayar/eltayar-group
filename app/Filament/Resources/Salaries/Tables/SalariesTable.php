@@ -10,6 +10,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -66,44 +67,60 @@ class SalariesTable
             ->filters([
                 Filter::make('amount')
                     ->schema([
-                        TextInput::make('amount_from')
-                            ->label(__('salary.amount').' - '.__('salary.from'))
-                            ->numeric(),
-                        TextInput::make('amount_until')
-                            ->label(__('salary.amount').' - '.__('salary.until'))
-                            ->numeric(),
+                        Fieldset::make(__('salary.amount'))
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('amount_from')
+                                    ->label(__('salary.from'))
+                                    ->numeric(),
+                                TextInput::make('amount_until')
+                                    ->label(__('salary.until'))
+                                    ->numeric(),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['amount_from'] ?? null, fn (Builder $q, $value): Builder => $q->where('amount', '>=', $value))
                         ->when($data['amount_until'] ?? null, fn (Builder $q, $value): Builder => $q->where('amount', '<=', $value))),
                 Filter::make('started_at')
                     ->schema([
-                        DatePicker::make('started_from')
-                            ->label(__('salary.started_at').' - '.__('salary.from')),
-                        DatePicker::make('started_until')
-                            ->label(__('salary.started_at').' - '.__('salary.until')),
+                        Fieldset::make(__('salary.started_at'))
+                            ->columns(2)
+                            ->schema([
+                                DatePicker::make('started_from')
+                                    ->label(__('salary.from')),
+                                DatePicker::make('started_until')
+                                    ->label(__('salary.until')),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['started_from'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('started_at', '>=', $date))
                         ->when($data['started_until'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('started_at', '<=', $date))),
                 Filter::make('ended_at')
                     ->schema([
-                        DatePicker::make('ended_from')
-                            ->label(__('salary.ended_at').' - '.__('salary.from')),
-                        DatePicker::make('ended_until')
-                            ->label(__('salary.ended_at').' - '.__('salary.until')),
+                        Fieldset::make(__('salary.ended_at'))
+                            ->columns(2)
+                            ->schema([
+                                DatePicker::make('ended_from')
+                                    ->label(__('salary.from')),
+                                DatePicker::make('ended_until')
+                                    ->label(__('salary.until')),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['ended_from'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('ended_at', '>=', $date))
                         ->when($data['ended_until'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('ended_at', '<=', $date))),
                 Filter::make('last_salary')
                     ->schema([
-                        TextInput::make('last_salary_from')
-                            ->label(__('salary.last_salary').' - '.__('salary.from'))
-                            ->numeric(),
-                        TextInput::make('last_salary_until')
-                            ->label(__('salary.last_salary').' - '.__('salary.until'))
-                            ->numeric(),
+                        Fieldset::make(__('salary.last_salary'))
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('last_salary_from')
+                                    ->label(__('salary.from'))
+                                    ->numeric(),
+                                TextInput::make('last_salary_until')
+                                    ->label(__('salary.until'))
+                                    ->numeric(),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['last_salary_from'] ?? null, fn (Builder $q, $value): Builder => $q->whereHas('latestLog', fn (Builder $q2): Builder => $q2->where('amount', '>=', $value)))

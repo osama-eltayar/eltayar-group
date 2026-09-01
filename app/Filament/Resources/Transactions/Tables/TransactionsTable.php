@@ -14,6 +14,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -96,12 +97,15 @@ class TransactionsTable
                     ->label(__('transaction.reviewed_by'))
                     ->nullable(),
                 Filter::make('created_at')
-                    ->label(__('transaction.created_at'))
                     ->schema([
-                        DateTimePicker::make('created_from')
-                            ->label(__('transaction.created_from')),
-                        DateTimePicker::make('created_until')
-                            ->label(__('transaction.created_until')),
+                        Fieldset::make(__('transaction.created_at'))
+                            ->columns(2)
+                            ->schema([
+                                DateTimePicker::make('created_from')
+                                    ->label(__('transaction.from')),
+                                DateTimePicker::make('created_until')
+                                    ->label(__('transaction.until')),
+                            ]),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

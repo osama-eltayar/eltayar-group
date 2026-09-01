@@ -162,6 +162,7 @@
 - Use filters, actions, bulk actions, and tabs properly.
 - Paginate large datasets.
 - Avoid heavy queries inside columns.
+- **Range filters:** Any numeric (amount/min-max) or date (from/until) range filter must wrap its two fields in a `Filament\Schemas\Components\Fieldset::make($fieldLabel)->columns(2)->schema([...])` inside the `Filter::make()`'s schema. The Fieldset's label names the field being filtered (e.g. "Amount", "Started At"); the two inner inputs are labeled only `__('resource.from')` / `__('resource.until')` — never repeat the field name in the inner labels. This keeps the field name visible as a group heading while the two inputs render side by side, instead of two long, redundantly-labeled inputs.
 
 ### Actions
 

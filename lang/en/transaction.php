@@ -18,6 +18,6 @@ return [
     'reviewed_by' => 'Reviewed By',
     'reviewer' => 'Reviewer',
     'created_at' => 'Created At',
-    'created_from' => 'Created From',
-    'created_until' => 'Created Until',
+    'from' => 'From',
+    'until' => 'Until',
 ];

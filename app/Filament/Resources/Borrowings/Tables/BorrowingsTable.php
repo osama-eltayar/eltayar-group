@@ -10,6 +10,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -77,78 +78,106 @@ class BorrowingsTable
             ->filters([
                 Filter::make('amount')
                     ->schema([
-                        TextInput::make('amount_from')
-                            ->label(__('borrowing.amount').' - '.__('borrowing.from'))
-                            ->numeric(),
-                        TextInput::make('amount_until')
-                            ->label(__('borrowing.amount').' - '.__('borrowing.until'))
-                            ->numeric(),
+                        Fieldset::make(__('borrowing.amount'))
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('amount_from')
+                                    ->label(__('borrowing.from'))
+                                    ->numeric(),
+                                TextInput::make('amount_until')
+                                    ->label(__('borrowing.until'))
+                                    ->numeric(),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['amount_from'] ?? null, fn (Builder $q, $value): Builder => $q->where('amount', '>=', $value))
                         ->when($data['amount_until'] ?? null, fn (Builder $q, $value): Builder => $q->where('amount', '<=', $value))),
                 Filter::make('paid')
                     ->schema([
-                        TextInput::make('paid_from')
-                            ->label(__('borrowing.paid').' - '.__('borrowing.from'))
-                            ->numeric(),
-                        TextInput::make('paid_until')
-                            ->label(__('borrowing.paid').' - '.__('borrowing.until'))
-                            ->numeric(),
+                        Fieldset::make(__('borrowing.paid'))
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('paid_from')
+                                    ->label(__('borrowing.from'))
+                                    ->numeric(),
+                                TextInput::make('paid_until')
+                                    ->label(__('borrowing.until'))
+                                    ->numeric(),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['paid_from'] ?? null, fn (Builder $q, $value): Builder => $q->where('paid', '>=', $value))
                         ->when($data['paid_until'] ?? null, fn (Builder $q, $value): Builder => $q->where('paid', '<=', $value))),
                 Filter::make('remaining')
                     ->schema([
-                        TextInput::make('remaining_from')
-                            ->label(__('borrowing.remaining').' - '.__('borrowing.from'))
-                            ->numeric(),
-                        TextInput::make('remaining_until')
-                            ->label(__('borrowing.remaining').' - '.__('borrowing.until'))
-                            ->numeric(),
+                        Fieldset::make(__('borrowing.remaining'))
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('remaining_from')
+                                    ->label(__('borrowing.from'))
+                                    ->numeric(),
+                                TextInput::make('remaining_until')
+                                    ->label(__('borrowing.until'))
+                                    ->numeric(),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['remaining_from'] ?? null, fn (Builder $q, $value): Builder => $q->where('remaining', '>=', $value))
                         ->when($data['remaining_until'] ?? null, fn (Builder $q, $value): Builder => $q->where('remaining', '<=', $value))),
                 Filter::make('paid_at')
                     ->schema([
-                        DatePicker::make('paid_at_from')
-                            ->label(__('borrowing.paid_at').' - '.__('borrowing.from')),
-                        DatePicker::make('paid_at_until')
-                            ->label(__('borrowing.paid_at').' - '.__('borrowing.until')),
+                        Fieldset::make(__('borrowing.paid_at'))
+                            ->columns(2)
+                            ->schema([
+                                DatePicker::make('paid_at_from')
+                                    ->label(__('borrowing.from')),
+                                DatePicker::make('paid_at_until')
+                                    ->label(__('borrowing.until')),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['paid_at_from'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('paid_at', '>=', $date))
                         ->when($data['paid_at_until'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('paid_at', '<=', $date))),
                 Filter::make('expected_at')
                     ->schema([
-                        DatePicker::make('expected_at_from')
-                            ->label(__('borrowing.expected_at').' - '.__('borrowing.from')),
-                        DatePicker::make('expected_at_until')
-                            ->label(__('borrowing.expected_at').' - '.__('borrowing.until')),
+                        Fieldset::make(__('borrowing.expected_at'))
+                            ->columns(2)
+                            ->schema([
+                                DatePicker::make('expected_at_from')
+                                    ->label(__('borrowing.from')),
+                                DatePicker::make('expected_at_until')
+                                    ->label(__('borrowing.until')),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['expected_at_from'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('expected_at', '>=', $date))
                         ->when($data['expected_at_until'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('expected_at', '<=', $date))),
                 Filter::make('ended_at')
                     ->schema([
-                        DatePicker::make('ended_at_from')
-                            ->label(__('borrowing.ended_at').' - '.__('borrowing.from')),
-                        DatePicker::make('ended_at_until')
-                            ->label(__('borrowing.ended_at').' - '.__('borrowing.until')),
+                        Fieldset::make(__('borrowing.ended_at'))
+                            ->columns(2)
+                            ->schema([
+                                DatePicker::make('ended_at_from')
+                                    ->label(__('borrowing.from')),
+                                DatePicker::make('ended_at_until')
+                                    ->label(__('borrowing.until')),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['ended_at_from'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('ended_at', '>=', $date))
                         ->when($data['ended_at_until'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('ended_at', '<=', $date))),
                 Filter::make('last_amount_paid')
                     ->schema([
-                        TextInput::make('last_amount_paid_from')
-                            ->label(__('borrowing.last_amount_paid').' - '.__('borrowing.from'))
-                            ->numeric(),
-                        TextInput::make('last_amount_paid_until')
-                            ->label(__('borrowing.last_amount_paid').' - '.__('borrowing.until'))
-                            ->numeric(),
+                        Fieldset::make(__('borrowing.last_amount_paid'))
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('last_amount_paid_from')
+                                    ->label(__('borrowing.from'))
+                                    ->numeric(),
+                                TextInput::make('last_amount_paid_until')
+                                    ->label(__('borrowing.until'))
+                                    ->numeric(),
+                            ]),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when($data['last_amount_paid_from'] ?? null, fn (Builder $q, $value): Builder => $q->whereHas('latestLog', fn (Builder $q2): Builder => $q2->where('amount', '>=', $value)))

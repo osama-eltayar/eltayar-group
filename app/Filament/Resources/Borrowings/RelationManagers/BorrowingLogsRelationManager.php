@@ -4,10 +4,7 @@ namespace App\Filament\Resources\Borrowings\RelationManagers;
 
 use App\Models\Borrowing;
 use App\Services\Borrowing\RecordBorrowingPaymentService;
-use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -66,14 +63,6 @@ class BorrowingLogsRelationManager extends RelationManager
 
                         return $data;
                     }),
-            ])
-            ->recordActions([
-                DeleteAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 
