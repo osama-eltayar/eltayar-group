@@ -11,14 +11,11 @@ use App\Filament\Resources\Borrowings\Schemas\BorrowingForm;
 use App\Filament\Resources\Borrowings\Schemas\BorrowingInfolist;
 use App\Filament\Resources\Borrowings\Tables\BorrowingsTable;
 use App\Models\Borrowing;
-use App\Models\User;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class BorrowingResource extends Resource
 {
@@ -34,50 +31,6 @@ class BorrowingResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('borrowing.label');
-    }
-
-    protected static function isAccessibleByCurrentUser(): bool
-    {
-        /** @var User|null $user */
-        $user = Auth::user();
-
-        return $user?->isSuperAdmin() ?? false;
-    }
-
-    public static function shouldRegisterNavigation(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canViewAny(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canCreate(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canView(Model $record): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        /** @var Borrowing $record */
-        return static::isAccessibleByCurrentUser() && $record->logs()->doesntExist();
-    }
-
-    public static function canDelete(Model $record): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canDeleteAny(): bool
-    {
-        return static::isAccessibleByCurrentUser();
     }
 
     public static function form(Schema $schema): Schema

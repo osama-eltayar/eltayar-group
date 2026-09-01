@@ -65,6 +65,7 @@ class BookingsTable
                     ->label(__('booking.discount_amount'))
                     ->icon(Heroicon::Tag)
                     ->color('warning')
+                    ->authorize('applyDiscount')
                     ->fillForm(fn (Booking $record): array => [
                         'discount_amount' => $record->discount_amount,
                     ])

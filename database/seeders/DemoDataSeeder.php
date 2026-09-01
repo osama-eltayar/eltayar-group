@@ -5,8 +5,13 @@ namespace Database\Seeders;
 use App\Enums\RoleEnum;
 use App\Enums\UserStatus;
 use App\Models\Booking;
+use App\Models\Borrowing;
+use App\Models\BorrowingLog;
+use App\Models\Branch;
 use App\Models\Client;
 use App\Models\ClientService;
+use App\Models\Salary;
+use App\Models\SalaryLog;
 use App\Models\Transaction;
 use App\Models\Trip;
 use App\Models\TripClient;
@@ -22,17 +27,38 @@ class DemoDataSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->seedUsers();
+        $branches = $this->seedBranches();
 
-        $clients = $this->seedClients();
-        $trips = $this->seedTrips();
+        if (Client::doesntExist()) {
+            $this->seedUsers();
 
-        $this->seedBookings($trips, $clients);
+            $clients = $this->seedClients($branches);
+            $trips = $this->seedTrips();
 
-        $users = User::all();
+            $this->seedBookings($trips, $clients);
 
-        $this->seedTransactions($users, $clients);
-        $this->seedClientServices($users, $clients);
+            $users = User::all();
+
+            $this->seedTransactions($users, $clients, $branches);
+            $this->seedClientServices($users, $clients);
+        }
+
+        $users ??= User::all();
+
+        $this->seedSalaries($users);
+        $this->seedBorrowings($users);
+    }
+
+    /**
+     * @return Collection<int, Branch>
+     */
+    private function seedBranches()
+    {
+        if (Branch::doesntExist()) {
+            Branch::factory()->count(4)->create();
+        }
+
+        return Branch::all();
     }
 
     private function seedUsers(): void
@@ -55,14 +81,18 @@ class DemoDataSeeder extends Seeder
     }
 
     /**
+     * @param  Collection<int, Branch>  $branches
      * @return Collection<int, Client>
      */
-    private function seedClients()
+    private function seedClients($branches)
     {
-        $parents = Client::factory()->count(5)->create();
-        $parents->each(fn (Client $parent) => Client::factory()->count(2)->create(['parent_id' => $parent->id]));
+        $parents = Client::factory()->count(5)->state(fn (): array => ['branch_id' => $branches->random()->id])->create();
+        $parents->each(fn (Client $parent) => Client::factory()->count(2)->create([
+            'parent_id' => $parent->id,
+            'branch_id' => $parent->branch_id,
+        ]));
 
-        Client::factory()->count(15)->create();
+        Client::factory()->count(15)->state(fn (): array => ['branch_id' => $branches->random()->id])->create();
 
         return Client::all();
     }
@@ -112,13 +142,15 @@ class DemoDataSeeder extends Seeder
     /**
      * @param  Collection<int, User>  $users
      * @param  Collection<int, Client>  $clients
+     * @param  Collection<int, Branch>  $branches
      */
-    private function seedTransactions($users, $clients): void
+    private function seedTransactions($users, $clients, $branches): void
     {
         foreach (range(1, 30) as $ignored) {
             Transaction::factory()->create([
                 'user_id' => $users->random()->id,
                 'client_id' => $clients->random()->id,
+                'branch_id' => $branches->random()->id,
             ]);
         }
 
@@ -154,6 +186,77 @@ class DemoDataSeeder extends Seeder
                 'transactionable_type' => ClientService::class,
                 'transactionable_id' => $service->id,
                 'about' => $service->service_name,
+            ]);
+        }
+    }
+
+    /**
+     * @param  Collection<int, User>  $users
+     */
+    private function seedSalaries($users): void
+    {
+        if (Salary::exists()) {
+            return;
+        }
+
+        $staff = $users->filter(fn (User $user): bool => $user->isActive() && ! $user->isSuperAdmin())->take(3);
+
+        foreach ($staff as $index => $user) {
+            $user->update(['has_salary' => true]);
+
+            $salary = Salary::factory()->create([
+                'user_id' => $user->id,
+                'started_at' => now()->subMonths(4),
+            ]);
+
+            foreach (range(3, 1) as $monthsAgo) {
+                SalaryLog::factory()->create([
+                    'salary_id' => $salary->id,
+                    'paid_at' => now()->subMonths($monthsAgo),
+                    'for_month' => now()->subMonths($monthsAgo)->startOfMonth(),
+                ]);
+            }
+
+            if ($index === 0) {
+                $salary->update(['ended_at' => now()->subMonth()]);
+            }
+        }
+    }
+
+    /**
+     * @param  Collection<int, User>  $users
+     */
+    private function seedBorrowings($users): void
+    {
+        if (Borrowing::exists()) {
+            return;
+        }
+
+        $staff = $users->filter(fn (User $user): bool => $user->isActive())->take(4);
+
+        foreach ($staff as $index => $user) {
+            $borrowing = Borrowing::factory()->create(['user_id' => $user->id]);
+
+            // Every other borrowing gets a couple of repayment logs.
+            if ($index % 2 !== 0) {
+                continue;
+            }
+
+            $paid = 0;
+
+            foreach ([1, 2] as $ignored) {
+                $log = BorrowingLog::factory()->create([
+                    'borrowing_id' => $borrowing->id,
+                    'amount' => min($borrowing->amount - $paid, fake()->numberBetween(200, 1500)),
+                ]);
+
+                $paid += $log->amount;
+            }
+
+            $borrowing->update([
+                'paid' => $paid,
+                'remaining' => max(0, $borrowing->amount - $paid),
+                'ended_at' => $paid >= $borrowing->amount ? now() : null,
             ]);
         }
     }

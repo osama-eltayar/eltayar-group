@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Users\Tables;
 
 use App\Enums\UserStatus;
 use App\Filament\Resources\Users\UserResource;
+use App\Filament\Support\RoleLabel;
 use App\Models\User;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -13,6 +14,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Spatie\Permission\Models\Role;
 
 class UsersTable
 {
@@ -33,9 +35,12 @@ class UsersTable
                     ->label(__('user.status'))
                     ->badge()
                     ->sortable(),
-                TextColumn::make('roles.name')
+                TextColumn::make('roles')
                     ->label(__('user.roles'))
-                    ->badge(),
+                    ->badge()
+                    ->state(fn (User $record): array => $record->roles
+                        ->map(fn (Role $role): string => RoleLabel::for($role))
+                        ->all()),
                 IconColumn::make('has_salary')
                     ->label(__('user.has_salary'))
                     ->boolean(),
@@ -68,6 +73,8 @@ class UsersTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
+                    UserResource::assignRolesBulkAction(),
+                    UserResource::assignPermissionsBulkAction(),
                     DeleteBulkAction::make(),
                 ]),
             ]);

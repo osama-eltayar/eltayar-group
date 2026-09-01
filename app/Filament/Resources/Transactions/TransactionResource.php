@@ -14,7 +14,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 
 class TransactionResource extends Resource
 {
@@ -32,11 +31,6 @@ class TransactionResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('transaction.label');
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        return false;
     }
 
     public static function form(Schema $schema): Schema

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -10,44 +11,73 @@ use Spatie\Permission\PermissionRegistrar;
 class RolesAndPermissionsSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Models that get the standard CRUD permission set.
      *
-     * @return void
+     * @var list<string>
      */
-    public function run()
+    private const MODELS_NEEDING_PERMISSIONS = [
+        'User',
+        'Role',
+        'Permission',
+        'Booking',
+        'Borrowing',
+        'Branch',
+        'Client',
+        'ClientService',
+        'Salary',
+        'Transaction',
+        'Trip',
+        'TripClient',
+        'TripPrice',
+    ];
+
+    /**
+     * Standard CRUD actions generated for every model above.
+     *
+     * @var list<string>
+     */
+    private const CRUD_ACTIONS = [
+        'viewAny',
+        'view',
+        'create',
+        'update',
+        'delete',
+        'deleteAny',
+    ];
+
+    /**
+     * Additional, non-CRUD business actions, keyed by model.
+     *
+     * @var array<string, list<string>>
+     */
+    private const CUSTOM_ACTIONS = [
+        'Booking' => ['applyDiscount'],
+        'Salary' => ['endSalary'],
+    ];
+
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
         app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $modelsNeedPermissions = [
-            'User',
-            'Role',
-            'Permission',
-        ];
+        foreach (self::MODELS_NEEDING_PERMISSIONS as $model) {
+            $actions = [...self::CRUD_ACTIONS, ...self::CUSTOM_ACTIONS[$model] ?? []];
 
-        $permissions = [
-            'viewAny',
-            'view',
-            'update',
-            'create',
-            'delete',
-            'destroy',
-            'restore',
-            'forceDelete',
-        ];
-
-        foreach ($modelsNeedPermissions as $modelNeedPermission) {
-            foreach ($permissions as $permission) {
-                Permission::query()->firstOrCreate(['group' => $modelNeedPermission, 'name' => $permission.$modelNeedPermission]);
+            foreach ($actions as $action) {
+                Permission::query()->firstOrCreate(['group' => $model, 'name' => $action.$model]);
             }
         }
 
-        // Create a Super-Admin Role and assign all Permissions
-        $role = Role::query()->firstOrCreate(['name' => 'super-admin']);
-        $role->givePermissionTo(Permission::all());
-        $role = Role::query()->firstOrCreate(['name' => 'admin']);
-        $role->givePermissionTo(Permission::all());
+        // Super-Admin and Admin roles always have every permission the system knows about.
+        $superAdmin = Role::query()->firstOrCreate(['name' => RoleEnum::SuperAdmin->value]);
+        $superAdmin->syncPermissions(Permission::all());
 
-        // Employees do not manage users, roles, or permissions.
-        Role::query()->firstOrCreate(['name' => 'employee']);
+        $admin = Role::query()->firstOrCreate(['name' => RoleEnum::Admin->value]);
+        $admin->syncPermissions(Permission::all());
+
+        // Employees start with no permissions; an admin assigns them as needed.
+        Role::query()->firstOrCreate(['name' => RoleEnum::Employee->value]);
     }
 }

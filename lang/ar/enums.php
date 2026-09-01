@@ -46,6 +46,19 @@ return [
 
     'role_enum' => [
         'super-admin' => 'مدير عام',
+        'admin' => 'مدير',
+        'employee' => 'موظف',
+    ],
+
+    'permission_actions' => [
+        'viewAny' => 'عرض الكل',
+        'view' => 'عرض',
+        'create' => 'إنشاء',
+        'update' => 'تعديل',
+        'delete' => 'حذف',
+        'deleteAny' => 'حذف جماعي',
+        'applyDiscount' => 'تطبيق خصم',
+        'endSalary' => 'إنهاء الراتب',
     ],
 
     'client_service_status' => [

@@ -46,6 +46,19 @@ return [
 
     'role_enum' => [
         'super-admin' => 'Super Admin',
+        'admin' => 'Admin',
+        'employee' => 'Employee',
+    ],
+
+    'permission_actions' => [
+        'viewAny' => 'View All',
+        'view' => 'View',
+        'create' => 'Create',
+        'update' => 'Update',
+        'delete' => 'Delete',
+        'deleteAny' => 'Delete Any',
+        'applyDiscount' => 'Apply Discount',
+        'endSalary' => 'End Salary',
     ],
 
     'client_service_status' => [

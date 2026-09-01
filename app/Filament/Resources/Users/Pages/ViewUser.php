@@ -18,6 +18,7 @@ class ViewUser extends ViewRecord
             UserResource::reinviteAction(),
             UserResource::banAction(),
             UserResource::unbanAction(),
+            UserResource::managePermissionsAction(),
             EditAction::make(),
         ];
     }

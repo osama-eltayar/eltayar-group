@@ -63,6 +63,7 @@
 - Use foreign keys and indexes.
 - Make migrations reversible.
 - Never delete production data in migrations automatically.
+- Never delete or reset the database (e.g. `migrate:fresh`, `migrate:reset`, `db:wipe`, dropping/truncating tables) unless the user explicitly asks for it in that message. Do not treat an earlier approval as ongoing consent.
 
 ## API
 

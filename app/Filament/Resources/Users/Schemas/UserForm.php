@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
+use App\Filament\Support\PermissionLabel;
+use App\Filament\Support\RoleLabel;
 use DateTimeZone;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -10,6 +12,8 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserForm
 {
@@ -30,6 +34,14 @@ class UserForm
                 Select::make('roles')
                     ->label(__('user.roles'))
                     ->relationship('roles', 'name')
+                    ->getOptionLabelFromRecordUsing(fn (Role $record): string => RoleLabel::for($record))
+                    ->multiple()
+                    ->searchable()
+                    ->preload(),
+                Select::make('permissions')
+                    ->label(__('user.permissions'))
+                    ->relationship('permissions', 'name')
+                    ->getOptionLabelFromRecordUsing(fn (Permission $record): string => PermissionLabel::for($record))
                     ->multiple()
                     ->searchable()
                     ->preload(),

@@ -10,20 +10,30 @@ use App\Filament\Resources\Users\Pages\ViewUser;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Schemas\UserInfolist;
 use App\Filament\Resources\Users\Tables\UsersTable;
+use App\Filament\Support\PermissionLabel;
+use App\Filament\Support\RoleLabel;
 use App\Models\User;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Actions\BulkAction;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
@@ -39,49 +49,6 @@ class UserResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('user.label');
-    }
-
-    protected static function isAccessibleByCurrentUser(): bool
-    {
-        /** @var User|null $user */
-        $user = Auth::user();
-
-        return $user?->isSuperAdmin() ?? false;
-    }
-
-    public static function shouldRegisterNavigation(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canViewAny(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canCreate(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canView(Model $record): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canDelete(Model $record): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canDeleteAny(): bool
-    {
-        return static::isAccessibleByCurrentUser();
     }
 
     public static function sendInvitationWhatsAppAction(): Action
@@ -181,6 +148,98 @@ class UserResource extends Resource
                     ->send();
             })
             ->sort(0);
+    }
+
+    public static function assignRolesBulkAction(): BulkAction
+    {
+        return BulkAction::make('assignRoles')
+            ->label(__('user.assign_roles'))
+            ->icon(Heroicon::UserGroup)
+            ->color('gray')
+            ->requiresConfirmation()
+            ->authorizeIndividualRecords('update')
+            ->schema([
+                Select::make('roles')
+                    ->label(__('user.roles'))
+                    ->options(fn (): array => Role::query()->get()
+                        ->mapWithKeys(fn (Role $role): array => [$role->id => RoleLabel::for($role)])
+                        ->all())
+                    ->multiple()
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+            ])
+            ->action(function (Collection $records, array $data): void {
+                $records->each(fn (User $user) => $user->assignRole($data['roles']));
+            });
+    }
+
+    public static function assignPermissionsBulkAction(): BulkAction
+    {
+        return BulkAction::make('assignPermissions')
+            ->label(__('user.assign_permissions'))
+            ->icon(Heroicon::Key)
+            ->color('gray')
+            ->requiresConfirmation()
+            ->authorizeIndividualRecords('update')
+            ->schema([
+                Select::make('permissions')
+                    ->label(__('user.permissions'))
+                    ->options(fn (): array => Permission::query()->get()
+                        ->mapWithKeys(fn (Permission $permission): array => [$permission->id => PermissionLabel::for($permission)])
+                        ->all())
+                    ->multiple()
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+            ])
+            ->action(function (Collection $records, array $data): void {
+                $records->each(fn (User $user) => $user->givePermissionTo($data['permissions']));
+            });
+    }
+
+    public static function managePermissionsAction(): Action
+    {
+        return Action::make('managePermissions')
+            ->label(__('user.manage_permissions'))
+            ->icon(Heroicon::ShieldCheck)
+            ->color('gray')
+            ->modalWidth(Width::FourExtraLarge)
+            ->modalSubmitActionLabel(__('user.save_permissions'))
+            ->authorize('update')
+            ->fillForm(fn (User $record): array => [
+                'permissions' => Permission::query()->get()
+                    ->groupBy('group')
+                    ->map(fn (Collection $permissions): array => $permissions
+                        ->whereIn('id', $record->permissions->pluck('id'))
+                        ->pluck('id')
+                        ->all())
+                    ->all(),
+            ])
+            ->schema([
+                Tabs::make('permissionGroups')
+                    ->tabs(
+                        Permission::query()->get()
+                            ->groupBy('group')
+                            ->map(fn (Collection $permissions, string $group): Tab => Tab::make($group)
+                                ->label(PermissionLabel::group($group))
+                                ->schema([
+                                    CheckboxList::make("permissions.{$group}")
+                                        ->hiddenLabel()
+                                        ->options($permissions->mapWithKeys(
+                                            fn (Permission $permission): array => [$permission->id => PermissionLabel::action($permission)]
+                                        )->all())
+                                        ->columns(2),
+                                ]))
+                            ->values()
+                            ->all()
+                    ),
+            ])
+            ->action(function (User $record, array $data): void {
+                $ids = collect($data['permissions'] ?? [])->flatten()->filter()->unique()->values()->all();
+
+                $record->syncPermissions($ids);
+            });
     }
 
     public static function form(Schema $schema): Schema

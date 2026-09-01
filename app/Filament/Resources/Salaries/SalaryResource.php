@@ -11,15 +11,12 @@ use App\Filament\Resources\Salaries\Schemas\SalaryForm;
 use App\Filament\Resources\Salaries\Schemas\SalaryInfolist;
 use App\Filament\Resources\Salaries\Tables\SalariesTable;
 use App\Models\Salary;
-use App\Models\User;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class SalaryResource extends Resource
 {
@@ -37,50 +34,6 @@ class SalaryResource extends Resource
         return __('salary.label');
     }
 
-    protected static function isAccessibleByCurrentUser(): bool
-    {
-        /** @var User|null $user */
-        $user = Auth::user();
-
-        return $user?->isSuperAdmin() ?? false;
-    }
-
-    public static function shouldRegisterNavigation(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canViewAny(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canCreate(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canView(Model $record): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canEdit(Model $record): bool
-    {
-        /** @var Salary $record */
-        return static::isAccessibleByCurrentUser() && $record->logs()->doesntExist();
-    }
-
-    public static function canDelete(Model $record): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
-    public static function canDeleteAny(): bool
-    {
-        return static::isAccessibleByCurrentUser();
-    }
-
     public static function endSalaryAction(): Action
     {
         return Action::make('endSalary')
@@ -88,6 +41,7 @@ class SalaryResource extends Resource
             ->icon(Heroicon::NoSymbol)
             ->color('danger')
             ->requiresConfirmation()
+            ->authorize('endSalary')
             ->visible(fn (Salary $record): bool => $record->ended_at === null)
             ->action(fn (Salary $record) => $record->update(['ended_at' => now()]));
     }
