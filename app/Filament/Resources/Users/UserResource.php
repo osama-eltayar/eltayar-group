@@ -6,6 +6,7 @@ use App\Enums\UserStatus;
 use App\Filament\Resources\Users\Pages\CreateUser;
 use App\Filament\Resources\Users\Pages\EditUser;
 use App\Filament\Resources\Users\Pages\ListUsers;
+use App\Filament\Resources\Users\Pages\ManagePermissions;
 use App\Filament\Resources\Users\Pages\ViewUser;
 use App\Filament\Resources\Users\Schemas\UserForm;
 use App\Filament\Resources\Users\Schemas\UserInfolist;
@@ -17,15 +18,11 @@ use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Facades\Filament;
-use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
-use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
@@ -204,42 +201,8 @@ class UserResource extends Resource
             ->label(__('user.manage_permissions'))
             ->icon(Heroicon::ShieldCheck)
             ->color('gray')
-            ->modalWidth(Width::FourExtraLarge)
-            ->modalSubmitActionLabel(__('user.save_permissions'))
             ->authorize('update')
-            ->fillForm(fn (User $record): array => [
-                'permissions' => Permission::query()->get()
-                    ->groupBy('group')
-                    ->map(fn (Collection $permissions): array => $permissions
-                        ->whereIn('id', $record->permissions->pluck('id'))
-                        ->pluck('id')
-                        ->all())
-                    ->all(),
-            ])
-            ->schema([
-                Tabs::make('permissionGroups')
-                    ->tabs(
-                        Permission::query()->get()
-                            ->groupBy('group')
-                            ->map(fn (Collection $permissions, string $group): Tab => Tab::make($group)
-                                ->label(PermissionLabel::group($group))
-                                ->schema([
-                                    CheckboxList::make("permissions.{$group}")
-                                        ->hiddenLabel()
-                                        ->options($permissions->mapWithKeys(
-                                            fn (Permission $permission): array => [$permission->id => PermissionLabel::action($permission)]
-                                        )->all())
-                                        ->columns(2),
-                                ]))
-                            ->values()
-                            ->all()
-                    ),
-            ])
-            ->action(function (User $record, array $data): void {
-                $ids = collect($data['permissions'] ?? [])->flatten()->filter()->unique()->values()->all();
-
-                $record->syncPermissions($ids);
-            });
+            ->url(fn (User $record): string => static::getUrl('permissions', ['record' => $record]));
     }
 
     public static function form(Schema $schema): Schema
@@ -271,6 +234,7 @@ class UserResource extends Resource
             'create' => CreateUser::route('/create'),
             'view' => ViewUser::route('/{record}'),
             'edit' => EditUser::route('/{record}/edit'),
+            'permissions' => ManagePermissions::route('/{record}/permissions'),
         ];
     }
 }

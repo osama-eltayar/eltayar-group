@@ -6,8 +6,8 @@ use App\Filament\Support\PermissionOverview;
 use App\Filament\Support\RoleLabel;
 use App\Models\User;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Spatie\Permission\Models\Role;
@@ -42,14 +42,22 @@ class UserInfolist
                     ->visible(fn (User $record): bool => $record->isPending()),
                 TextEntry::make('created_at')
                     ->dateTime(),
-                Section::make(__('permission.overview'))
-                    ->icon(Heroicon::ShieldCheck)
-                    ->collapsible()
-                    ->collapsed()
+                Grid::make(2)
+                    ->columnSpanFull()
                     ->schema([
-                        Tabs::make('permissionsOverview')
-                            ->tabs(fn (User $record): array => PermissionOverview::tabs(
+                        Section::make(__('permission.all_permissions'))
+                            ->icon(Heroicon::ShieldCheck)
+                            ->collapsible()
+                            ->collapsed()
+                            ->schema(fn (User $record): array => PermissionOverview::sections(
                                 $record->getAllPermissions()->pluck('id')->all()
+                            )),
+                        Section::make(__('permission.assigned_permissions'))
+                            ->icon(Heroicon::CheckBadge)
+                            ->collapsible()
+                            ->collapsed()
+                            ->schema(fn (User $record): array => PermissionOverview::grantedSections(
+                                $record->permissions->pluck('id')->all()
                             )),
                     ]),
             ]);

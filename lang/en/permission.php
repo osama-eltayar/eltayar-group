@@ -6,7 +6,8 @@ return [
     'name' => 'Name',
     'group' => 'Group',
     'roles' => 'Roles',
-    'overview' => 'Permissions Overview',
+    'all_permissions' => 'All Permissions',
+    'assigned_permissions' => 'Assigned Permissions',
     'granted' => 'Granted',
     'not_granted' => 'Not Granted',
 ];

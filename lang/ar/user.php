@@ -32,7 +32,6 @@ return [
     'assign_roles' => 'إسناد أدوار',
     'assign_permissions' => 'إسناد صلاحيات',
     'manage_permissions' => 'إدارة الصلاحيات',
-    'save_permissions' => 'حفظ الصلاحيات',
     'has_salary' => 'يحصل على راتب',
     'salary_details' => 'تفاصيل الراتب',
     'salary_amount' => 'مبلغ الراتب',

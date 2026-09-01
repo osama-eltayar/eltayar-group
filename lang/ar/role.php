@@ -6,5 +6,4 @@ return [
     'name' => 'الاسم',
     'permissions' => 'الصلاحيات',
     'manage_permissions' => 'إدارة الصلاحيات',
-    'save_permissions' => 'حفظ الصلاحيات',
 ];

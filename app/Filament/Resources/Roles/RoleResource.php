@@ -4,23 +4,17 @@ namespace App\Filament\Resources\Roles;
 
 use App\Filament\Resources\Roles\Pages\CreateRole;
 use App\Filament\Resources\Roles\Pages\ListRoles;
+use App\Filament\Resources\Roles\Pages\ManagePermissions;
 use App\Filament\Resources\Roles\Pages\ViewRole;
 use App\Filament\Resources\Roles\Schemas\RoleForm;
 use App\Filament\Resources\Roles\Schemas\RoleInfolist;
 use App\Filament\Resources\Roles\Tables\RolesTable;
-use App\Filament\Support\PermissionLabel;
 use BackedEnum;
 use Filament\Actions\Action;
-use Filament\Forms\Components\CheckboxList;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
-use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Collection;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
@@ -47,42 +41,8 @@ class RoleResource extends Resource
             ->label(__('role.manage_permissions'))
             ->icon(Heroicon::ShieldCheck)
             ->color('gray')
-            ->modalWidth(Width::FourExtraLarge)
-            ->modalSubmitActionLabel(__('role.save_permissions'))
             ->authorize('managePermissions')
-            ->fillForm(fn (Role $record): array => [
-                'permissions' => Permission::query()->get()
-                    ->groupBy('group')
-                    ->map(fn (Collection $permissions): array => $permissions
-                        ->whereIn('id', $record->permissions->pluck('id'))
-                        ->pluck('id')
-                        ->all())
-                    ->all(),
-            ])
-            ->schema([
-                Tabs::make('permissionGroups')
-                    ->tabs(
-                        Permission::query()->get()
-                            ->groupBy('group')
-                            ->map(fn (Collection $permissions, string $group): Tab => Tab::make($group)
-                                ->label(PermissionLabel::group($group))
-                                ->schema([
-                                    CheckboxList::make("permissions.{$group}")
-                                        ->hiddenLabel()
-                                        ->options($permissions->mapWithKeys(
-                                            fn (Permission $permission): array => [$permission->id => PermissionLabel::action($permission)]
-                                        )->all())
-                                        ->columns(2),
-                                ]))
-                            ->values()
-                            ->all()
-                    ),
-            ])
-            ->action(function (Role $record, array $data): void {
-                $ids = collect($data['permissions'] ?? [])->flatten()->filter()->unique()->values()->all();
-
-                $record->syncPermissions($ids);
-            });
+            ->url(fn (Role $record): string => static::getUrl('permissions', ['record' => $record]));
     }
 
     public static function form(Schema $schema): Schema
@@ -113,6 +73,7 @@ class RoleResource extends Resource
             'index' => ListRoles::route('/'),
             'create' => CreateRole::route('/create'),
             'view' => ViewRole::route('/{record}'),
+            'permissions' => ManagePermissions::route('/{record}/permissions'),
         ];
     }
 }

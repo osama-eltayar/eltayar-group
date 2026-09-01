@@ -6,5 +6,4 @@ return [
     'name' => 'Name',
     'permissions' => 'Permissions',
     'manage_permissions' => 'Manage Permissions',
-    'save_permissions' => 'Save Permissions',
 ];

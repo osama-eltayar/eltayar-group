@@ -6,7 +6,6 @@ use App\Filament\Support\PermissionOverview;
 use App\Filament\Support\RoleLabel;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Spatie\Permission\Models\Role;
@@ -20,16 +19,14 @@ class RoleInfolist
                 TextEntry::make('name')
                     ->label(__('role.name'))
                     ->formatStateUsing(fn (Role $record): string => RoleLabel::for($record)),
-                Section::make(__('permission.overview'))
+                Section::make(__('permission.all_permissions'))
                     ->icon(Heroicon::ShieldCheck)
                     ->collapsible()
                     ->collapsed()
-                    ->schema([
-                        Tabs::make('permissionsOverview')
-                            ->tabs(fn (Role $record): array => PermissionOverview::tabs(
-                                $record->permissions->pluck('id')->all()
-                            )),
-                    ]),
+                    ->columnSpanFull()
+                    ->schema(fn (Role $record): array => PermissionOverview::sections(
+                        $record->permissions->pluck('id')->all()
+                    )),
             ]);
     }
 }

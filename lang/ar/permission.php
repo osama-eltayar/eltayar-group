@@ -6,7 +6,8 @@ return [
     'name' => 'الاسم',
     'group' => 'المجموعة',
     'roles' => 'الأدوار',
-    'overview' => 'نظرة عامة على الصلاحيات',
+    'all_permissions' => 'جميع الصلاحيات',
+    'assigned_permissions' => 'الصلاحيات الممنوحة',
     'granted' => 'ممنوحة',
     'not_granted' => 'غير ممنوحة',
 ];
