@@ -1,5 +1,9 @@
 # Cursor Rules for Eltayar
 
+## Testing / Verification
+
+- Do not verify changes by driving the app in a browser preview (no starting a dev server, logging in, and clicking through pages). Verify with Tinker, artisan commands, and the automated test suite instead.
+
 ## Stack
 
 - Laravel 12

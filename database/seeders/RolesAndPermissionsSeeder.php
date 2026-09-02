@@ -25,6 +25,7 @@ class RolesAndPermissionsSeeder extends Seeder
         'Client',
         'ClientService',
         'Salary',
+        'Task',
         'Transaction',
         'Trip',
         'TripClient',

@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'label' => 'المهام',
+    'singular_label' => 'المهمة',
+    'assigned_tasks_label' => 'المهام المكلف بها',
+    'title' => 'العنوان',
+    'description' => 'الوصف',
+    'creator' => 'أنشئت بواسطة',
+    'status' => 'الحالة',
+    'completion_mode' => 'شرط الإنجاز',
+    'completion_mode_hint' => 'اختر ما إذا كان يجب على جميع المكلفين إنجاز المهمة، أم يكفي أحدهم فقط.',
+    'assignees' => 'المكلفون',
+    'finished_at' => 'تاريخ الانتهاء',
+    'created_at' => 'تاريخ الإنشاء',
+    'complete_task' => 'إنجاز',
+    'cancel_task' => 'إلغاء',
+    'mark_done' => 'وضع علامة كمنجزة',
+    'comment' => 'تعليق',
+    'assignee' => 'المكلف',
+    'assignee_status' => 'حالة المكلف',
+    'my_status' => 'حالتي',
+    'completed_at' => 'تاريخ الإنجاز',
+    'from' => 'من',
+    'until' => 'إلى',
+];

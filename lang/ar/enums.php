@@ -72,4 +72,21 @@ return [
         'pending' => 'قيد الانتظار',
         'banned' => 'محظور',
     ],
+
+    'task_status' => [
+        'draft' => 'مسودة',
+        'pending' => 'قيد الانتظار',
+        'completed' => 'مكتملة',
+        'cancelled' => 'ملغاة',
+    ],
+
+    'task_completion_mode' => [
+        'require_all' => 'يجب أن يُنجزها جميع المكلفين',
+        'require_any' => 'يكفي أن يُنجزها أحد المكلفين',
+    ],
+
+    'task_assignment_status' => [
+        'pending' => 'قيد الانتظار',
+        'completed' => 'منجزة',
+    ],
 ];

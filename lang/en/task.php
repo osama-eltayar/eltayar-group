@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'label' => 'Tasks',
+    'singular_label' => 'Task',
+    'assigned_tasks_label' => 'Assigned Tasks',
+    'title' => 'Title',
+    'description' => 'Description',
+    'creator' => 'Created By',
+    'status' => 'Status',
+    'completion_mode' => 'Completion Requirement',
+    'completion_mode_hint' => 'Choose whether every assignee must complete the task, or just one of them.',
+    'assignees' => 'Assignees',
+    'finished_at' => 'Finished At',
+    'created_at' => 'Created At',
+    'complete_task' => 'Complete',
+    'cancel_task' => 'Cancel',
+    'mark_done' => 'Mark as Done',
+    'comment' => 'Comment',
+    'assignee' => 'Assignee',
+    'assignee_status' => 'Assignee Status',
+    'my_status' => 'My Status',
+    'completed_at' => 'Completed At',
+    'from' => 'From',
+    'until' => 'Until',
+];

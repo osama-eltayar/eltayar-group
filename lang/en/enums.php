@@ -72,4 +72,21 @@ return [
         'pending' => 'Pending',
         'banned' => 'Banned',
     ],
+
+    'task_status' => [
+        'draft' => 'Draft',
+        'pending' => 'Pending',
+        'completed' => 'Completed',
+        'cancelled' => 'Cancelled',
+    ],
+
+    'task_completion_mode' => [
+        'require_all' => 'All assignees must complete it',
+        'require_any' => 'Any one assignee is enough',
+    ],
+
+    'task_assignment_status' => [
+        'pending' => 'Pending',
+        'completed' => 'Completed',
+    ],
 ];
