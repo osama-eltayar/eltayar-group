@@ -16,6 +16,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class ClientsTable
 {
@@ -41,9 +42,21 @@ class ClientsTable
                     ->label(__('client.national_number'))
                     ->searchable()
                     ->sortable(),
+                PhoneColumn::make('defaultPhone.phone')
+                    ->label(__('client.phone'))
+                    ->placeholder('—'),
                 TextColumn::make('passport_number')
                     ->label(__('client.passport_number'))
                     ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('factory_number')
+                    ->label(__('client.factory_number'))
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('passport_ended_at')
+                    ->label(__('client.passport_ended_at'))
+                    ->date()
+                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('date_of_birth')
                     ->label(__('client.date_of_birth'))

@@ -83,4 +83,11 @@ class HajClient extends Model
             ->whereHas('haj', fn ($query) => $query->where('status', PackageStatus::Active))
             ->exists();
     }
+
+    public function hasPassportBelowMinimum(): bool
+    {
+        return $this->client?->passport_ended_at !== null
+            && $this->haj?->passport_minimum_end_at !== null
+            && $this->client->passport_ended_at->lt($this->haj->passport_minimum_end_at);
+    }
 }

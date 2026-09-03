@@ -5,10 +5,10 @@ namespace App\Services\HajClient;
 use App\Enums\HajClientStatus;
 use App\Models\HajClient;
 
-class ChooseHajClientService
+class MarkHajClientWithdrawnService
 {
     public function execute(HajClient $hajClient): void
     {
-        $hajClient->update(['status' => HajClientStatus::Chosen]);
+        $hajClient->update(['status' => HajClientStatus::Withdrawn]);
     }
 }

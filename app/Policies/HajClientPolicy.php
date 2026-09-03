@@ -42,13 +42,23 @@ class HajClientPolicy
         return $user->can('applyDiscountHajClient');
     }
 
-    public function choose(User $user, HajClient $hajClient): bool
+    public function markSuccessful(User $user, HajClient $hajClient): bool
     {
-        return $user->can('chooseHajClient');
+        return $user->can('markSuccessfulHajClient');
     }
 
-    public function markPending(User $user, HajClient $hajClient): bool
+    public function markUnsuccessful(User $user, HajClient $hajClient): bool
     {
-        return $user->can('markPendingHajClient');
+        return $user->can('markUnsuccessfulHajClient');
+    }
+
+    public function markReserve(User $user, HajClient $hajClient): bool
+    {
+        return $user->can('markReserveHajClient');
+    }
+
+    public function markWithdrawn(User $user, HajClient $hajClient): bool
+    {
+        return $user->can('markWithdrawnHajClient');
     }
 }

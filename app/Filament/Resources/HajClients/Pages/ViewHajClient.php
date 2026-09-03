@@ -13,8 +13,10 @@ class ViewHajClient extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            HajClientResource::chooseHajClientAction(),
-            HajClientResource::markHajClientPendingAction(),
+            HajClientResource::markHajClientSuccessfulAction(),
+            HajClientResource::markHajClientUnsuccessfulAction(),
+            HajClientResource::markHajClientReserveAction(),
+            HajClientResource::markHajClientWithdrawnAction(),
             EditAction::make(),
         ];
     }

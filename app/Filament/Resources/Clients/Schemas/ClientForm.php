@@ -11,9 +11,11 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Ysfkaya\FilamentPhoneInput\Forms\PhoneInput;
 
 class ClientForm
 {
@@ -41,6 +43,11 @@ class ClientForm
             TextInput::make('passport_number')
                 ->label(__('client.passport_number'))
                 ->maxLength(255),
+            TextInput::make('factory_number')
+                ->label(__('client.factory_number'))
+                ->maxLength(255),
+            DatePicker::make('passport_ended_at')
+                ->label(__('client.passport_ended_at')),
             DatePicker::make('date_of_birth')
                 ->label(__('client.date_of_birth')),
             Select::make('status')
@@ -81,6 +88,11 @@ class ClientForm
                         TextInput::make('passport_number')
                             ->label(__('client.passport_number'))
                             ->maxLength(255),
+                        TextInput::make('factory_number')
+                            ->label(__('client.factory_number'))
+                            ->maxLength(255),
+                        DatePicker::make('passport_ended_at')
+                            ->label(__('client.passport_ended_at')),
                         DatePicker::make('date_of_birth')
                             ->label(__('client.date_of_birth')),
                         Select::make('parent_id')
@@ -98,6 +110,26 @@ class ClientForm
                             ->label(__('client.notes'))
                             ->columnSpanFull(),
                     ]),
+                Section::make(__('client.phones'))
+                    ->schema([
+                        Repeater::make('phones')
+                            ->relationship()
+                            ->label(__('client.phones'))
+                            ->defaultItems(0)
+                            ->schema([
+                                PhoneInput::make('phone')
+                                    ->label(__('client.phone'))
+                                    ->defaultCountry('EG')
+                                    ->required(),
+                                Toggle::make('is_default')
+                                    ->label(__('client.is_default_phone'))
+                                    ->fixIndistinctState(),
+                            ])
+                            ->columns(2)
+                            ->addActionLabel(__('client.phone'))
+                            ->columnSpanFull(),
+                    ])
+                    ->collapsible(),
                 Section::make(__('client.omras'))
                     ->schema([
                         Repeater::make('omraClients')

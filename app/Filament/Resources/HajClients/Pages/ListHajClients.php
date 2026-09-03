@@ -24,8 +24,10 @@ class ListHajClients extends ListRecords
     {
         return [
             'all' => Tab::make(__('haj_client.all')),
-            'chosen' => Tab::make(__('haj_client.chosen'))
-                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', HajClientStatus::Chosen)),
+            'successful' => Tab::make(HajClientStatus::Successful->getLabel())
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', HajClientStatus::Successful)),
+            'reserve' => Tab::make(HajClientStatus::Reserve->getLabel())
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', HajClientStatus::Reserve)),
         ];
     }
 }

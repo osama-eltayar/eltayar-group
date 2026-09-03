@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Client extends Model
 {
@@ -20,6 +21,8 @@ class Client extends Model
         'name_ar',
         'national_number',
         'passport_number',
+        'factory_number',
+        'passport_ended_at',
         'date_of_birth',
         'parent_id',
         'status',
@@ -29,6 +32,7 @@ class Client extends Model
     protected $casts = [
         'status' => ClientStatus::class,
         'date_of_birth' => 'date',
+        'passport_ended_at' => 'date',
     ];
 
     public function branch(): BelongsTo
@@ -76,6 +80,16 @@ class Client extends Model
     public function clientServices(): HasMany
     {
         return $this->hasMany(ClientService::class);
+    }
+
+    public function phones(): HasMany
+    {
+        return $this->hasMany(ClientPhone::class);
+    }
+
+    public function defaultPhone(): HasOne
+    {
+        return $this->hasOne(ClientPhone::class)->where('is_default', true);
     }
 
     public function name(): Attribute

@@ -68,11 +68,19 @@ class HajClientsRelationManager extends RelationManager
                     ->options(HajClientDependencyType::toOptions())
                     ->default(HajClientDependencyType::Independent->value)
                     ->live()
-                    ->required(),
+                    ->required()
+                    ->rules([
+                        fn (?HajClient $record): Closure => function (string $attribute, $value, Closure $fail) use ($record): void {
+                            if ($value === HajClientDependencyType::Dependent->value && $record?->dependents()->exists()) {
+                                $fail(__('haj_client.cannot_become_dependent_with_dependents'));
+                            }
+                        },
+                    ]),
                 Select::make('depends_on_haj_client_id')
                     ->label(__('haj_client.depends_on'))
                     ->options(fn (?HajClient $record): array => $this->getOwnerRecord()
                         ->hajClients()
+                        ->where('dependency_type', HajClientDependencyType::Independent)
                         ->when($record, fn ($query, HajClient $record) => $query->whereKeyNot($record->id))
                         ->with('client')
                         ->get()
@@ -80,7 +88,16 @@ class HajClientsRelationManager extends RelationManager
                         ->all())
                     ->searchable()
                     ->visible(fn (Get $get): bool => $get('dependency_type') === HajClientDependencyType::Dependent->value)
-                    ->required(fn (Get $get): bool => $get('dependency_type') === HajClientDependencyType::Dependent->value),
+                    ->required(fn (Get $get): bool => $get('dependency_type') === HajClientDependencyType::Dependent->value)
+                    ->rules([
+                        fn (): Closure => function (string $attribute, $value, Closure $fail): void {
+                            $dependsOn = HajClient::find($value);
+
+                            if ($dependsOn && $dependsOn->dependency_type !== HajClientDependencyType::Independent) {
+                                $fail(__('haj_client.depends_on_must_be_independent'));
+                            }
+                        },
+                    ]),
                 Select::make('relation_type')
                     ->label(__('haj_client.relation_type'))
                     ->options(HajClientRelationType::toOptions())
@@ -110,10 +127,22 @@ class HajClientsRelationManager extends RelationManager
                     ->badge(),
                 TextColumn::make('dependsOn.client.name')
                     ->label(__('haj_client.depends_on'))
+                    ->url(fn (HajClient $record): ?string => $record->dependsOn ? HajClientResource::getUrl('view', ['record' => $record->dependsOn]) : null)
                     ->placeholder('—'),
                 TextColumn::make('relation_type')
                     ->label(__('haj_client.relation_type'))
                     ->badge()
+                    ->placeholder('—'),
+                TextColumn::make('client.factory_number')
+                    ->label(__('client.factory_number'))
+                    ->placeholder('—'),
+                TextColumn::make('client.passport_ended_at')
+                    ->label(__('client.passport_ended_at'))
+                    ->date()
+                    ->badge()
+                    ->color(fn (HajClient $record): ?string => $record->hasPassportBelowMinimum() ? 'danger' : 'gray')
+                    ->icon(fn (HajClient $record): ?Heroicon => $record->hasPassportBelowMinimum() ? Heroicon::ExclamationTriangle : null)
+                    ->tooltip(fn (HajClient $record): ?string => $record->hasPassportBelowMinimum() ? __('haj_client.passport_below_minimum') : null)
                     ->placeholder('—'),
                 TextColumn::make('discount_amount')
                     ->label(__('haj_client.discount_amount')),
@@ -140,8 +169,10 @@ class HajClientsRelationManager extends RelationManager
                     ->action(function (HajClient $record, array $data): void {
                         $record->update(['discount_amount' => $data['discount_amount']]);
                     }),
-                HajClientResource::chooseHajClientAction(),
-                HajClientResource::markHajClientPendingAction(),
+                HajClientResource::markHajClientSuccessfulAction(),
+                HajClientResource::markHajClientUnsuccessfulAction(),
+                HajClientResource::markHajClientReserveAction(),
+                HajClientResource::markHajClientWithdrawnAction(),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

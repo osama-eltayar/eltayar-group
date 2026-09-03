@@ -55,7 +55,7 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     private const CUSTOM_ACTIONS = [
         'Booking' => ['applyDiscount', 'cancel', 'refund', 'markPending', 'markCompleted'],
-        'HajClient' => ['applyDiscount', 'choose', 'markPending'],
+        'HajClient' => ['applyDiscount', 'markSuccessful', 'markUnsuccessful', 'markReserve', 'markWithdrawn'],
         'Salary' => ['endSalary'],
     ];
 

@@ -47,8 +47,11 @@ return [
     ],
 
     'haj_client_status' => [
-        'pending' => 'Pending',
-        'chosen' => 'Chosen',
+        'no_show' => 'No Show',
+        'successful' => 'Successful',
+        'unsuccessful' => 'Unsuccessful',
+        'reserve' => 'Reserve',
+        'withdrawn' => 'Withdrawn',
     ],
 
     'haj_client_dependency_type' => [

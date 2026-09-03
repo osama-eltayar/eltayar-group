@@ -65,11 +65,19 @@ class HajClientForm
                     ->options(HajClientDependencyType::toOptions())
                     ->default(HajClientDependencyType::Independent->value)
                     ->live()
-                    ->required(),
+                    ->required()
+                    ->rules([
+                        fn (?HajClient $record): Closure => function (string $attribute, $value, Closure $fail) use ($record): void {
+                            if ($value === HajClientDependencyType::Dependent->value && $record?->dependents()->exists()) {
+                                $fail(__('haj_client.cannot_become_dependent_with_dependents'));
+                            }
+                        },
+                    ]),
                 Select::make('depends_on_haj_client_id')
                     ->label(__('haj_client.depends_on'))
                     ->options(fn (Get $get, ?HajClient $record): array => HajClient::query()
                         ->where('haj_id', $get('haj_id'))
+                        ->where('dependency_type', HajClientDependencyType::Independent)
                         ->when($record, fn ($query, HajClient $record) => $query->whereKeyNot($record->id))
                         ->with('client')
                         ->get()
@@ -77,7 +85,16 @@ class HajClientForm
                         ->all())
                     ->searchable()
                     ->visible(fn (Get $get): bool => $get('dependency_type') === HajClientDependencyType::Dependent->value)
-                    ->required(fn (Get $get): bool => $get('dependency_type') === HajClientDependencyType::Dependent->value),
+                    ->required(fn (Get $get): bool => $get('dependency_type') === HajClientDependencyType::Dependent->value)
+                    ->rules([
+                        fn (): Closure => function (string $attribute, $value, Closure $fail): void {
+                            $dependsOn = HajClient::find($value);
+
+                            if ($dependsOn && $dependsOn->dependency_type !== HajClientDependencyType::Independent) {
+                                $fail(__('haj_client.depends_on_must_be_independent'));
+                            }
+                        },
+                    ]),
                 Select::make('relation_type')
                     ->label(__('haj_client.relation_type'))
                     ->options(HajClientRelationType::toOptions())
