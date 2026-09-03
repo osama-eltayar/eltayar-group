@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Bookings\Pages;
 
 use App\Filament\Resources\Bookings\BookingResource;
-use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewBooking extends ViewRecord
@@ -13,7 +12,10 @@ class ViewBooking extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            EditAction::make(),
+            BookingResource::markBookingPendingAction(),
+            BookingResource::markBookingCompletedAction(),
+            BookingResource::cancelBookingAction(),
+            BookingResource::refundBookingAction(),
         ];
     }
 }

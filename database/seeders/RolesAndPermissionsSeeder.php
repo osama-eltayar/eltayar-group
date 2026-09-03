@@ -27,9 +27,11 @@ class RolesAndPermissionsSeeder extends Seeder
         'Salary',
         'Task',
         'Transaction',
-        'Trip',
-        'TripClient',
-        'TripPrice',
+        'Omra',
+        'OmraClient',
+        'OmraPrice',
+        'Haj',
+        'HajClient',
     ];
 
     /**
@@ -52,7 +54,8 @@ class RolesAndPermissionsSeeder extends Seeder
      * @var array<string, list<string>>
      */
     private const CUSTOM_ACTIONS = [
-        'Booking' => ['applyDiscount'],
+        'Booking' => ['applyDiscount', 'cancel', 'refund', 'markPending', 'markCompleted'],
+        'HajClient' => ['applyDiscount', 'choose', 'markPending'],
         'Salary' => ['endSalary'],
     ];
 

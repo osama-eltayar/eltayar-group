@@ -98,41 +98,41 @@ class ClientForm
                             ->label(__('client.notes'))
                             ->columnSpanFull(),
                     ]),
-                Section::make(__('client.trips'))
+                Section::make(__('client.omras'))
                     ->schema([
-                        Repeater::make('tripClients')
+                        Repeater::make('omraClients')
                             ->relationship()
-                            ->label(__('client.trips'))
+                            ->label(__('client.omras'))
                             ->defaultItems(0)
                             ->schema([
                                 Hidden::make('branch_id')
                                     ->default(fn (): ?int => session('branch_id')),
-                                Select::make('trip_id')
-                                    ->label(__('trip_client.trip'))
-                                    ->relationship('trip', 'name')
+                                Select::make('omra_id')
+                                    ->label(__('omra_client.omra'))
+                                    ->relationship('omra', 'name')
                                     ->searchable()
                                     ->preload()
                                     ->distinct()
                                     ->required(),
                                 Select::make('room_type')
-                                    ->label(__('trip_client.room_type'))
+                                    ->label(__('omra_client.room_type'))
                                     ->options(RoomType::toOptions())
                                     ->default(RoomType::Default->value)
                                     ->required(),
                                 TextInput::make('price')
-                                    ->label(__('trip_client.price'))
+                                    ->label(__('omra_client.price'))
                                     ->numeric()
                                     ->minValue(0),
                                 TextInput::make('discount_amount')
-                                    ->label(__('trip_client.discount_amount'))
+                                    ->label(__('omra_client.discount_amount'))
                                     ->numeric()
                                     ->minValue(0),
-                                TextInput::make('notes')
-                                    ->label(__('trip_client.notes'))
+                                RichEditor::make('notes')
+                                    ->label(__('omra_client.notes'))
                                     ->columnSpanFull(),
                             ])
                             ->columns(2)
-                            ->addActionLabel(__('client.trip'))
+                            ->addActionLabel(__('client.omra'))
                             ->columnSpanFull(),
                     ])
                     ->collapsible(),

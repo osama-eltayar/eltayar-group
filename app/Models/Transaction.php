@@ -6,6 +6,7 @@ use Alkoumi\LaravelArabicNumbers\Numbers;
 use App\Enums\Currency;
 use App\Enums\PaymentMethod;
 use App\Enums\TransactionType;
+use App\Services\Booking\RecalculateBookingPaidService;
 use Carbon\Carbon;
 use Filament\Support\Facades\FilamentTimezone;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -46,6 +47,34 @@ class Transaction extends Model
         static::creating(function (self $transaction): void {
             $transaction->identifier ??= static::generateIdentifier($transaction->branch_id);
         });
+
+        static::saved(function (self $transaction): void {
+            static::recalculateBookingPaid($transaction->transactionable_type, $transaction->transactionable_id);
+
+            $originalType = $transaction->getOriginal('transactionable_type');
+            $originalId = $transaction->getOriginal('transactionable_id');
+
+            if ($originalType !== $transaction->transactionable_type || $originalId !== $transaction->transactionable_id) {
+                static::recalculateBookingPaid($originalType, $originalId);
+            }
+        });
+
+        static::deleted(function (self $transaction): void {
+            static::recalculateBookingPaid($transaction->transactionable_type, $transaction->transactionable_id);
+        });
+    }
+
+    private static function recalculateBookingPaid(?string $transactionableType, ?int $transactionableId): void
+    {
+        if ($transactionableType !== Booking::class || $transactionableId === null) {
+            return;
+        }
+
+        $booking = Booking::find($transactionableId);
+
+        if ($booking) {
+            app(RecalculateBookingPaidService::class)->execute($booking);
+        }
     }
 
     public static function generateIdentifier(?int $branchId): string

@@ -2,7 +2,6 @@
 
 return [
     'currencies' => [
-        'SAR' => 'Saudi Riyal',
         'EGP' => 'Egyptian Pound',
     ],
 
@@ -30,18 +29,51 @@ return [
         'default' => 'Default',
     ],
 
-    'trip_status' => [
+    'package_status' => [
         'draft' => 'Draft',
         'active' => 'Active',
     ],
 
-    'trip_type' => [
+    'package_type' => [
         'flight' => 'Flight',
     ],
 
-    'trip_activity' => [
-        'omra' => 'Omra',
-        'hajj' => 'Hajj',
+    'booking_status' => [
+        'draft' => 'Draft',
+        'pending' => 'Pending',
+        'completed' => 'Completed',
+        'cancelled' => 'Cancelled',
+        'refunded' => 'Refunded',
+    ],
+
+    'haj_client_status' => [
+        'pending' => 'Pending',
+        'chosen' => 'Chosen',
+    ],
+
+    'haj_client_dependency_type' => [
+        'independent' => 'Independent',
+        'dependent' => 'Dependent',
+    ],
+
+    'haj_client_relation_type' => [
+        'husband' => 'Husband',
+        'wife' => 'Wife',
+        'father' => 'Father',
+        'mother' => 'Mother',
+        'son' => 'Son',
+        'daughter' => 'Daughter',
+        'brother' => 'Brother',
+        'sister' => 'Sister',
+        'grandfather' => 'Grandfather',
+        'grandmother' => 'Grandmother',
+        'paternal_uncle' => 'Paternal Uncle',
+        'paternal_aunt' => 'Paternal Aunt',
+        'maternal_uncle' => 'Maternal Uncle',
+        'maternal_aunt' => 'Maternal Aunt',
+        'relative' => 'Relative',
+        'friend' => 'Friend',
+        'other' => 'Other',
     ],
 
     'role_enum' => [
@@ -59,6 +91,8 @@ return [
         'deleteAny' => 'Delete Any',
         'applyDiscount' => 'Apply Discount',
         'endSalary' => 'End Salary',
+        'cancel' => 'Cancel',
+        'refund' => 'Refund',
     ],
 
     'client_service_status' => [

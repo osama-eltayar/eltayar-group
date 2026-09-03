@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\Bookings\Tables;
 
+use App\Enums\BookingStatus;
 use App\Enums\RoomType;
 use App\Filament\Resources\Bookings\BookingResource;
 use App\Models\Booking;
+use App\Models\Haj;
+use App\Models\Omra;
 use Filament\Actions\Action;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
@@ -22,13 +22,23 @@ class BookingsTable
         return $table
             ->recordUrl(fn (Booking $record): string => BookingResource::getUrl('view', ['record' => $record]))
             ->columns([
-                TextColumn::make('client.name')
-                    ->label(__('trip_client.client'))
-                    ->searchable(),
-                TextColumn::make('trip.name')
-                    ->label(__('trip_client.trip'))
+                TextColumn::make('id')
+                    ->label(__('booking.id'))
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('branch.name')
+                    ->label(__('booking.branch'))
+                    ->sortable(),
+                TextColumn::make('client.name')
+                    ->label(__('omra_client.client'))
+                    ->searchable(),
+                TextColumn::make('bookable.name')
+                    ->label(__('booking.bookable'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('status')
+                    ->label(__('booking.status'))
+                    ->badge(),
                 TextColumn::make('room_type')
                     ->label(__('booking.room_type'))
                     ->badge(),
@@ -39,6 +49,9 @@ class BookingsTable
                     ->sortable(),
                 TextColumn::make('discount_amount')
                     ->label(__('booking.discount_amount')),
+                TextColumn::make('calculated_discount_amount')
+                    ->label(__('booking.calculated_discount_amount'))
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('final_price')
                     ->label(__('booking.final_price'))
                     ->sortable(),
@@ -50,11 +63,15 @@ class BookingsTable
                     ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('trip')
-                    ->label(__('trip_client.trip'))
-                    ->relationship('trip', 'name')
-                    ->searchable()
-                    ->preload(),
+                SelectFilter::make('bookable_type')
+                    ->label(__('booking.bookable_type'))
+                    ->options([
+                        Omra::class => __('omra.singular_label'),
+                        Haj::class => __('haj.singular_label'),
+                    ]),
+                SelectFilter::make('status')
+                    ->label(__('booking.status'))
+                    ->options(BookingStatus::toOptions()),
                 SelectFilter::make('room_type')
                     ->label(__('booking.room_type'))
                     ->options(RoomType::toOptions()),
@@ -79,12 +96,10 @@ class BookingsTable
                     ->action(function (Booking $record, array $data): void {
                         $record->update(['discount_amount' => $data['discount_amount']]);
                     }),
-                EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                BookingResource::markBookingPendingAction(),
+                BookingResource::markBookingCompletedAction(),
+                BookingResource::cancelBookingAction(),
+                BookingResource::refundBookingAction(),
             ]);
     }
 }

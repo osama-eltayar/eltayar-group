@@ -46,14 +46,19 @@ class Client extends Model
         return $this->hasMany(self::class, 'parent_id');
     }
 
-    public function tripClients(): HasMany
+    public function omraClients(): HasMany
     {
-        return $this->hasMany(TripClient::class);
+        return $this->hasMany(OmraClient::class);
     }
 
-    public function trips(): BelongsToMany
+    public function hajClients(): HasMany
     {
-        return $this->belongsToMany(Trip::class, 'trip_clients')
+        return $this->hasMany(HajClient::class);
+    }
+
+    public function omras(): BelongsToMany
+    {
+        return $this->belongsToMany(Omra::class, 'omra_clients')
             ->withPivot(['booking_id', 'room_type', 'price', 'discount_amount', 'final_price', 'notes'])
             ->withTimestamps();
     }

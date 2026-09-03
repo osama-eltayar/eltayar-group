@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BookingStatus;
 use App\Enums\RoomType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Booking extends Model
 {
@@ -16,16 +18,20 @@ class Booking extends Model
 
     protected $fillable = [
         'client_id',
-        'trip_id',
+        'branch_id',
+        'bookable_type',
+        'bookable_id',
         'room_type',
         'price',
         'number_of_clients',
         'total_price',
         'discount_amount',
+        'calculated_discount_amount',
         'final_price',
         'paid',
         'balance',
         'notes',
+        'status',
     ];
 
     protected $casts = [
@@ -34,16 +40,18 @@ class Booking extends Model
         'number_of_clients' => 'integer',
         'total_price' => 'integer',
         'discount_amount' => 'integer',
+        'calculated_discount_amount' => 'integer',
         'final_price' => 'integer',
         'paid' => 'integer',
         'balance' => 'integer',
+        'status' => BookingStatus::class,
     ];
 
     protected static function booted(): void
     {
         static::saving(function (self $booking): void {
             $booking->total_price = (int) $booking->price * (int) $booking->number_of_clients;
-            $booking->final_price = max(0, $booking->total_price - (int) $booking->discount_amount);
+            $booking->final_price = max(0, $booking->total_price - (int) $booking->discount_amount - (int) $booking->calculated_discount_amount);
             $booking->balance = max(0, $booking->final_price - (int) $booking->paid);
         });
     }
@@ -53,20 +61,30 @@ class Booking extends Model
         return $this->belongsTo(Client::class, 'client_id');
     }
 
-    public function trip(): BelongsTo
+    public function branch(): BelongsTo
     {
-        return $this->belongsTo(Trip::class, 'trip_id');
+        return $this->belongsTo(Branch::class);
     }
 
-    public function tripClients(): HasMany
+    public function bookable(): MorphTo
     {
-        return $this->hasMany(TripClient::class);
+        return $this->morphTo();
+    }
+
+    public function omraClients(): HasMany
+    {
+        return $this->hasMany(OmraClient::class);
+    }
+
+    public function hajClients(): HasMany
+    {
+        return $this->hasMany(HajClient::class);
     }
 
     public function clients(): BelongsToMany
     {
-        return $this->belongsToMany(Client::class, 'trip_clients')
-            ->withPivot(['trip_id', 'room_type', 'price', 'discount_amount', 'final_price', 'notes'])
+        return $this->belongsToMany(Client::class, 'omra_clients')
+            ->withPivot(['omra_id', 'room_type', 'price', 'discount_amount', 'final_price', 'notes'])
             ->withTimestamps();
     }
 

@@ -4,8 +4,9 @@ namespace Database\Factories;
 
 use App\Enums\RoomType;
 use App\Models\Booking;
+use App\Models\Branch;
 use App\Models\Client;
-use App\Models\Trip;
+use App\Models\Omra;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +25,9 @@ class BookingFactory extends Factory
     {
         return [
             'client_id' => Client::factory(),
-            'trip_id' => Trip::factory(),
+            'branch_id' => Branch::factory(),
+            'bookable_type' => Omra::class,
+            'bookable_id' => Omra::factory(),
             'room_type' => $this->faker->randomElement(RoomType::cases()),
             'price' => $this->faker->numberBetween(1000, 6000),
             'number_of_clients' => $this->faker->numberBetween(1, 4),

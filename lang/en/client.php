@@ -13,8 +13,8 @@ return [
     'parent' => 'Parent',
     'children' => 'Children',
     'notes' => 'Notes',
-    'trips' => 'Trips',
-    'trip' => 'Trip',
+    'omras' => 'Omras',
+    'omra' => 'Omra',
     'from' => 'From',
     'until' => 'Until',
 ];

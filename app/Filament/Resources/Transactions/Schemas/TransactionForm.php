@@ -59,6 +59,7 @@ class TransactionForm
                 Select::make('currency_code')
                     ->label(__('transaction.currency'))
                     ->options(Currency::toOptions())
+                    ->default(Currency::EGYPTIAN_POUND->value)
                     ->required(),
                 Select::make('payment_method')
                     ->label(__('transaction.payment_method'))

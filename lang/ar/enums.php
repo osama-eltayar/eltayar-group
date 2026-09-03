@@ -2,7 +2,6 @@
 
 return [
     'currencies' => [
-        'SAR' => 'الريال السعودي',
         'EGP' => 'الجنيه المصري',
     ],
 
@@ -30,18 +29,51 @@ return [
         'default' => 'افتراضي',
     ],
 
-    'trip_status' => [
+    'package_status' => [
         'draft' => 'مسودة',
         'active' => 'نشط',
     ],
 
-    'trip_type' => [
+    'package_type' => [
         'flight' => 'طيران',
     ],
 
-    'trip_activity' => [
-        'omra' => 'عمرة',
-        'hajj' => 'حج',
+    'booking_status' => [
+        'draft' => 'مسودة',
+        'pending' => 'قيد الانتظار',
+        'completed' => 'مكتملة',
+        'cancelled' => 'ملغاة',
+        'refunded' => 'مسترجعة',
+    ],
+
+    'haj_client_status' => [
+        'pending' => 'قيد الانتظار',
+        'chosen' => 'مختار',
+    ],
+
+    'haj_client_dependency_type' => [
+        'independent' => 'مستقل',
+        'dependent' => 'تابع',
+    ],
+
+    'haj_client_relation_type' => [
+        'husband' => 'زوج',
+        'wife' => 'زوجة',
+        'father' => 'أب',
+        'mother' => 'أم',
+        'son' => 'ابن',
+        'daughter' => 'ابنة',
+        'brother' => 'أخ',
+        'sister' => 'أخت',
+        'grandfather' => 'جد',
+        'grandmother' => 'جدة',
+        'paternal_uncle' => 'عم',
+        'paternal_aunt' => 'عمة',
+        'maternal_uncle' => 'خال',
+        'maternal_aunt' => 'خالة',
+        'relative' => 'قريب',
+        'friend' => 'صديق',
+        'other' => 'أخرى',
     ],
 
     'role_enum' => [
@@ -59,6 +91,8 @@ return [
         'deleteAny' => 'حذف جماعي',
         'applyDiscount' => 'تطبيق خصم',
         'endSalary' => 'إنهاء الراتب',
+        'cancel' => 'إلغاء',
+        'refund' => 'استرجاع',
     ],
 
     'client_service_status' => [

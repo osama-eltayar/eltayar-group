@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RoomType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +15,8 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained();
-            $table->foreignId('trip_id')->constrained();
-            $table->string('room_type')->default(\App\Enums\RoomType::Default->value);
+            $table->morphs('bookable');
+            $table->string('room_type')->default(RoomType::Default->value);
             $table->unsignedInteger('price')->nullable();
             $table->unsignedInteger('number_of_clients');
             $table->unsignedInteger('total_price')->nullable();

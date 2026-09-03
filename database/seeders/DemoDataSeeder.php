@@ -2,7 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Currency;
+use App\Enums\HajClientDependencyType;
+use App\Enums\HajClientRelationType;
+use App\Enums\PaymentMethod;
 use App\Enums\RoleEnum;
+use App\Enums\TransactionType;
 use App\Enums\UserStatus;
 use App\Models\Booking;
 use App\Models\Borrowing;
@@ -10,11 +15,13 @@ use App\Models\BorrowingLog;
 use App\Models\Branch;
 use App\Models\Client;
 use App\Models\ClientService;
+use App\Models\Haj;
+use App\Models\HajClient;
+use App\Models\Omra;
+use App\Models\OmraClient;
 use App\Models\Salary;
 use App\Models\SalaryLog;
 use App\Models\Transaction;
-use App\Models\Trip;
-use App\Models\TripClient;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
@@ -33,11 +40,11 @@ class DemoDataSeeder extends Seeder
             $this->seedUsers();
 
             $clients = $this->seedClients($branches);
-            $trips = $this->seedTrips();
-
-            $this->seedBookings($trips, $clients);
-
+            $omras = $this->seedOmras();
             $users = User::all();
+
+            $this->seedBookings($omras, $clients, $branches, $users);
+            $this->seedHajs($clients, $branches, $users);
 
             $this->seedTransactions($users, $clients, $branches);
             $this->seedClientServices($users, $clients);
@@ -98,37 +105,39 @@ class DemoDataSeeder extends Seeder
     }
 
     /**
-     * @return Collection<int, Trip>
+     * @return Collection<int, Omra>
      */
-    private function seedTrips()
+    private function seedOmras()
     {
-        Trip::factory()->count(8)->withPrices()->create();
+        Omra::factory()->count(8)->withPrices()->create();
 
-        return Trip::all();
+        return Omra::all();
     }
 
     /**
-     * @param  Collection<int, Trip>  $trips
+     * @param  Collection<int, Omra>  $omras
      * @param  Collection<int, Client>  $clients
+     * @param  Collection<int, Branch>  $branches
+     * @param  Collection<int, User>  $users
      */
-    private function seedBookings($trips, $clients): void
+    private function seedBookings($omras, $clients, $branches, $users): void
     {
-        foreach ($trips as $trip) {
-            $tripClients = $clients->random(min(5, $clients->count()));
+        foreach ($omras as $omra) {
+            $omraClients = $clients->random(min(5, $clients->count()));
 
-            foreach ($tripClients as $client) {
+            foreach ($omraClients as $client) {
                 $booking = Booking::factory()->create([
                     'client_id' => $client->id,
-                    'trip_id' => $trip->id,
+                    'branch_id' => $branches->random()->id,
+                    'bookable_type' => Omra::class,
+                    'bookable_id' => $omra->id,
                 ]);
 
-                $booking->update([
-                    'paid' => (int) round($booking->final_price * fake()->randomFloat(2, 0, 1)),
-                ]);
+                $this->seedBookingPayment($booking, $users);
 
-                TripClient::create([
+                OmraClient::create([
                     'client_id' => $client->id,
-                    'trip_id' => $trip->id,
+                    'omra_id' => $omra->id,
                     'booking_id' => $booking->id,
                     'room_type' => $booking->room_type,
                     'price' => $booking->price,
@@ -137,6 +146,83 @@ class DemoDataSeeder extends Seeder
                 ]);
             }
         }
+    }
+
+    /**
+     * @param  Collection<int, Client>  $clients
+     * @param  Collection<int, Branch>  $branches
+     * @param  Collection<int, User>  $users
+     */
+    private function seedHajs($clients, $branches, $users): void
+    {
+        $hajs = Haj::factory()->count(3)->active()->create();
+
+        foreach ($hajs as $haj) {
+            $hajClients = $clients->random(min(6, $clients->count()));
+            $independentClients = [];
+
+            foreach ($hajClients as $index => $client) {
+                $booking = Booking::factory()->create([
+                    'client_id' => $client->id,
+                    'branch_id' => $branches->random()->id,
+                    'bookable_type' => Haj::class,
+                    'bookable_id' => $haj->id,
+                    'price' => $haj->full_price,
+                ]);
+
+                $this->seedBookingPayment($booking, $users);
+
+                $hajClient = HajClient::create([
+                    'client_id' => $client->id,
+                    'haj_id' => $haj->id,
+                    'booking_id' => $booking->id,
+                    'discount_amount' => $booking->discount_amount,
+                    'dependency_type' => HajClientDependencyType::Independent,
+                ]);
+
+                // Every third client travels independently; the rest depend on the previous independent client.
+                if ($index % 3 === 0) {
+                    $independentClients[] = $hajClient;
+
+                    continue;
+                }
+
+                if ($independentClients === []) {
+                    continue;
+                }
+
+                $hajClient->update([
+                    'dependency_type' => HajClientDependencyType::Dependent,
+                    'depends_on_haj_client_id' => fake()->randomElement($independentClients)->id,
+                    'relation_type' => fake()->randomElement(HajClientRelationType::cases()),
+                ]);
+            }
+        }
+    }
+
+    /**
+     * @param  Collection<int, User>  $users
+     */
+    private function seedBookingPayment(Booking $booking, $users): void
+    {
+        $amount = (int) round($booking->final_price * fake()->randomFloat(2, 0, 1));
+
+        if ($amount <= 0) {
+            return;
+        }
+
+        Transaction::create([
+            'branch_id' => $booking->branch_id,
+            'user_id' => $users->random()->id,
+            'client_id' => $booking->client_id,
+            'transactionable_type' => Booking::class,
+            'transactionable_id' => $booking->id,
+            'about' => __('booking.singular_label'),
+            'amount' => $amount,
+            'currency_code' => Currency::EGYPTIAN_POUND,
+            'payment_method' => fake()->randomElement([PaymentMethod::CASH, PaymentMethod::BANK, PaymentMethod::VISA]),
+            'type' => TransactionType::IN,
+        ]);
     }
 
     /**

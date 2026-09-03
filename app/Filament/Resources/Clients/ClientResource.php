@@ -7,8 +7,8 @@ use App\Filament\Resources\Clients\Pages\EditClient;
 use App\Filament\Resources\Clients\Pages\ListClients;
 use App\Filament\Resources\Clients\Pages\ViewClient;
 use App\Filament\Resources\Clients\RelationManagers\ClientServicesRelationManager;
+use App\Filament\Resources\Clients\RelationManagers\OmrasRelationManager;
 use App\Filament\Resources\Clients\RelationManagers\TransactionsRelationManager;
-use App\Filament\Resources\Clients\RelationManagers\TripsRelationManager;
 use App\Filament\Resources\Clients\Schemas\ClientForm;
 use App\Filament\Resources\Clients\Tables\ClientsTable;
 use App\Models\Client;
@@ -50,7 +50,7 @@ class ClientResource extends Resource
     {
         return [
             TransactionsRelationManager::class,
-            TripsRelationManager::class,
+            OmrasRelationManager::class,
             ClientServicesRelationManager::class,
         ];
     }

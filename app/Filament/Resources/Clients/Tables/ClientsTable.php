@@ -68,9 +68,9 @@ class ClientsTable
                 SelectFilter::make('status')
                     ->label(__('client.status'))
                     ->options(ClientStatus::toOptions()),
-                SelectFilter::make('trips')
-                    ->label(__('client.trips'))
-                    ->relationship('trips', 'name')
+                SelectFilter::make('omras')
+                    ->label(__('client.omras'))
+                    ->relationship('omras', 'name')
                     ->multiple()
                     ->searchable()
                     ->preload(),

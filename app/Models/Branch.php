@@ -24,8 +24,13 @@ class Branch extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function tripClients(): HasMany
+    public function omraClients(): HasMany
     {
-        return $this->hasMany(TripClient::class);
+        return $this->hasMany(OmraClient::class);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 }
