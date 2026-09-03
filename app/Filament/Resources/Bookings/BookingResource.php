@@ -34,6 +34,13 @@ class BookingResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'id';
 
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.bookings');
+    }
+
     public static function getModelLabel(): string
     {
         return __('booking.singular_label');

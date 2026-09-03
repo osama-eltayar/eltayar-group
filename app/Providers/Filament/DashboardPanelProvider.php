@@ -12,6 +12,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -39,6 +40,17 @@ class DashboardPanelProvider extends PanelProvider
             ->profile(EditProfile::class)
             ->colors([
                 'primary' => Color::Amber,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make(fn (): string => __('navigation.haj')),
+                NavigationGroup::make(fn (): string => __('navigation.omra')),
+                NavigationGroup::make(fn (): string => __('navigation.bookings')),
+                NavigationGroup::make(fn (): string => __('navigation.clients')),
+                NavigationGroup::make(fn (): string => __('navigation.transactions')),
+                NavigationGroup::make(fn (): string => __('navigation.users')),
+                NavigationGroup::make(fn (): string => __('navigation.branches')),
+                NavigationGroup::make(fn (): string => __('navigation.tasks')),
+                NavigationGroup::make(fn (): string => __('navigation.client_services')),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

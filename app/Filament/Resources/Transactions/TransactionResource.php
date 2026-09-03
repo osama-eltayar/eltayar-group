@@ -23,6 +23,13 @@ class TransactionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'id';
 
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.transactions');
+    }
+
     public static function getModelLabel(): string
     {
         return __('transaction.singular_label');

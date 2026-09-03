@@ -23,6 +23,13 @@ class BorrowingResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?int $navigationSort = 5;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.users');
+    }
+
     public static function getModelLabel(): string
     {
         return __('borrowing.singular_label');

@@ -21,6 +21,13 @@ class ClientServiceResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?int $navigationSort = 1;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.client_services');
+    }
+
     public static function getModelLabel(): string
     {
         return __('client_service.singular_label');

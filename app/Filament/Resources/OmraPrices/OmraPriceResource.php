@@ -23,6 +23,13 @@ class OmraPriceResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'id';
 
+    protected static ?int $navigationSort = 3;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.omra');
+    }
+
     public static function getModelLabel(): string
     {
         return __('omra_price.singular_label');

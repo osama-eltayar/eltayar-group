@@ -29,6 +29,13 @@ class HajClientResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.haj');
+    }
+
     public static function getModelLabel(): string
     {
         return __('haj_client.singular_label');

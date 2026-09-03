@@ -28,6 +28,13 @@ class AssignedTaskResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;
 
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('navigation.tasks');
+    }
+
     public static function getModelLabel(): string
     {
         return __('task.singular_label');
