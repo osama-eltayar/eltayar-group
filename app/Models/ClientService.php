@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ClientServiceStatus;
+use App\Traits\LogsActivityWithBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class ClientService extends Model
 {
     use HasFactory;
+    use LogsActivityWithBranch;
 
     protected $fillable = [
         'client_id',

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\PackageStatus;
 use App\Enums\PackageType;
+use App\Traits\LogsActivityWithBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 class Haj extends Model
 {
     use HasFactory;
+    use LogsActivityWithBranch;
 
     protected $fillable = [
         'name',

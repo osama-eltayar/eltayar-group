@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\TaskCompletionMode;
 use App\Enums\TaskStatus;
+use App\Traits\LogsActivityWithBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Task extends Model
 {
     use HasFactory;
+    use LogsActivityWithBranch;
 
     protected $fillable = [
         'title',

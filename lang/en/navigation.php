@@ -10,4 +10,5 @@ return [
     'branches' => 'Branches',
     'tasks' => 'Tasks',
     'client_services' => 'Client Services',
+    'activity_log' => 'Activity Log',
 ];

@@ -7,6 +7,7 @@ use App\Enums\HajClientRelationType;
 use App\Enums\HajClientStatus;
 use App\Enums\PackageStatus;
 use App\Services\Haj\RecalculateHajBookingService;
+use App\Traits\LogsActivityWithBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class HajClient extends Model
 {
     use HasFactory;
+    use LogsActivityWithBranch;
 
     protected $fillable = [
         'client_id',

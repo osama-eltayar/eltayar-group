@@ -10,4 +10,5 @@ return [
     'branches' => 'الفروع',
     'tasks' => 'المهام',
     'client_services' => 'خدمات العملاء',
+    'activity_log' => 'سجل الأنشطة',
 ];

@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\RoleEnum;
 use App\Enums\UserStatus;
+use App\Traits\LogsActivityWithBranch;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,12 +16,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
     use HasRoles;
+    use LogsActivityWithBranch;
 
     /**
      * The attributes that are mass assignable.
@@ -122,5 +125,15 @@ class User extends Authenticatable implements FilamentUser
     public function getAuthPassword(): string
     {
         return $this->password ?? Hash::make(Str::random(40));
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName($this->getActivityLogName())
+            ->logFillable()
+            ->logExcept(['password', 'remember_token', 'invitation_token'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 }

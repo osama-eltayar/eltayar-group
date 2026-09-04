@@ -27,6 +27,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Rmsramos\Activitylog\ActivitylogPlugin;
 
 class DashboardPanelProvider extends PanelProvider
 {
@@ -51,6 +52,7 @@ class DashboardPanelProvider extends PanelProvider
                 NavigationGroup::make(fn (): string => __('navigation.branches')),
                 NavigationGroup::make(fn (): string => __('navigation.tasks')),
                 NavigationGroup::make(fn (): string => __('navigation.client_services')),
+                NavigationGroup::make(fn (): string => __('navigation.activity_log')),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
@@ -61,6 +63,10 @@ class DashboardPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
+            ])
+            ->plugins([
+                ActivitylogPlugin::make()
+                    ->navigationGroup(fn (): string => __('navigation.activity_log')),
             ])
             ->middleware([
                 EncryptCookies::class,

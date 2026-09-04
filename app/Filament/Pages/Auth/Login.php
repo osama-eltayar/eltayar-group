@@ -8,6 +8,7 @@ use Filament\Auth\Pages\Login as BaseLogin;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
 
 class Login extends BaseLogin
 {
@@ -40,6 +41,15 @@ class Login extends BaseLogin
 
         if ($response !== null && $branchId !== null) {
             session()->put('branch_id', $branchId);
+
+            activity('auth')
+                ->causedBy(Auth::user())
+                ->withProperties([
+                    'branch' => Branch::query()->find($branchId)?->name,
+                    'ip' => request()->ip(),
+                ])
+                ->event('login')
+                ->log('User logged in');
         }
 
         return $response;

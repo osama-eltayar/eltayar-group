@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ClientStatus;
+use App\Traits\LogsActivityWithBranch;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Client extends Model
 {
     use HasFactory;
+    use LogsActivityWithBranch;
 
     protected $fillable = [
         'branch_id',

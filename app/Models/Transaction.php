@@ -7,6 +7,7 @@ use App\Enums\Currency;
 use App\Enums\PaymentMethod;
 use App\Enums\TransactionType;
 use App\Services\Booking\RecalculateBookingPaidService;
+use App\Traits\LogsActivityWithBranch;
 use Carbon\Carbon;
 use Filament\Support\Facades\FilamentTimezone;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Transaction extends Model
 {
     use HasFactory;
+    use LogsActivityWithBranch;
 
     protected $fillable = [
         'branch_id',
